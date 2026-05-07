@@ -48,6 +48,7 @@ overflow: visible;
 }
 </style>
 <style type="text/css" data-origin="pandoc">
+html { -webkit-text-size-adjust: 100%; }
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
@@ -386,22 +387,22 @@ local maxima results</li>
 <span id="cb1-18"><a href="#cb1-18" tabindex="-1"></a><span class="co">#&gt; trnsf_&gt; grid_result &lt;- grid(example_data_5_subject, gap = gap, threshold = threshold)</span></span>
 <span id="cb1-19"><a href="#cb1-19" tabindex="-1"></a><span class="co">#&gt; </span></span>
 <span id="cb1-20"><a href="#cb1-20" tabindex="-1"></a><span class="co">#&gt; trnsf_&gt; # 2) Find modified GRID points before 2 hours minimum</span></span>
-<span id="cb1-21"><a href="#cb1-21" tabindex="-1"></a><span class="co">#&gt; trnsf_&gt; mod_grid &lt;- mod_grid(example_data_5_subject, </span></span>
-<span id="cb1-22"><a href="#cb1-22" tabindex="-1"></a><span class="co">#&gt; trnsf_+                      start_finder(grid_result$grid_vector), </span></span>
-<span id="cb1-23"><a href="#cb1-23" tabindex="-1"></a><span class="co">#&gt; trnsf_+                      hours = hours, </span></span>
+<span id="cb1-21"><a href="#cb1-21" tabindex="-1"></a><span class="co">#&gt; trnsf_&gt; mod_grid &lt;- mod_grid(example_data_5_subject,</span></span>
+<span id="cb1-22"><a href="#cb1-22" tabindex="-1"></a><span class="co">#&gt; trnsf_+                      start_finder(grid_result$grid_vector),</span></span>
+<span id="cb1-23"><a href="#cb1-23" tabindex="-1"></a><span class="co">#&gt; trnsf_+                      hours = hours,</span></span>
 <span id="cb1-24"><a href="#cb1-24" tabindex="-1"></a><span class="co">#&gt; trnsf_+                      gap = gap)</span></span>
 <span id="cb1-25"><a href="#cb1-25" tabindex="-1"></a><span class="co">#&gt; </span></span>
 <span id="cb1-26"><a href="#cb1-26" tabindex="-1"></a><span class="co">#&gt; trnsf_&gt; # 3) Find maximum point 2 hours after mod_grid point</span></span>
-<span id="cb1-27"><a href="#cb1-27" tabindex="-1"></a><span class="co">#&gt; trnsf_&gt; mod_grid_maxima &lt;- find_max_after_hours(example_data_5_subject, </span></span>
-<span id="cb1-28"><a href="#cb1-28" tabindex="-1"></a><span class="co">#&gt; trnsf_+                                         start_finder(mod_grid$mod_grid_vector), </span></span>
+<span id="cb1-27"><a href="#cb1-27" tabindex="-1"></a><span class="co">#&gt; trnsf_&gt; mod_grid_maxima &lt;- find_max_after_hours(example_data_5_subject,</span></span>
+<span id="cb1-28"><a href="#cb1-28" tabindex="-1"></a><span class="co">#&gt; trnsf_+                                         start_finder(mod_grid$mod_grid_vector),</span></span>
 <span id="cb1-29"><a href="#cb1-29" tabindex="-1"></a><span class="co">#&gt; trnsf_+                                         hours = hours)</span></span>
 <span id="cb1-30"><a href="#cb1-30" tabindex="-1"></a><span class="co">#&gt; </span></span>
 <span id="cb1-31"><a href="#cb1-31" tabindex="-1"></a><span class="co">#&gt; trnsf_&gt; # 4) Identify local maxima around episodes/windows</span></span>
 <span id="cb1-32"><a href="#cb1-32" tabindex="-1"></a><span class="co">#&gt; trnsf_&gt; local_maxima &lt;- find_local_maxima(example_data_5_subject)</span></span>
 <span id="cb1-33"><a href="#cb1-33" tabindex="-1"></a><span class="co">#&gt; </span></span>
 <span id="cb1-34"><a href="#cb1-34" tabindex="-1"></a><span class="co">#&gt; trnsf_&gt; # 5) Among local maxima, find maximum point after two hours</span></span>
-<span id="cb1-35"><a href="#cb1-35" tabindex="-1"></a><span class="co">#&gt; trnsf_&gt; final_maxima &lt;- find_new_maxima(example_data_5_subject, </span></span>
-<span id="cb1-36"><a href="#cb1-36" tabindex="-1"></a><span class="co">#&gt; trnsf_+                                 mod_grid_maxima$max_indices, </span></span>
+<span id="cb1-35"><a href="#cb1-35" tabindex="-1"></a><span class="co">#&gt; trnsf_&gt; final_maxima &lt;- find_new_maxima(example_data_5_subject,</span></span>
+<span id="cb1-36"><a href="#cb1-36" tabindex="-1"></a><span class="co">#&gt; trnsf_+                                 mod_grid_maxima$max_index,</span></span>
 <span id="cb1-37"><a href="#cb1-37" tabindex="-1"></a><span class="co">#&gt; trnsf_+                                 local_maxima$local_maxima_vector)</span></span>
 <span id="cb1-38"><a href="#cb1-38" tabindex="-1"></a><span class="co">#&gt; </span></span>
 <span id="cb1-39"><a href="#cb1-39" tabindex="-1"></a><span class="co">#&gt; trnsf_&gt; # 6) Map GRID points to maximum points (within 4 hours)</span></span>
@@ -422,22 +423,22 @@ local maxima results</li>
 <span id="cb1-54"><a href="#cb1-54" tabindex="-1"></a><span class="co">#&gt; trnsf_&gt; hall_grid_result &lt;- grid(example_data_hall, gap = hall_gap, threshold = hall_threshold)</span></span>
 <span id="cb1-55"><a href="#cb1-55" tabindex="-1"></a><span class="co">#&gt; </span></span>
 <span id="cb1-56"><a href="#cb1-56" tabindex="-1"></a><span class="co">#&gt; trnsf_&gt; # 2) Find modified GRID points</span></span>
-<span id="cb1-57"><a href="#cb1-57" tabindex="-1"></a><span class="co">#&gt; trnsf_&gt; hall_mod_grid &lt;- mod_grid(example_data_hall, </span></span>
-<span id="cb1-58"><a href="#cb1-58" tabindex="-1"></a><span class="co">#&gt; trnsf_+                          start_finder(hall_grid_result$grid_vector), </span></span>
-<span id="cb1-59"><a href="#cb1-59" tabindex="-1"></a><span class="co">#&gt; trnsf_+                          hours = hall_hours, </span></span>
+<span id="cb1-57"><a href="#cb1-57" tabindex="-1"></a><span class="co">#&gt; trnsf_&gt; hall_mod_grid &lt;- mod_grid(example_data_hall,</span></span>
+<span id="cb1-58"><a href="#cb1-58" tabindex="-1"></a><span class="co">#&gt; trnsf_+                          start_finder(hall_grid_result$grid_vector),</span></span>
+<span id="cb1-59"><a href="#cb1-59" tabindex="-1"></a><span class="co">#&gt; trnsf_+                          hours = hall_hours,</span></span>
 <span id="cb1-60"><a href="#cb1-60" tabindex="-1"></a><span class="co">#&gt; trnsf_+                          gap = hall_gap)</span></span>
 <span id="cb1-61"><a href="#cb1-61" tabindex="-1"></a><span class="co">#&gt; </span></span>
 <span id="cb1-62"><a href="#cb1-62" tabindex="-1"></a><span class="co">#&gt; trnsf_&gt; # 3) Find maximum points after mod_grid</span></span>
-<span id="cb1-63"><a href="#cb1-63" tabindex="-1"></a><span class="co">#&gt; trnsf_&gt; hall_mod_grid_maxima &lt;- find_max_after_hours(example_data_hall, </span></span>
-<span id="cb1-64"><a href="#cb1-64" tabindex="-1"></a><span class="co">#&gt; trnsf_+                                             start_finder(hall_mod_grid$mod_grid_vector), </span></span>
+<span id="cb1-63"><a href="#cb1-63" tabindex="-1"></a><span class="co">#&gt; trnsf_&gt; hall_mod_grid_maxima &lt;- find_max_after_hours(example_data_hall,</span></span>
+<span id="cb1-64"><a href="#cb1-64" tabindex="-1"></a><span class="co">#&gt; trnsf_+                                             start_finder(hall_mod_grid$mod_grid_vector),</span></span>
 <span id="cb1-65"><a href="#cb1-65" tabindex="-1"></a><span class="co">#&gt; trnsf_+                                             hours = hall_hours)</span></span>
 <span id="cb1-66"><a href="#cb1-66" tabindex="-1"></a><span class="co">#&gt; </span></span>
 <span id="cb1-67"><a href="#cb1-67" tabindex="-1"></a><span class="co">#&gt; trnsf_&gt; # 4) Identify local maxima</span></span>
 <span id="cb1-68"><a href="#cb1-68" tabindex="-1"></a><span class="co">#&gt; trnsf_&gt; hall_local_maxima &lt;- find_local_maxima(example_data_hall)</span></span>
 <span id="cb1-69"><a href="#cb1-69" tabindex="-1"></a><span class="co">#&gt; </span></span>
 <span id="cb1-70"><a href="#cb1-70" tabindex="-1"></a><span class="co">#&gt; trnsf_&gt; # 5) Find new maxima</span></span>
-<span id="cb1-71"><a href="#cb1-71" tabindex="-1"></a><span class="co">#&gt; trnsf_&gt; hall_final_maxima &lt;- find_new_maxima(example_data_hall, </span></span>
-<span id="cb1-72"><a href="#cb1-72" tabindex="-1"></a><span class="co">#&gt; trnsf_+                                     hall_mod_grid_maxima$max_indices, </span></span>
+<span id="cb1-71"><a href="#cb1-71" tabindex="-1"></a><span class="co">#&gt; trnsf_&gt; hall_final_maxima &lt;- find_new_maxima(example_data_hall,</span></span>
+<span id="cb1-72"><a href="#cb1-72" tabindex="-1"></a><span class="co">#&gt; trnsf_+                                     hall_mod_grid_maxima$max_index,</span></span>
 <span id="cb1-73"><a href="#cb1-73" tabindex="-1"></a><span class="co">#&gt; trnsf_+                                     hall_local_maxima$local_maxima_vector)</span></span>
 <span id="cb1-74"><a href="#cb1-74" tabindex="-1"></a><span class="co">#&gt; </span></span>
 <span id="cb1-75"><a href="#cb1-75" tabindex="-1"></a><span class="co">#&gt; trnsf_&gt; # 6) Transform data</span></span>

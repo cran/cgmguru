@@ -2,7 +2,7 @@ Package: cgmguru
 Type: Package
 Title: Advanced Continuous Glucose Monitoring Analysis with
         High-Performance C++ Backend
-Version: 0.1.0
+Version: 0.2.0
 Authors@R: c(person(given = c("Sang", "Ho"),
                         family = "Park",
                         role = c("aut", "cre"),
@@ -32,9 +32,9 @@ URL: https://github.com/shstat1729/cgmguru
 BugReports: https://github.com/shstat1729/cgmguru/issues
 Config/testthat/edition: 3
 NeedsCompilation: yes
-Packaged: 2025-11-03 08:00:18 UTC; bagsangho
+Packaged: 2026-05-07 05:49:21 UTC; bagsangho
 Author: Sang Ho Park [aut, cre],
   Rosa Oh [aut, ctb],
   Sang-Man Jin [aut, ctb]
 Repository: CRAN
-Date/Publication: 2025-11-05 20:30:07 UTC
+Date/Publication: 2026-05-07 06:20:02 UTC

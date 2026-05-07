@@ -61,7 +61,7 @@ library(iglu)
 bench_5 <- microbenchmark(
   episode_calculation = iglu::episode_calculation(example_data_5_subject),
   detect_all_events   = cgmguru::detect_all_events(example_data_5_subject, reading_minutes = 5),
-  times = 100,
+  times = 10,
   unit = "ms"
 )
 print(bench_5)
@@ -70,7 +70,7 @@ print(bench_5)
 bench_hall <- microbenchmark(
   episode_calculation = iglu::episode_calculation(example_data_hall),
   detect_all_events   = cgmguru::detect_all_events(example_data_hall, reading_minutes = 5),
-  times = 100,
+  times = 10,
   unit = "ms"
 )
 print(bench_hall)

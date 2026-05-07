@@ -48,6 +48,7 @@ overflow: visible;
 }
 </style>
 <style type="text/css" data-origin="pandoc">
+html { -webkit-text-size-adjust: 100%; }
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
@@ -358,7 +359,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <span id="cb1-13"><a href="#cb1-13" tabindex="-1"></a><span class="co">#&gt; fnd_n_&gt; maxima_result &lt;- find_local_maxima(example_data_5_subject)</span></span>
 <span id="cb1-14"><a href="#cb1-14" tabindex="-1"></a><span class="co">#&gt; </span></span>
 <span id="cb1-15"><a href="#cb1-15" tabindex="-1"></a><span class="co">#&gt; fnd_n_&gt; # Create modified grid points (simplified for example)</span></span>
-<span id="cb1-16"><a href="#cb1-16" tabindex="-1"></a><span class="co">#&gt; fnd_n_&gt; mod_grid_indices &lt;- data.frame(indices = grid_result$episode_start$indices[1:10])</span></span>
+<span id="cb1-16"><a href="#cb1-16" tabindex="-1"></a><span class="co">#&gt; fnd_n_&gt; mod_grid_indices &lt;- data.frame(index = grid_result$episode_start$index[1:10])</span></span>
 <span id="cb1-17"><a href="#cb1-17" tabindex="-1"></a><span class="co">#&gt; </span></span>
 <span id="cb1-18"><a href="#cb1-18" tabindex="-1"></a><span class="co">#&gt; fnd_n_&gt; # Find new maxima around grid points</span></span>
 <span id="cb1-19"><a href="#cb1-19" tabindex="-1"></a><span class="co">#&gt; fnd_n_&gt; new_maxima &lt;- find_new_maxima(example_data_5_subject, </span></span>
@@ -373,7 +374,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <span id="cb1-28"><a href="#cb1-28" tabindex="-1"></a><span class="co">#&gt; </span></span>
 <span id="cb1-29"><a href="#cb1-29" tabindex="-1"></a><span class="co">#&gt; fnd_n_&gt; large_maxima &lt;- find_local_maxima(example_data_hall)</span></span>
 <span id="cb1-30"><a href="#cb1-30" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb1-31"><a href="#cb1-31" tabindex="-1"></a><span class="co">#&gt; fnd_n_&gt; large_mod_grid &lt;- data.frame(indices = large_grid$episode_start$indices[1:20])</span></span>
+<span id="cb1-31"><a href="#cb1-31" tabindex="-1"></a><span class="co">#&gt; fnd_n_&gt; large_mod_grid &lt;- data.frame(index = large_grid$episode_start$index[1:20])</span></span>
 <span id="cb1-32"><a href="#cb1-32" tabindex="-1"></a><span class="co">#&gt; </span></span>
 <span id="cb1-33"><a href="#cb1-33" tabindex="-1"></a><span class="co">#&gt; fnd_n_&gt; large_new_maxima &lt;- find_new_maxima(example_data_hall, </span></span>
 <span id="cb1-34"><a href="#cb1-34" tabindex="-1"></a><span class="co">#&gt; fnd_n_+                                     large_mod_grid, </span></span>

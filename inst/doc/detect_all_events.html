@@ -48,6 +48,7 @@ overflow: visible;
 }
 </style>
 <style type="text/css" data-origin="pandoc">
+html { -webkit-text-size-adjust: 100%; }
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
@@ -466,33 +467,33 @@ datasets. Each benchmark contrasts
 <span id="cb7-5"><a href="#cb7-5" tabindex="-1"></a>bench_5 <span class="ot">&lt;-</span> <span class="fu">microbenchmark</span>(</span>
 <span id="cb7-6"><a href="#cb7-6" tabindex="-1"></a>  <span class="at">episode_calculation =</span> iglu<span class="sc">::</span><span class="fu">episode_calculation</span>(example_data_5_subject),</span>
 <span id="cb7-7"><a href="#cb7-7" tabindex="-1"></a>  <span class="at">detect_all_events   =</span> cgmguru<span class="sc">::</span><span class="fu">detect_all_events</span>(example_data_5_subject, <span class="at">reading_minutes =</span> <span class="dv">5</span>),</span>
-<span id="cb7-8"><a href="#cb7-8" tabindex="-1"></a>  <span class="at">times =</span> <span class="dv">100</span>,</span>
+<span id="cb7-8"><a href="#cb7-8" tabindex="-1"></a>  <span class="at">times =</span> <span class="dv">10</span>,</span>
 <span id="cb7-9"><a href="#cb7-9" tabindex="-1"></a>  <span class="at">unit =</span> <span class="st">&quot;ms&quot;</span></span>
 <span id="cb7-10"><a href="#cb7-10" tabindex="-1"></a>)</span>
 <span id="cb7-11"><a href="#cb7-11" tabindex="-1"></a><span class="fu">print</span>(bench_5)</span>
 <span id="cb7-12"><a href="#cb7-12" tabindex="-1"></a><span class="co">#&gt; Unit: milliseconds</span></span>
-<span id="cb7-13"><a href="#cb7-13" tabindex="-1"></a><span class="co">#&gt;                 expr        min         lq       mean    median        uq</span></span>
-<span id="cb7-14"><a href="#cb7-14" tabindex="-1"></a><span class="co">#&gt;  episode_calculation 376.474177 385.590486 390.380185 388.12088 392.58215</span></span>
-<span id="cb7-15"><a href="#cb7-15" tabindex="-1"></a><span class="co">#&gt;    detect_all_events   1.682353   1.736063   2.226354   1.77243   1.79865</span></span>
+<span id="cb7-13"><a href="#cb7-13" tabindex="-1"></a><span class="co">#&gt;                 expr        min         lq       mean     median         uq</span></span>
+<span id="cb7-14"><a href="#cb7-14" tabindex="-1"></a><span class="co">#&gt;  episode_calculation 384.799473 390.001061 394.910766 390.266372 394.868458</span></span>
+<span id="cb7-15"><a href="#cb7-15" tabindex="-1"></a><span class="co">#&gt;    detect_all_events   1.706994   1.729134   1.774878   1.775218   1.800474</span></span>
 <span id="cb7-16"><a href="#cb7-16" tabindex="-1"></a><span class="co">#&gt;        max neval cld</span></span>
-<span id="cb7-17"><a href="#cb7-17" tabindex="-1"></a><span class="co">#&gt;  432.52950   100  a </span></span>
-<span id="cb7-18"><a href="#cb7-18" tabindex="-1"></a><span class="co">#&gt;   47.41675   100   b</span></span>
+<span id="cb7-17"><a href="#cb7-17" tabindex="-1"></a><span class="co">#&gt;  428.10617    10  a </span></span>
+<span id="cb7-18"><a href="#cb7-18" tabindex="-1"></a><span class="co">#&gt;    1.84951    10   b</span></span>
 <span id="cb7-19"><a href="#cb7-19" tabindex="-1"></a></span>
 <span id="cb7-20"><a href="#cb7-20" tabindex="-1"></a><span class="co"># example_data_hall (all subjects)</span></span>
 <span id="cb7-21"><a href="#cb7-21" tabindex="-1"></a>bench_hall <span class="ot">&lt;-</span> <span class="fu">microbenchmark</span>(</span>
 <span id="cb7-22"><a href="#cb7-22" tabindex="-1"></a>  <span class="at">episode_calculation =</span> iglu<span class="sc">::</span><span class="fu">episode_calculation</span>(example_data_hall),</span>
 <span id="cb7-23"><a href="#cb7-23" tabindex="-1"></a>  <span class="at">detect_all_events   =</span> cgmguru<span class="sc">::</span><span class="fu">detect_all_events</span>(example_data_hall, <span class="at">reading_minutes =</span> <span class="dv">5</span>),</span>
-<span id="cb7-24"><a href="#cb7-24" tabindex="-1"></a>  <span class="at">times =</span> <span class="dv">100</span>,</span>
+<span id="cb7-24"><a href="#cb7-24" tabindex="-1"></a>  <span class="at">times =</span> <span class="dv">10</span>,</span>
 <span id="cb7-25"><a href="#cb7-25" tabindex="-1"></a>  <span class="at">unit =</span> <span class="st">&quot;ms&quot;</span></span>
 <span id="cb7-26"><a href="#cb7-26" tabindex="-1"></a>)</span>
 <span id="cb7-27"><a href="#cb7-27" tabindex="-1"></a><span class="fu">print</span>(bench_hall)</span>
 <span id="cb7-28"><a href="#cb7-28" tabindex="-1"></a><span class="co">#&gt; Unit: milliseconds</span></span>
-<span id="cb7-29"><a href="#cb7-29" tabindex="-1"></a><span class="co">#&gt;                 expr        min          lq        mean      median          uq</span></span>
-<span id="cb7-30"><a href="#cb7-30" tabindex="-1"></a><span class="co">#&gt;  episode_calculation 1078.02509 1099.925901 1126.088976 1110.985466 1130.421721</span></span>
-<span id="cb7-31"><a href="#cb7-31" tabindex="-1"></a><span class="co">#&gt;    detect_all_events    3.86999    3.935713    4.080439    3.973228    4.035322</span></span>
+<span id="cb7-29"><a href="#cb7-29" tabindex="-1"></a><span class="co">#&gt;                 expr         min          lq        mean     median          uq</span></span>
+<span id="cb7-30"><a href="#cb7-30" tabindex="-1"></a><span class="co">#&gt;  episode_calculation 1092.125528 1102.494756 1133.194166 1122.38427 1142.780085</span></span>
+<span id="cb7-31"><a href="#cb7-31" tabindex="-1"></a><span class="co">#&gt;    detect_all_events    3.903241    4.007217    4.025917    4.03237    4.049775</span></span>
 <span id="cb7-32"><a href="#cb7-32" tabindex="-1"></a><span class="co">#&gt;          max neval cld</span></span>
-<span id="cb7-33"><a href="#cb7-33" tabindex="-1"></a><span class="co">#&gt;  1415.517087   100  a </span></span>
-<span id="cb7-34"><a href="#cb7-34" tabindex="-1"></a><span class="co">#&gt;     7.642236   100   b</span></span></code></pre></div>
+<span id="cb7-33"><a href="#cb7-33" tabindex="-1"></a><span class="co">#&gt;  1216.378201    10  a </span></span>
+<span id="cb7-34"><a href="#cb7-34" tabindex="-1"></a><span class="co">#&gt;     4.106027    10   b</span></span></code></pre></div>
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;Note: Installed &#39;iglu&#39; version has a different &#39;episode_calculation&#39; API; iglu examples are skipped.</span><span class="sc">\n</span><span class="st">&quot;</span>)</span></code></pre></div>
 </div>
 

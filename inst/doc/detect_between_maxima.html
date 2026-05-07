@@ -48,6 +48,7 @@ overflow: visible;
 }
 </style>
 <style type="text/css" data-origin="pandoc">
+html { -webkit-text-size-adjust: 100%; }
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
@@ -388,8 +389,8 @@ downstream of <code>grid()</code>, <code>mod_grid()</code>,
 <span id="cb1-16"><a href="#cb1-16" tabindex="-1"></a><span class="co">#&gt; </span></span>
 <span id="cb1-17"><a href="#cb1-17" tabindex="-1"></a><span class="co">#&gt; dtct__&gt; max_after &lt;- find_max_after_hours(example_data_5_subject, mod_result$mod_grid_vector, hours = 2)</span></span>
 <span id="cb1-18"><a href="#cb1-18" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb1-19"><a href="#cb1-19" tabindex="-1"></a><span class="co">#&gt; dtct__&gt; new_maxima &lt;- find_new_maxima(example_data_5_subject, </span></span>
-<span id="cb1-20"><a href="#cb1-20" tabindex="-1"></a><span class="co">#&gt; dtct__+                               max_after$max_indices, </span></span>
+<span id="cb1-19"><a href="#cb1-19" tabindex="-1"></a><span class="co">#&gt; dtct__&gt; new_maxima &lt;- find_new_maxima(example_data_5_subject,</span></span>
+<span id="cb1-20"><a href="#cb1-20" tabindex="-1"></a><span class="co">#&gt; dtct__+                               max_after$max_index,</span></span>
 <span id="cb1-21"><a href="#cb1-21" tabindex="-1"></a><span class="co">#&gt; dtct__+                               maxima_result$local_maxima_vector)</span></span>
 <span id="cb1-22"><a href="#cb1-22" tabindex="-1"></a><span class="co">#&gt; </span></span>
 <span id="cb1-23"><a href="#cb1-23" tabindex="-1"></a><span class="co">#&gt; dtct__&gt; transformed &lt;- transform_df(grid_result$episode_start, new_maxima)</span></span>
@@ -409,8 +410,8 @@ downstream of <code>grid()</code>, <code>mod_grid()</code>,
 <span id="cb1-37"><a href="#cb1-37" tabindex="-1"></a><span class="co">#&gt; </span></span>
 <span id="cb1-38"><a href="#cb1-38" tabindex="-1"></a><span class="co">#&gt; dtct__&gt; large_max_after &lt;- find_max_after_hours(example_data_hall, large_mod$mod_grid_vector, hours = 2)</span></span>
 <span id="cb1-39"><a href="#cb1-39" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb1-40"><a href="#cb1-40" tabindex="-1"></a><span class="co">#&gt; dtct__&gt; large_new_maxima &lt;- find_new_maxima(example_data_hall, </span></span>
-<span id="cb1-41"><a href="#cb1-41" tabindex="-1"></a><span class="co">#&gt; dtct__+                                     large_max_after$max_indices, </span></span>
+<span id="cb1-40"><a href="#cb1-40" tabindex="-1"></a><span class="co">#&gt; dtct__&gt; large_new_maxima &lt;- find_new_maxima(example_data_hall,</span></span>
+<span id="cb1-41"><a href="#cb1-41" tabindex="-1"></a><span class="co">#&gt; dtct__+                                     large_max_after$max_index,</span></span>
 <span id="cb1-42"><a href="#cb1-42" tabindex="-1"></a><span class="co">#&gt; dtct__+                                     large_maxima$local_maxima_vector)</span></span>
 <span id="cb1-43"><a href="#cb1-43" tabindex="-1"></a><span class="co">#&gt; </span></span>
 <span id="cb1-44"><a href="#cb1-44" tabindex="-1"></a><span class="co">#&gt; dtct__&gt; large_transformed &lt;- transform_df(large_grid$episode_start, large_new_maxima)</span></span>

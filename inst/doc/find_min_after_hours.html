@@ -48,6 +48,7 @@ overflow: visible;
 }
 </style>
 <style type="text/css" data-origin="pandoc">
+html { -webkit-text-size-adjust: 100%; }
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
@@ -353,28 +354,28 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <span id="cb1-7"><a href="#cb1-7" tabindex="-1"></a><span class="co">#&gt; </span></span>
 <span id="cb1-8"><a href="#cb1-8" tabindex="-1"></a><span class="co">#&gt; fnd___&gt; data(example_data_hall)</span></span>
 <span id="cb1-9"><a href="#cb1-9" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb1-10"><a href="#cb1-10" tabindex="-1"></a><span class="co">#&gt; fnd___&gt; # Create start points for demonstration (using row indices)</span></span>
-<span id="cb1-11"><a href="#cb1-11" tabindex="-1"></a><span class="co">#&gt; fnd___&gt; start_indices &lt;- seq(1, nrow(example_data_5_subject), by = 100)</span></span>
+<span id="cb1-10"><a href="#cb1-10" tabindex="-1"></a><span class="co">#&gt; fnd___&gt; # Create start points for demonstration (using row index)</span></span>
+<span id="cb1-11"><a href="#cb1-11" tabindex="-1"></a><span class="co">#&gt; fnd___&gt; start_index &lt;- seq(1, nrow(example_data_5_subject), by = 100)</span></span>
 <span id="cb1-12"><a href="#cb1-12" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb1-13"><a href="#cb1-13" tabindex="-1"></a><span class="co">#&gt; fnd___&gt; start_points &lt;- data.frame(start_indices = start_indices)</span></span>
+<span id="cb1-13"><a href="#cb1-13" tabindex="-1"></a><span class="co">#&gt; fnd___&gt; start_points &lt;- data.frame(start_index = start_index)</span></span>
 <span id="cb1-14"><a href="#cb1-14" tabindex="-1"></a><span class="co">#&gt; </span></span>
 <span id="cb1-15"><a href="#cb1-15" tabindex="-1"></a><span class="co">#&gt; fnd___&gt; # Find minimum glucose in next 2 hours</span></span>
 <span id="cb1-16"><a href="#cb1-16" tabindex="-1"></a><span class="co">#&gt; fnd___&gt; min_after &lt;- find_min_after_hours(example_data_5_subject, start_points, hours = 2)</span></span>
 <span id="cb1-17"><a href="#cb1-17" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb1-18"><a href="#cb1-18" tabindex="-1"></a><span class="co">#&gt; fnd___&gt; print(paste(&quot;Found&quot;, length(min_after$min_indices), &quot;minimum points&quot;))</span></span>
+<span id="cb1-18"><a href="#cb1-18" tabindex="-1"></a><span class="co">#&gt; fnd___&gt; print(paste(&quot;Found&quot;, length(min_after$min_index), &quot;minimum points&quot;))</span></span>
 <span id="cb1-19"><a href="#cb1-19" tabindex="-1"></a><span class="co">#&gt; [1] &quot;Found 1 minimum points&quot;</span></span>
 <span id="cb1-20"><a href="#cb1-20" tabindex="-1"></a><span class="co">#&gt; </span></span>
 <span id="cb1-21"><a href="#cb1-21" tabindex="-1"></a><span class="co">#&gt; fnd___&gt; # Find minimum glucose in next 1 hour</span></span>
 <span id="cb1-22"><a href="#cb1-22" tabindex="-1"></a><span class="co">#&gt; fnd___&gt; min_after_1h &lt;- find_min_after_hours(example_data_5_subject, start_points, hours = 1)</span></span>
 <span id="cb1-23"><a href="#cb1-23" tabindex="-1"></a><span class="co">#&gt; </span></span>
 <span id="cb1-24"><a href="#cb1-24" tabindex="-1"></a><span class="co">#&gt; fnd___&gt; # Analysis on larger dataset</span></span>
-<span id="cb1-25"><a href="#cb1-25" tabindex="-1"></a><span class="co">#&gt; fnd___&gt; large_start_indices &lt;- seq(1, nrow(example_data_hall), by = 200)</span></span>
+<span id="cb1-25"><a href="#cb1-25" tabindex="-1"></a><span class="co">#&gt; fnd___&gt; large_start_index &lt;- seq(1, nrow(example_data_hall), by = 200)</span></span>
 <span id="cb1-26"><a href="#cb1-26" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb1-27"><a href="#cb1-27" tabindex="-1"></a><span class="co">#&gt; fnd___&gt; large_start_points &lt;- data.frame(start_indices = large_start_indices)</span></span>
+<span id="cb1-27"><a href="#cb1-27" tabindex="-1"></a><span class="co">#&gt; fnd___&gt; large_start_points &lt;- data.frame(start_index = large_start_index)</span></span>
 <span id="cb1-28"><a href="#cb1-28" tabindex="-1"></a><span class="co">#&gt; </span></span>
 <span id="cb1-29"><a href="#cb1-29" tabindex="-1"></a><span class="co">#&gt; fnd___&gt; large_min_after &lt;- find_min_after_hours(example_data_hall, large_start_points, hours = 2)</span></span>
 <span id="cb1-30"><a href="#cb1-30" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb1-31"><a href="#cb1-31" tabindex="-1"></a><span class="co">#&gt; fnd___&gt; print(paste(&quot;Found&quot;, length(large_min_after$min_indices), &quot;minimum points in larger dataset&quot;))</span></span>
+<span id="cb1-31"><a href="#cb1-31" tabindex="-1"></a><span class="co">#&gt; fnd___&gt; print(paste(&quot;Found&quot;, length(large_min_after$min_index), &quot;minimum points in larger dataset&quot;))</span></span>
 <span id="cb1-32"><a href="#cb1-32" tabindex="-1"></a><span class="co">#&gt; [1] &quot;Found 1 minimum points in larger dataset&quot;</span></span></code></pre></div>
 </div>
 
