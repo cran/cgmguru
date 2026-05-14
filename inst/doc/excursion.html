@@ -347,6 +347,11 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <h2>Overview</h2>
 <p>Calculates glucose excursions: &gt;70 mg/dL rise within 2 hours, not
 preceded by a value &lt;70 mg/dL.</p>
+<p><code>excursion()</code> evaluates the rows supplied in
+<code>df</code>. It does not automatically call
+<code>interpolate_cgm()</code> and does not use the full-day event
+preprocessing grid unless you explicitly pass interpolated data to
+<code>excursion()</code>.</p>
 </div>
 <div id="inputs" class="section level2">
 <h2>Inputs</h2>

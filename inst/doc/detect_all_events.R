@@ -46,11 +46,11 @@ iglu_episodes_hall <- iglu::episode_calculation(
 print(iglu_episodes_hall)
 
 ## ----cgmguru-all-5, eval=iglu_available---------------------------------------
-all_events_5 <- detect_all_events(example_data_5_subject, reading_minutes = 5)
+all_events_5 <- detect_all_events(example_data_5_subject)
 print(all_events_5)
 
 ## ----cgmguru-all-hall, eval=iglu_available------------------------------------
-all_events_hall <- detect_all_events(example_data_hall, reading_minutes = 5)
+all_events_hall <- detect_all_events(example_data_hall)
 print(all_events_hall)
 
 ## ----speed-microbenchmark, cache=FALSE, eval=iglu_available-------------------
@@ -60,7 +60,7 @@ library(iglu)
 # example_data_5_subject
 bench_5 <- microbenchmark(
   episode_calculation = iglu::episode_calculation(example_data_5_subject),
-  detect_all_events   = cgmguru::detect_all_events(example_data_5_subject, reading_minutes = 5),
+  detect_all_events   = cgmguru::detect_all_events(example_data_5_subject),
   times = 10,
   unit = "ms"
 )
@@ -69,7 +69,7 @@ print(bench_5)
 # example_data_hall (all subjects)
 bench_hall <- microbenchmark(
   episode_calculation = iglu::episode_calculation(example_data_hall),
-  detect_all_events   = cgmguru::detect_all_events(example_data_hall, reading_minutes = 5),
+  detect_all_events   = cgmguru::detect_all_events(example_data_hall),
   times = 10,
   unit = "ms"
 )

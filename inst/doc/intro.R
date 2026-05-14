@@ -96,11 +96,12 @@ cat("\nLevel 2 Events (≤54 mg/dL):\n")
 print(hypo_lv2$events_total)
 
 ## ----all-events---------------------------------------------------------------
-# Detect all events with 5-minute reading intervals
-all_events <- detect_all_events(example_data_5_subject, reading_minutes = 5)
+# Detect all events; reading_minutes is calculated automatically when omitted
+all_events <- detect_all_events(example_data_5_subject)
 
 cat("Comprehensive Event Detection Results:\n")
-print(all_events)
+print(all_events$summary_df)
+print(all_events$events_long_df)
 
 ## ----local-maxima-------------------------------------------------------------
 # Find local maxima

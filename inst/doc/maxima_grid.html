@@ -344,6 +344,10 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <div id="maxima_grid" class="section level1">
 <h1>maxima_grid</h1>
 <p>Runs the documented examples for <code>maxima_grid()</code>.</p>
+<p><code>maxima_grid()</code> runs the GRID and peak-mapping pipeline on
+the rows supplied in <code>df</code>. It does not automatically use
+<code>interpolate_cgm()</code> or the full-day event preprocessing grid
+unless you explicitly pass interpolated data to the function.</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">example</span>(maxima_grid, <span class="at">package =</span> <span class="st">&quot;cgmguru&quot;</span>, <span class="at">run.dontrun =</span> <span class="cn">FALSE</span>)</span>
 <span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="co">#&gt; </span></span>
 <span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a><span class="co">#&gt; mxm_gr&gt; # Load sample data</span></span>
