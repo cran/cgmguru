@@ -266,7 +266,7 @@ test_that("detect_hyperglycemic_events returns expected column names", {
   expect_true(all(expected_cols %in% names(result$events_detailed)))
   
   # Check events_total columns
-  expected_total_cols <- c("id", "total_events", "avg_ep_per_day")
+  expected_total_cols <- c("id", "total_episodes", "avg_ep_per_day")
   expect_true(all(expected_total_cols %in% names(result$events_total)))
 })
 
@@ -276,8 +276,8 @@ test_that("detect_hyperglycemic_events with different parameters produces differ
   result_lv2 <- detect_hyperglycemic_events(example_data_5_subject, start_gl = 250, dur_length = 15, end_length = 15, end_gl = 250)
   
   # They should have different number of events (Level 1 should detect more events than Level 2)
-  total_lv1 <- sum(result_lv1$events_total$total_events)
-  total_lv2 <- sum(result_lv2$events_total$total_events)
+  total_lv1 <- sum(result_lv1$events_total$total_episodes)
+  total_lv2 <- sum(result_lv2$events_total$total_episodes)
   
   expect_true(total_lv1 >= total_lv2, info = "Level 1 hyperglycemia should detect more or equal events than Level 2")
 })

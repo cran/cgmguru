@@ -487,18 +487,18 @@ button for the best experience.</p>
 <span id="cb2-27"><a href="#cb2-27" tabindex="-1"></a><span class="co">#&gt; </span></span>
 <span id="cb2-28"><a href="#cb2-28" tabindex="-1"></a><span class="co">#&gt; &gt; print(all_events$events_long_df)</span></span>
 <span id="cb2-29"><a href="#cb2-29" tabindex="-1"></a><span class="co">#&gt; # A tibble: 40 × 6</span></span>
-<span id="cb2-30"><a href="#cb2-30" tabindex="-1"></a><span class="co">#&gt;    id        type  level    event_count avg_ep_per_day avg_episode_duration_be…¹</span></span>
-<span id="cb2-31"><a href="#cb2-31" tabindex="-1"></a><span class="co">#&gt;    &lt;chr&gt;     &lt;chr&gt; &lt;chr&gt;          &lt;int&gt;          &lt;dbl&gt;                     &lt;dbl&gt;</span></span>
-<span id="cb2-32"><a href="#cb2-32" tabindex="-1"></a><span class="co">#&gt;  1 Subject 1 hypo  lv1                1           0.09                         0</span></span>
-<span id="cb2-33"><a href="#cb2-33" tabindex="-1"></a><span class="co">#&gt;  2 Subject 1 hypo  lv2                0           0                            0</span></span>
-<span id="cb2-34"><a href="#cb2-34" tabindex="-1"></a><span class="co">#&gt;  3 Subject 1 hypo  extended           0           0                            0</span></span>
-<span id="cb2-35"><a href="#cb2-35" tabindex="-1"></a><span class="co">#&gt;  4 Subject 1 hypo  lv1_excl           1           0.09                         0</span></span>
-<span id="cb2-36"><a href="#cb2-36" tabindex="-1"></a><span class="co">#&gt;  5 Subject 1 hyper lv1               16           1.44                         0</span></span>
-<span id="cb2-37"><a href="#cb2-37" tabindex="-1"></a><span class="co">#&gt;  6 Subject 1 hyper lv2                2           0.18                         0</span></span>
-<span id="cb2-38"><a href="#cb2-38" tabindex="-1"></a><span class="co">#&gt;  7 Subject 1 hyper extended           0           0                            0</span></span>
-<span id="cb2-39"><a href="#cb2-39" tabindex="-1"></a><span class="co">#&gt;  8 Subject 1 hyper lv1_excl          14           1.26                         0</span></span>
-<span id="cb2-40"><a href="#cb2-40" tabindex="-1"></a><span class="co">#&gt;  9 Subject 2 hypo  lv1                0           0                            0</span></span>
-<span id="cb2-41"><a href="#cb2-41" tabindex="-1"></a><span class="co">#&gt; 10 Subject 2 hypo  lv2                0           0                            0</span></span>
+<span id="cb2-30"><a href="#cb2-30" tabindex="-1"></a><span class="co">#&gt;    id        type  level    total_episodes avg_ep_per_day avg_episode_duration…¹</span></span>
+<span id="cb2-31"><a href="#cb2-31" tabindex="-1"></a><span class="co">#&gt;    &lt;chr&gt;     &lt;chr&gt; &lt;chr&gt;             &lt;int&gt;          &lt;dbl&gt;                  &lt;dbl&gt;</span></span>
+<span id="cb2-32"><a href="#cb2-32" tabindex="-1"></a><span class="co">#&gt;  1 Subject 1 hypo  lv1                   1           0.09                      0</span></span>
+<span id="cb2-33"><a href="#cb2-33" tabindex="-1"></a><span class="co">#&gt;  2 Subject 1 hypo  lv2                   0           0                         0</span></span>
+<span id="cb2-34"><a href="#cb2-34" tabindex="-1"></a><span class="co">#&gt;  3 Subject 1 hypo  extended              0           0                         0</span></span>
+<span id="cb2-35"><a href="#cb2-35" tabindex="-1"></a><span class="co">#&gt;  4 Subject 1 hypo  lv1_excl              1           0.09                      0</span></span>
+<span id="cb2-36"><a href="#cb2-36" tabindex="-1"></a><span class="co">#&gt;  5 Subject 1 hyper lv1                  16           1.44                      0</span></span>
+<span id="cb2-37"><a href="#cb2-37" tabindex="-1"></a><span class="co">#&gt;  6 Subject 1 hyper lv2                   2           0.18                      0</span></span>
+<span id="cb2-38"><a href="#cb2-38" tabindex="-1"></a><span class="co">#&gt;  7 Subject 1 hyper extended              0           0                         0</span></span>
+<span id="cb2-39"><a href="#cb2-39" tabindex="-1"></a><span class="co">#&gt;  8 Subject 1 hyper lv1_excl             14           1.26                      0</span></span>
+<span id="cb2-40"><a href="#cb2-40" tabindex="-1"></a><span class="co">#&gt;  9 Subject 2 hypo  lv1                   0           0                         0</span></span>
+<span id="cb2-41"><a href="#cb2-41" tabindex="-1"></a><span class="co">#&gt; 10 Subject 2 hypo  lv2                   0           0                         0</span></span>
 <span id="cb2-42"><a href="#cb2-42" tabindex="-1"></a><span class="co">#&gt; # ℹ 30 more rows</span></span>
 <span id="cb2-43"><a href="#cb2-43" tabindex="-1"></a><span class="co">#&gt; # ℹ abbreviated name: ¹​avg_episode_duration_below_54</span></span>
 <span id="cb2-44"><a href="#cb2-44" tabindex="-1"></a><span class="co">#&gt; </span></span>
@@ -518,28 +518,28 @@ button for the best experience.</p>
 <span id="cb2-58"><a href="#cb2-58" tabindex="-1"></a><span class="co">#&gt; </span></span>
 <span id="cb2-59"><a href="#cb2-59" tabindex="-1"></a><span class="co">#&gt; &gt; print(hyperglycemia_events)</span></span>
 <span id="cb2-60"><a href="#cb2-60" tabindex="-1"></a><span class="co">#&gt; # A tibble: 20 × 6</span></span>
-<span id="cb2-61"><a href="#cb2-61" tabindex="-1"></a><span class="co">#&gt;    id        type  level    event_count avg_ep_per_day avg_episode_duration_be…¹</span></span>
-<span id="cb2-62"><a href="#cb2-62" tabindex="-1"></a><span class="co">#&gt;    &lt;chr&gt;     &lt;chr&gt; &lt;chr&gt;          &lt;int&gt;          &lt;dbl&gt;                     &lt;dbl&gt;</span></span>
-<span id="cb2-63"><a href="#cb2-63" tabindex="-1"></a><span class="co">#&gt;  1 Subject 1 hyper lv1               16           1.44                         0</span></span>
-<span id="cb2-64"><a href="#cb2-64" tabindex="-1"></a><span class="co">#&gt;  2 Subject 1 hyper lv2                2           0.18                         0</span></span>
-<span id="cb2-65"><a href="#cb2-65" tabindex="-1"></a><span class="co">#&gt;  3 Subject 1 hyper extended           0           0                            0</span></span>
-<span id="cb2-66"><a href="#cb2-66" tabindex="-1"></a><span class="co">#&gt;  4 Subject 1 hyper lv1_excl          14           1.26                         0</span></span>
-<span id="cb2-67"><a href="#cb2-67" tabindex="-1"></a><span class="co">#&gt;  5 Subject 2 hyper lv1               21           2.13                         0</span></span>
-<span id="cb2-68"><a href="#cb2-68" tabindex="-1"></a><span class="co">#&gt;  6 Subject 2 hyper lv2               19           1.93                         0</span></span>
-<span id="cb2-69"><a href="#cb2-69" tabindex="-1"></a><span class="co">#&gt;  7 Subject 2 hyper extended          10           1.02                         0</span></span>
-<span id="cb2-70"><a href="#cb2-70" tabindex="-1"></a><span class="co">#&gt;  8 Subject 2 hyper lv1_excl          11           1.12                         0</span></span>
-<span id="cb2-71"><a href="#cb2-71" tabindex="-1"></a><span class="co">#&gt;  9 Subject 3 hyper lv1                9           1.64                         0</span></span>
-<span id="cb2-72"><a href="#cb2-72" tabindex="-1"></a><span class="co">#&gt; 10 Subject 3 hyper lv2                4           0.73                         0</span></span>
-<span id="cb2-73"><a href="#cb2-73" tabindex="-1"></a><span class="co">#&gt; 11 Subject 3 hyper extended           2           0.36                         0</span></span>
-<span id="cb2-74"><a href="#cb2-74" tabindex="-1"></a><span class="co">#&gt; 12 Subject 3 hyper lv1_excl           5           0.91                         0</span></span>
-<span id="cb2-75"><a href="#cb2-75" tabindex="-1"></a><span class="co">#&gt; 13 Subject 4 hyper lv1               13           1.02                         0</span></span>
-<span id="cb2-76"><a href="#cb2-76" tabindex="-1"></a><span class="co">#&gt; 14 Subject 4 hyper lv2                0           0                            0</span></span>
-<span id="cb2-77"><a href="#cb2-77" tabindex="-1"></a><span class="co">#&gt; 15 Subject 4 hyper extended           0           0                            0</span></span>
-<span id="cb2-78"><a href="#cb2-78" tabindex="-1"></a><span class="co">#&gt; 16 Subject 4 hyper lv1_excl          13           1.02                         0</span></span>
-<span id="cb2-79"><a href="#cb2-79" tabindex="-1"></a><span class="co">#&gt; 17 Subject 5 hyper lv1               38           3.72                         0</span></span>
-<span id="cb2-80"><a href="#cb2-80" tabindex="-1"></a><span class="co">#&gt; 18 Subject 5 hyper lv2               18           1.76                         0</span></span>
-<span id="cb2-81"><a href="#cb2-81" tabindex="-1"></a><span class="co">#&gt; 19 Subject 5 hyper extended          10           0.98                         0</span></span>
-<span id="cb2-82"><a href="#cb2-82" tabindex="-1"></a><span class="co">#&gt; 20 Subject 5 hyper lv1_excl          22           2.16                         0</span></span>
+<span id="cb2-61"><a href="#cb2-61" tabindex="-1"></a><span class="co">#&gt;    id        type  level    total_episodes avg_ep_per_day avg_episode_duration…¹</span></span>
+<span id="cb2-62"><a href="#cb2-62" tabindex="-1"></a><span class="co">#&gt;    &lt;chr&gt;     &lt;chr&gt; &lt;chr&gt;             &lt;int&gt;          &lt;dbl&gt;                  &lt;dbl&gt;</span></span>
+<span id="cb2-63"><a href="#cb2-63" tabindex="-1"></a><span class="co">#&gt;  1 Subject 1 hyper lv1                  16           1.44                      0</span></span>
+<span id="cb2-64"><a href="#cb2-64" tabindex="-1"></a><span class="co">#&gt;  2 Subject 1 hyper lv2                   2           0.18                      0</span></span>
+<span id="cb2-65"><a href="#cb2-65" tabindex="-1"></a><span class="co">#&gt;  3 Subject 1 hyper extended              0           0                         0</span></span>
+<span id="cb2-66"><a href="#cb2-66" tabindex="-1"></a><span class="co">#&gt;  4 Subject 1 hyper lv1_excl             14           1.26                      0</span></span>
+<span id="cb2-67"><a href="#cb2-67" tabindex="-1"></a><span class="co">#&gt;  5 Subject 2 hyper lv1                  21           2.13                      0</span></span>
+<span id="cb2-68"><a href="#cb2-68" tabindex="-1"></a><span class="co">#&gt;  6 Subject 2 hyper lv2                  19           1.93                      0</span></span>
+<span id="cb2-69"><a href="#cb2-69" tabindex="-1"></a><span class="co">#&gt;  7 Subject 2 hyper extended             10           1.02                      0</span></span>
+<span id="cb2-70"><a href="#cb2-70" tabindex="-1"></a><span class="co">#&gt;  8 Subject 2 hyper lv1_excl             11           1.12                      0</span></span>
+<span id="cb2-71"><a href="#cb2-71" tabindex="-1"></a><span class="co">#&gt;  9 Subject 3 hyper lv1                   9           1.64                      0</span></span>
+<span id="cb2-72"><a href="#cb2-72" tabindex="-1"></a><span class="co">#&gt; 10 Subject 3 hyper lv2                   4           0.73                      0</span></span>
+<span id="cb2-73"><a href="#cb2-73" tabindex="-1"></a><span class="co">#&gt; 11 Subject 3 hyper extended              2           0.36                      0</span></span>
+<span id="cb2-74"><a href="#cb2-74" tabindex="-1"></a><span class="co">#&gt; 12 Subject 3 hyper lv1_excl              5           0.91                      0</span></span>
+<span id="cb2-75"><a href="#cb2-75" tabindex="-1"></a><span class="co">#&gt; 13 Subject 4 hyper lv1                  13           1.02                      0</span></span>
+<span id="cb2-76"><a href="#cb2-76" tabindex="-1"></a><span class="co">#&gt; 14 Subject 4 hyper lv2                   0           0                         0</span></span>
+<span id="cb2-77"><a href="#cb2-77" tabindex="-1"></a><span class="co">#&gt; 15 Subject 4 hyper extended              0           0                         0</span></span>
+<span id="cb2-78"><a href="#cb2-78" tabindex="-1"></a><span class="co">#&gt; 16 Subject 4 hyper lv1_excl             13           1.02                      0</span></span>
+<span id="cb2-79"><a href="#cb2-79" tabindex="-1"></a><span class="co">#&gt; 17 Subject 5 hyper lv1                  38           3.72                      0</span></span>
+<span id="cb2-80"><a href="#cb2-80" tabindex="-1"></a><span class="co">#&gt; 18 Subject 5 hyper lv2                  18           1.76                      0</span></span>
+<span id="cb2-81"><a href="#cb2-81" tabindex="-1"></a><span class="co">#&gt; 19 Subject 5 hyper extended             10           0.98                      0</span></span>
+<span id="cb2-82"><a href="#cb2-82" tabindex="-1"></a><span class="co">#&gt; 20 Subject 5 hyper lv1_excl             22           2.16                      0</span></span>
 <span id="cb2-83"><a href="#cb2-83" tabindex="-1"></a><span class="co">#&gt; # ℹ abbreviated name: ¹​avg_episode_duration_below_54</span></span>
 <span id="cb2-84"><a href="#cb2-84" tabindex="-1"></a><span class="co">#&gt; </span></span>
 <span id="cb2-85"><a href="#cb2-85" tabindex="-1"></a><span class="co">#&gt; &gt; print(&quot;Hypoglycemia events:&quot;)</span></span>
@@ -547,28 +547,28 @@ button for the best experience.</p>
 <span id="cb2-87"><a href="#cb2-87" tabindex="-1"></a><span class="co">#&gt; </span></span>
 <span id="cb2-88"><a href="#cb2-88" tabindex="-1"></a><span class="co">#&gt; &gt; print(hypoglycemia_events)</span></span>
 <span id="cb2-89"><a href="#cb2-89" tabindex="-1"></a><span class="co">#&gt; # A tibble: 20 × 6</span></span>
-<span id="cb2-90"><a href="#cb2-90" tabindex="-1"></a><span class="co">#&gt;    id        type  level    event_count avg_ep_per_day avg_episode_duration_be…¹</span></span>
-<span id="cb2-91"><a href="#cb2-91" tabindex="-1"></a><span class="co">#&gt;    &lt;chr&gt;     &lt;chr&gt; &lt;chr&gt;          &lt;int&gt;          &lt;dbl&gt;                     &lt;dbl&gt;</span></span>
-<span id="cb2-92"><a href="#cb2-92" tabindex="-1"></a><span class="co">#&gt;  1 Subject 1 hypo  lv1                1           0.09                       0  </span></span>
-<span id="cb2-93"><a href="#cb2-93" tabindex="-1"></a><span class="co">#&gt;  2 Subject 1 hypo  lv2                0           0                          0  </span></span>
-<span id="cb2-94"><a href="#cb2-94" tabindex="-1"></a><span class="co">#&gt;  3 Subject 1 hypo  extended           0           0                          0  </span></span>
-<span id="cb2-95"><a href="#cb2-95" tabindex="-1"></a><span class="co">#&gt;  4 Subject 1 hypo  lv1_excl           1           0.09                       0  </span></span>
-<span id="cb2-96"><a href="#cb2-96" tabindex="-1"></a><span class="co">#&gt;  5 Subject 2 hypo  lv1                0           0                          0  </span></span>
-<span id="cb2-97"><a href="#cb2-97" tabindex="-1"></a><span class="co">#&gt;  6 Subject 2 hypo  lv2                0           0                          0  </span></span>
-<span id="cb2-98"><a href="#cb2-98" tabindex="-1"></a><span class="co">#&gt;  7 Subject 2 hypo  extended           0           0                          0  </span></span>
-<span id="cb2-99"><a href="#cb2-99" tabindex="-1"></a><span class="co">#&gt;  8 Subject 2 hypo  lv1_excl           0           0                          0  </span></span>
-<span id="cb2-100"><a href="#cb2-100" tabindex="-1"></a><span class="co">#&gt;  9 Subject 3 hypo  lv1                1           0.18                       0  </span></span>
-<span id="cb2-101"><a href="#cb2-101" tabindex="-1"></a><span class="co">#&gt; 10 Subject 3 hypo  lv2                0           0                          0  </span></span>
-<span id="cb2-102"><a href="#cb2-102" tabindex="-1"></a><span class="co">#&gt; 11 Subject 3 hypo  extended           0           0                          0  </span></span>
-<span id="cb2-103"><a href="#cb2-103" tabindex="-1"></a><span class="co">#&gt; 12 Subject 3 hypo  lv1_excl           1           0.18                       0  </span></span>
-<span id="cb2-104"><a href="#cb2-104" tabindex="-1"></a><span class="co">#&gt; 13 Subject 4 hypo  lv1                2           0.16                       2.5</span></span>
-<span id="cb2-105"><a href="#cb2-105" tabindex="-1"></a><span class="co">#&gt; 14 Subject 4 hypo  lv2                0           0                          0  </span></span>
-<span id="cb2-106"><a href="#cb2-106" tabindex="-1"></a><span class="co">#&gt; 15 Subject 4 hypo  extended           0           0                          0  </span></span>
-<span id="cb2-107"><a href="#cb2-107" tabindex="-1"></a><span class="co">#&gt; 16 Subject 4 hypo  lv1_excl           2           0.16                       0  </span></span>
-<span id="cb2-108"><a href="#cb2-108" tabindex="-1"></a><span class="co">#&gt; 17 Subject 5 hypo  lv1                1           0.1                        0  </span></span>
-<span id="cb2-109"><a href="#cb2-109" tabindex="-1"></a><span class="co">#&gt; 18 Subject 5 hypo  lv2                0           0                          0  </span></span>
-<span id="cb2-110"><a href="#cb2-110" tabindex="-1"></a><span class="co">#&gt; 19 Subject 5 hypo  extended           0           0                          0  </span></span>
-<span id="cb2-111"><a href="#cb2-111" tabindex="-1"></a><span class="co">#&gt; 20 Subject 5 hypo  lv1_excl           1           0.1                        0  </span></span>
+<span id="cb2-90"><a href="#cb2-90" tabindex="-1"></a><span class="co">#&gt;    id        type  level    total_episodes avg_ep_per_day avg_episode_duration…¹</span></span>
+<span id="cb2-91"><a href="#cb2-91" tabindex="-1"></a><span class="co">#&gt;    &lt;chr&gt;     &lt;chr&gt; &lt;chr&gt;             &lt;int&gt;          &lt;dbl&gt;                  &lt;dbl&gt;</span></span>
+<span id="cb2-92"><a href="#cb2-92" tabindex="-1"></a><span class="co">#&gt;  1 Subject 1 hypo  lv1                   1           0.09                    0  </span></span>
+<span id="cb2-93"><a href="#cb2-93" tabindex="-1"></a><span class="co">#&gt;  2 Subject 1 hypo  lv2                   0           0                       0  </span></span>
+<span id="cb2-94"><a href="#cb2-94" tabindex="-1"></a><span class="co">#&gt;  3 Subject 1 hypo  extended              0           0                       0  </span></span>
+<span id="cb2-95"><a href="#cb2-95" tabindex="-1"></a><span class="co">#&gt;  4 Subject 1 hypo  lv1_excl              1           0.09                    0  </span></span>
+<span id="cb2-96"><a href="#cb2-96" tabindex="-1"></a><span class="co">#&gt;  5 Subject 2 hypo  lv1                   0           0                       0  </span></span>
+<span id="cb2-97"><a href="#cb2-97" tabindex="-1"></a><span class="co">#&gt;  6 Subject 2 hypo  lv2                   0           0                       0  </span></span>
+<span id="cb2-98"><a href="#cb2-98" tabindex="-1"></a><span class="co">#&gt;  7 Subject 2 hypo  extended              0           0                       0  </span></span>
+<span id="cb2-99"><a href="#cb2-99" tabindex="-1"></a><span class="co">#&gt;  8 Subject 2 hypo  lv1_excl              0           0                       0  </span></span>
+<span id="cb2-100"><a href="#cb2-100" tabindex="-1"></a><span class="co">#&gt;  9 Subject 3 hypo  lv1                   1           0.18                    0  </span></span>
+<span id="cb2-101"><a href="#cb2-101" tabindex="-1"></a><span class="co">#&gt; 10 Subject 3 hypo  lv2                   0           0                       0  </span></span>
+<span id="cb2-102"><a href="#cb2-102" tabindex="-1"></a><span class="co">#&gt; 11 Subject 3 hypo  extended              0           0                       0  </span></span>
+<span id="cb2-103"><a href="#cb2-103" tabindex="-1"></a><span class="co">#&gt; 12 Subject 3 hypo  lv1_excl              1           0.18                    0  </span></span>
+<span id="cb2-104"><a href="#cb2-104" tabindex="-1"></a><span class="co">#&gt; 13 Subject 4 hypo  lv1                   2           0.16                    2.5</span></span>
+<span id="cb2-105"><a href="#cb2-105" tabindex="-1"></a><span class="co">#&gt; 14 Subject 4 hypo  lv2                   0           0                       0  </span></span>
+<span id="cb2-106"><a href="#cb2-106" tabindex="-1"></a><span class="co">#&gt; 15 Subject 4 hypo  extended              0           0                       0  </span></span>
+<span id="cb2-107"><a href="#cb2-107" tabindex="-1"></a><span class="co">#&gt; 16 Subject 4 hypo  lv1_excl              2           0.16                    0  </span></span>
+<span id="cb2-108"><a href="#cb2-108" tabindex="-1"></a><span class="co">#&gt; 17 Subject 5 hypo  lv1                   1           0.1                     0  </span></span>
+<span id="cb2-109"><a href="#cb2-109" tabindex="-1"></a><span class="co">#&gt; 18 Subject 5 hypo  lv2                   0           0                       0  </span></span>
+<span id="cb2-110"><a href="#cb2-110" tabindex="-1"></a><span class="co">#&gt; 19 Subject 5 hypo  extended              0           0                       0  </span></span>
+<span id="cb2-111"><a href="#cb2-111" tabindex="-1"></a><span class="co">#&gt; 20 Subject 5 hypo  lv1_excl              1           0.1                     0  </span></span>
 <span id="cb2-112"><a href="#cb2-112" tabindex="-1"></a><span class="co">#&gt; # ℹ abbreviated name: ¹​avg_episode_duration_below_54</span></span></code></pre></div>
 </div>
 <div id="detect-hyperglycemic-events" class="section level2">
@@ -588,26 +588,26 @@ button for the best experience.</p>
 <span id="cb3-13"><a href="#cb3-13" tabindex="-1"></a><span class="co">#&gt; </span></span>
 <span id="cb3-14"><a href="#cb3-14" tabindex="-1"></a><span class="co">#&gt; &gt; print(hyper_lv1$events_total)</span></span>
 <span id="cb3-15"><a href="#cb3-15" tabindex="-1"></a><span class="co">#&gt; # A tibble: 5 × 3</span></span>
-<span id="cb3-16"><a href="#cb3-16" tabindex="-1"></a><span class="co">#&gt;   id        total_events avg_ep_per_day</span></span>
-<span id="cb3-17"><a href="#cb3-17" tabindex="-1"></a><span class="co">#&gt;   &lt;chr&gt;            &lt;int&gt;          &lt;dbl&gt;</span></span>
-<span id="cb3-18"><a href="#cb3-18" tabindex="-1"></a><span class="co">#&gt; 1 Subject 1           16           1.44</span></span>
-<span id="cb3-19"><a href="#cb3-19" tabindex="-1"></a><span class="co">#&gt; 2 Subject 2           21           2.13</span></span>
-<span id="cb3-20"><a href="#cb3-20" tabindex="-1"></a><span class="co">#&gt; 3 Subject 3            9           1.64</span></span>
-<span id="cb3-21"><a href="#cb3-21" tabindex="-1"></a><span class="co">#&gt; 4 Subject 4           13           1.02</span></span>
-<span id="cb3-22"><a href="#cb3-22" tabindex="-1"></a><span class="co">#&gt; 5 Subject 5           38           3.72</span></span>
+<span id="cb3-16"><a href="#cb3-16" tabindex="-1"></a><span class="co">#&gt;   id        total_episodes avg_ep_per_day</span></span>
+<span id="cb3-17"><a href="#cb3-17" tabindex="-1"></a><span class="co">#&gt;   &lt;chr&gt;              &lt;int&gt;          &lt;dbl&gt;</span></span>
+<span id="cb3-18"><a href="#cb3-18" tabindex="-1"></a><span class="co">#&gt; 1 Subject 1             16           1.44</span></span>
+<span id="cb3-19"><a href="#cb3-19" tabindex="-1"></a><span class="co">#&gt; 2 Subject 2             21           2.13</span></span>
+<span id="cb3-20"><a href="#cb3-20" tabindex="-1"></a><span class="co">#&gt; 3 Subject 3              9           1.64</span></span>
+<span id="cb3-21"><a href="#cb3-21" tabindex="-1"></a><span class="co">#&gt; 4 Subject 4             13           1.02</span></span>
+<span id="cb3-22"><a href="#cb3-22" tabindex="-1"></a><span class="co">#&gt; 5 Subject 5             38           3.72</span></span>
 <span id="cb3-23"><a href="#cb3-23" tabindex="-1"></a><span class="co">#&gt; </span></span>
 <span id="cb3-24"><a href="#cb3-24" tabindex="-1"></a><span class="co">#&gt; &gt; hyper_lv2 &lt;- detect_hyperglycemic_events(example_data_5_subject, </span></span>
 <span id="cb3-25"><a href="#cb3-25" tabindex="-1"></a><span class="co">#&gt; +     type = &quot;lv2&quot;)</span></span>
 <span id="cb3-26"><a href="#cb3-26" tabindex="-1"></a><span class="co">#&gt; </span></span>
 <span id="cb3-27"><a href="#cb3-27" tabindex="-1"></a><span class="co">#&gt; &gt; print(hyper_lv2$events_total)</span></span>
 <span id="cb3-28"><a href="#cb3-28" tabindex="-1"></a><span class="co">#&gt; # A tibble: 5 × 3</span></span>
-<span id="cb3-29"><a href="#cb3-29" tabindex="-1"></a><span class="co">#&gt;   id        total_events avg_ep_per_day</span></span>
-<span id="cb3-30"><a href="#cb3-30" tabindex="-1"></a><span class="co">#&gt;   &lt;chr&gt;            &lt;int&gt;          &lt;dbl&gt;</span></span>
-<span id="cb3-31"><a href="#cb3-31" tabindex="-1"></a><span class="co">#&gt; 1 Subject 1            2           0.18</span></span>
-<span id="cb3-32"><a href="#cb3-32" tabindex="-1"></a><span class="co">#&gt; 2 Subject 2           19           1.93</span></span>
-<span id="cb3-33"><a href="#cb3-33" tabindex="-1"></a><span class="co">#&gt; 3 Subject 3            4           0.73</span></span>
-<span id="cb3-34"><a href="#cb3-34" tabindex="-1"></a><span class="co">#&gt; 4 Subject 4            0           0   </span></span>
-<span id="cb3-35"><a href="#cb3-35" tabindex="-1"></a><span class="co">#&gt; 5 Subject 5           18           1.76</span></span>
+<span id="cb3-29"><a href="#cb3-29" tabindex="-1"></a><span class="co">#&gt;   id        total_episodes avg_ep_per_day</span></span>
+<span id="cb3-30"><a href="#cb3-30" tabindex="-1"></a><span class="co">#&gt;   &lt;chr&gt;              &lt;int&gt;          &lt;dbl&gt;</span></span>
+<span id="cb3-31"><a href="#cb3-31" tabindex="-1"></a><span class="co">#&gt; 1 Subject 1              2           0.18</span></span>
+<span id="cb3-32"><a href="#cb3-32" tabindex="-1"></a><span class="co">#&gt; 2 Subject 2             19           1.93</span></span>
+<span id="cb3-33"><a href="#cb3-33" tabindex="-1"></a><span class="co">#&gt; 3 Subject 3              4           0.73</span></span>
+<span id="cb3-34"><a href="#cb3-34" tabindex="-1"></a><span class="co">#&gt; 4 Subject 4              0           0   </span></span>
+<span id="cb3-35"><a href="#cb3-35" tabindex="-1"></a><span class="co">#&gt; 5 Subject 5             18           1.76</span></span>
 <span id="cb3-36"><a href="#cb3-36" tabindex="-1"></a><span class="co">#&gt; </span></span>
 <span id="cb3-37"><a href="#cb3-37" tabindex="-1"></a><span class="co">#&gt; &gt; hyper_extended &lt;- detect_hyperglycemic_events(example_data_5_subject, </span></span>
 <span id="cb3-38"><a href="#cb3-38" tabindex="-1"></a><span class="co">#&gt; +     type = &quot;extended&quot;)</span></span>
@@ -615,8 +615,8 @@ button for the best experience.</p>
 <span id="cb3-40"><a href="#cb3-40" tabindex="-1"></a><span class="co">#&gt; &gt; large_hyper &lt;- detect_hyperglycemic_events(example_data_hall, </span></span>
 <span id="cb3-41"><a href="#cb3-41" tabindex="-1"></a><span class="co">#&gt; +     type = &quot;lv1&quot;)</span></span>
 <span id="cb3-42"><a href="#cb3-42" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb3-43"><a href="#cb3-43" tabindex="-1"></a><span class="co">#&gt; &gt; print(paste(&quot;Total hyperglycemic events:&quot;, sum(large_hyper$events_total$total_events)))</span></span>
-<span id="cb3-44"><a href="#cb3-44" tabindex="-1"></a><span class="co">#&gt; [1] &quot;Total hyperglycemic events: 48&quot;</span></span>
+<span id="cb3-43"><a href="#cb3-43" tabindex="-1"></a><span class="co">#&gt; &gt; print(paste(&quot;Total hyperglycemic episodes:&quot;, sum(large_hyper$events_total$total_episodes)))</span></span>
+<span id="cb3-44"><a href="#cb3-44" tabindex="-1"></a><span class="co">#&gt; [1] &quot;Total hyperglycemic episodes: 48&quot;</span></span>
 <span id="cb3-45"><a href="#cb3-45" tabindex="-1"></a><span class="co">#&gt; </span></span>
 <span id="cb3-46"><a href="#cb3-46" tabindex="-1"></a><span class="co">#&gt; &gt; if (nrow(hyper_lv1$events_detailed) &gt; 0) {</span></span>
 <span id="cb3-47"><a href="#cb3-47" tabindex="-1"></a><span class="co">#&gt; +     first_subject &lt;- hyper_lv1$events_detailed$id[1]</span></span>
@@ -652,13 +652,13 @@ button for the best experience.</p>
 <span id="cb4-13"><a href="#cb4-13" tabindex="-1"></a><span class="co">#&gt; </span></span>
 <span id="cb4-14"><a href="#cb4-14" tabindex="-1"></a><span class="co">#&gt; &gt; print(hypo_lv1$events_total)</span></span>
 <span id="cb4-15"><a href="#cb4-15" tabindex="-1"></a><span class="co">#&gt; # A tibble: 5 × 3</span></span>
-<span id="cb4-16"><a href="#cb4-16" tabindex="-1"></a><span class="co">#&gt;   id        total_events avg_ep_per_day</span></span>
-<span id="cb4-17"><a href="#cb4-17" tabindex="-1"></a><span class="co">#&gt;   &lt;chr&gt;            &lt;int&gt;          &lt;dbl&gt;</span></span>
-<span id="cb4-18"><a href="#cb4-18" tabindex="-1"></a><span class="co">#&gt; 1 Subject 1            1           0.09</span></span>
-<span id="cb4-19"><a href="#cb4-19" tabindex="-1"></a><span class="co">#&gt; 2 Subject 2            0           0   </span></span>
-<span id="cb4-20"><a href="#cb4-20" tabindex="-1"></a><span class="co">#&gt; 3 Subject 3            1           0.18</span></span>
-<span id="cb4-21"><a href="#cb4-21" tabindex="-1"></a><span class="co">#&gt; 4 Subject 4            2           0.16</span></span>
-<span id="cb4-22"><a href="#cb4-22" tabindex="-1"></a><span class="co">#&gt; 5 Subject 5            1           0.1 </span></span>
+<span id="cb4-16"><a href="#cb4-16" tabindex="-1"></a><span class="co">#&gt;   id        total_episodes avg_ep_per_day</span></span>
+<span id="cb4-17"><a href="#cb4-17" tabindex="-1"></a><span class="co">#&gt;   &lt;chr&gt;              &lt;int&gt;          &lt;dbl&gt;</span></span>
+<span id="cb4-18"><a href="#cb4-18" tabindex="-1"></a><span class="co">#&gt; 1 Subject 1              1           0.09</span></span>
+<span id="cb4-19"><a href="#cb4-19" tabindex="-1"></a><span class="co">#&gt; 2 Subject 2              0           0   </span></span>
+<span id="cb4-20"><a href="#cb4-20" tabindex="-1"></a><span class="co">#&gt; 3 Subject 3              1           0.18</span></span>
+<span id="cb4-21"><a href="#cb4-21" tabindex="-1"></a><span class="co">#&gt; 4 Subject 4              2           0.16</span></span>
+<span id="cb4-22"><a href="#cb4-22" tabindex="-1"></a><span class="co">#&gt; 5 Subject 5              1           0.1 </span></span>
 <span id="cb4-23"><a href="#cb4-23" tabindex="-1"></a><span class="co">#&gt; </span></span>
 <span id="cb4-24"><a href="#cb4-24" tabindex="-1"></a><span class="co">#&gt; &gt; hypo_lv2 &lt;- detect_hypoglycemic_events(example_data_5_subject, </span></span>
 <span id="cb4-25"><a href="#cb4-25" tabindex="-1"></a><span class="co">#&gt; +     type = &quot;lv2&quot;)</span></span>
@@ -669,16 +669,16 @@ button for the best experience.</p>
 <span id="cb4-30"><a href="#cb4-30" tabindex="-1"></a><span class="co">#&gt; &gt; large_hypo &lt;- detect_hypoglycemic_events(example_data_hall, </span></span>
 <span id="cb4-31"><a href="#cb4-31" tabindex="-1"></a><span class="co">#&gt; +     type = &quot;lv1&quot;)</span></span>
 <span id="cb4-32"><a href="#cb4-32" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb4-33"><a href="#cb4-33" tabindex="-1"></a><span class="co">#&gt; &gt; print(paste(&quot;Total hypoglycemic events:&quot;, sum(large_hypo$events_total$total_events)))</span></span>
-<span id="cb4-34"><a href="#cb4-34" tabindex="-1"></a><span class="co">#&gt; [1] &quot;Total hypoglycemic events: 52&quot;</span></span>
+<span id="cb4-33"><a href="#cb4-33" tabindex="-1"></a><span class="co">#&gt; &gt; print(paste(&quot;Total hypoglycemic episodes:&quot;, sum(large_hypo$events_total$total_episodes)))</span></span>
+<span id="cb4-34"><a href="#cb4-34" tabindex="-1"></a><span class="co">#&gt; [1] &quot;Total hypoglycemic episodes: 52&quot;</span></span>
 <span id="cb4-35"><a href="#cb4-35" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb4-36"><a href="#cb4-36" tabindex="-1"></a><span class="co">#&gt; &gt; cat(&quot;Level 1 events:&quot;, sum(hypo_lv1$events_total$total_events), </span></span>
+<span id="cb4-36"><a href="#cb4-36" tabindex="-1"></a><span class="co">#&gt; &gt; cat(&quot;Level 1 episodes:&quot;, sum(hypo_lv1$events_total$total_episodes), </span></span>
 <span id="cb4-37"><a href="#cb4-37" tabindex="-1"></a><span class="co">#&gt; +     &quot;\n&quot;)</span></span>
-<span id="cb4-38"><a href="#cb4-38" tabindex="-1"></a><span class="co">#&gt; Level 1 events: 5 </span></span>
+<span id="cb4-38"><a href="#cb4-38" tabindex="-1"></a><span class="co">#&gt; Level 1 episodes: 5 </span></span>
 <span id="cb4-39"><a href="#cb4-39" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb4-40"><a href="#cb4-40" tabindex="-1"></a><span class="co">#&gt; &gt; cat(&quot;Level 2 events:&quot;, sum(hypo_lv2$events_total$total_events), </span></span>
+<span id="cb4-40"><a href="#cb4-40" tabindex="-1"></a><span class="co">#&gt; &gt; cat(&quot;Level 2 episodes:&quot;, sum(hypo_lv2$events_total$total_episodes), </span></span>
 <span id="cb4-41"><a href="#cb4-41" tabindex="-1"></a><span class="co">#&gt; +     &quot;\n&quot;)</span></span>
-<span id="cb4-42"><a href="#cb4-42" tabindex="-1"></a><span class="co">#&gt; Level 2 events: 0</span></span></code></pre></div>
+<span id="cb4-42"><a href="#cb4-42" tabindex="-1"></a><span class="co">#&gt; Level 2 episodes: 0</span></span></code></pre></div>
 </div>
 <div id="excursion" class="section level2">
 <h2>Excursion</h2>

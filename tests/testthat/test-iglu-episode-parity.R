@@ -136,7 +136,7 @@ expect_iglu_count_parity <- function(data, dataset_name) {
     ]
 
     expect_equal(
-      normalise_counts(cgmguru_subset, "event_count"),
+      normalise_counts(cgmguru_subset, "total_episodes"),
       normalise_counts(iglu_subset, "total_episodes"),
       info = info
     )

@@ -15,7 +15,7 @@ test_that("hypoglycemic detailed end is last low reading before confirmed recove
   res <- detect_hypoglycemic_events(df, start_gl = 70, dur_length = 15, end_length = 15)
 
 
-  expect_equal(sum(res$events_total$total_events), 1)
+  expect_equal(sum(res$events_total$total_episodes), 1)
   expect_equal(nrow(res$events_detailed), 1)
   expect_equal(res$events_detailed$start_time[1], df$time[1])
   expect_equal(res$events_detailed$end_time[1], df$time[3])
@@ -29,7 +29,7 @@ test_that("hyperglycemic detailed end is last high reading before confirmed reco
 
   res <- detect_hyperglycemic_events(df, start_gl = 180, dur_length = 15, end_length = 15, end_gl = 180)
 
-  expect_equal(sum(res$events_total$total_events), 1)
+  expect_equal(sum(res$events_total$total_episodes), 1)
   expect_equal(nrow(res$events_detailed), 1)
   expect_equal(res$events_detailed$start_time[1], df$time[1])
   expect_equal(res$events_detailed$end_time[1], df$time[3])
@@ -49,7 +49,7 @@ test_that("extended hyperglycemic detailed end is last high reading before confi
 
     res <- detect_hyperglycemic_events(df, reading_minutes = case$step_mins)
 
-    expect_equal(sum(res$events_total$total_events), 1)
+    expect_equal(sum(res$events_total$total_episodes), 1)
     expect_equal(nrow(res$events_detailed), 1)
     expect_equal(res$events_detailed$start_time[1], df$time[1])
     expect_equal(res$events_detailed$end_time[1], df$time[case$end_index])
@@ -63,7 +63,7 @@ test_that("broken recovery reports the end before final successful recovery", {
   hypo_df <- make_cgm(c(50, 51, 52, 80, 82, 50, 51, 52, 80, 82, 84, 86, 88))
   hypo <- detect_hypoglycemic_events(hypo_df, start_gl = 70, dur_length = 15, end_length = 15)
 
-  expect_equal(sum(hypo$events_total$total_events), 1)
+  expect_equal(sum(hypo$events_total$total_episodes), 1)
   expect_equal(nrow(hypo$events_detailed), 1)
   expect_equal(hypo$events_detailed$end_time[1], hypo_df$time[8])
   expect_equal(hypo$events_detailed$duration_below_54_minutes[1], 30)
@@ -71,7 +71,7 @@ test_that("broken recovery reports the end before final successful recovery", {
   hyper_df <- make_cgm(c(190, 195, 200, 170, 165, 190, 195, 200, 170, 165, 160, 155))
   hyper <- detect_hyperglycemic_events(hyper_df, start_gl = 180, dur_length = 15, end_length = 15, end_gl = 180)
 
-  expect_equal(sum(hyper$events_total$total_events), 1)
+  expect_equal(sum(hyper$events_total$total_episodes), 1)
   expect_equal(nrow(hyper$events_detailed), 1)
   expect_equal(hyper$events_detailed$end_time[1], hyper_df$time[8])
 })
@@ -83,9 +83,9 @@ test_that("events without confirmed recovery are counted at segment end like igl
   hypo <- detect_hypoglycemic_events(hypo_df, start_gl = 70, dur_length = 15, end_length = 15)
   hyper <- detect_hyperglycemic_events(hyper_df, start_gl = 180, dur_length = 15, end_length = 15, end_gl = 180)
 
-  expect_equal(sum(hypo$events_total$total_events), 1)
+  expect_equal(sum(hypo$events_total$total_episodes), 1)
   expect_equal(nrow(hypo$events_detailed), 1)
-  expect_equal(sum(hyper$events_total$total_events), 1)
+  expect_equal(sum(hyper$events_total$total_episodes), 1)
   expect_equal(nrow(hyper$events_detailed), 1)
 })
 
@@ -96,7 +96,7 @@ test_that("detect_all_events keeps counts aligned with standalone confirmed even
   all_hypo_lv2 <- subset(all_hypo$events_long_df, type == "hypo" & level == "lv2")
 
   expect_equal(all_hypo$summary_df$hypo_lv2_event_count,
-               sum(hypo$events_total$total_events))
+               sum(hypo$events_total$total_episodes))
   expect_equal(all_hypo_lv2$avg_episode_duration_below_54, 15)
 
   hyper_df <- make_cgm(c(190, 195, 200, 170, 165, 160, 155, 150))
@@ -104,7 +104,7 @@ test_that("detect_all_events keeps counts aligned with standalone confirmed even
   all_hyper <- detect_all_events(hyper_df, reading_minutes = 5)
 
   expect_equal(all_hyper$summary_df$hyper_lv1_event_count,
-               sum(hyper$events_total$total_events))
+               sum(hyper$events_total$total_episodes))
 })
 
 test_that("15-minute sampling detects one-point hypoglycemic event and reports pre-recovery end", {
@@ -113,7 +113,7 @@ test_that("15-minute sampling detects one-point hypoglycemic event and reports p
   res <- detect_hypoglycemic_events(df, reading_minutes = 15,
                                     start_gl = 70, dur_length = 15, end_length = 15)
 
-  expect_equal(sum(res$events_total$total_events), 1)
+  expect_equal(sum(res$events_total$total_episodes), 1)
   expect_equal(nrow(res$events_detailed), 1)
   expect_equal(res$events_detailed$start_time[1], df$time[1])
   expect_equal(res$events_detailed$end_time[1], df$time[1])
@@ -128,7 +128,7 @@ test_that("15-minute sampling detects one-point hyperglycemic event and reports 
                                      start_gl = 180, dur_length = 15,
                                      end_length = 15, end_gl = 180)
 
-  expect_equal(sum(res$events_total$total_events), 1)
+  expect_equal(sum(res$events_total$total_episodes), 1)
   expect_equal(nrow(res$events_detailed), 1)
   expect_equal(res$events_detailed$start_time[1], df$time[1])
   expect_equal(res$events_detailed$end_time[1], df$time[1])
@@ -143,7 +143,7 @@ test_that("15-minute sampling detect_all_events counts one-point events after re
   all_hypo <- detect_all_events(hypo_df, reading_minutes = 15)
   all_hypo_lv2 <- subset(all_hypo$events_long_df, type == "hypo" & level == "lv2")
   expect_equal(all_hypo$summary_df$hypo_lv2_event_count,
-               sum(hypo$events_total$total_events))
+               sum(hypo$events_total$total_episodes))
   expect_equal(all_hypo_lv2$avg_episode_duration_below_54, 15)
 
   hyper_df <- make_cgm(c(190, 170, 165, 160, 155), step_mins = 15)
@@ -152,7 +152,7 @@ test_that("15-minute sampling detect_all_events counts one-point events after re
                                        end_length = 15, end_gl = 180)
   all_hyper <- detect_all_events(hyper_df, reading_minutes = 15)
   expect_equal(all_hyper$summary_df$hyper_lv1_event_count,
-               sum(hyper$events_total$total_events))
+               sum(hyper$events_total$total_episodes))
 })
 
 test_that("120-minute hypoglycemia duration uses whole interpolated grid counts", {
@@ -166,8 +166,8 @@ test_that("120-minute hypoglycemia duration uses whole interpolated grid counts"
                                      start_gl = 70, dur_length = 120,
                                      end_length = 15)
 
-  expect_equal(sum(short$events_total$total_events), 0)
-  expect_equal(sum(full$events_total$total_events), 1)
+  expect_equal(sum(short$events_total$total_episodes), 0)
+  expect_equal(sum(full$events_total$total_episodes), 1)
 
   all_short <- detect_all_events(short_df, reading_minutes = 5)
   all_full <- detect_all_events(full_df, reading_minutes = 5)
@@ -185,8 +185,8 @@ test_that("default extended hyperglycemia uses 120-minute window and 90-minute r
   full <- detect_hyperglycemic_events(full_df, reading_minutes = 5,
                                       type = "extended")
 
-  expect_equal(sum(short$events_total$total_events), 0)
-  expect_equal(sum(full$events_total$total_events), 1)
+  expect_equal(sum(short$events_total$total_episodes), 0)
+  expect_equal(sum(full$events_total$total_episodes), 1)
 
   all_short <- detect_all_events(short_df, reading_minutes = 5)
   all_full <- detect_all_events(full_df, reading_minutes = 5)

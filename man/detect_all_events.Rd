@@ -36,7 +36,7 @@ A list with two tibbles:
 \itemize{
   \item \code{events_long_df}: One row per subject, event type, and event
     level. Contains the full event summary: \code{id}, \code{type},
-    \code{level}, \code{event_count}, \code{avg_ep_per_day}, and
+    \code{level}, \code{total_episodes}, \code{avg_ep_per_day}, and
     \code{avg_episode_duration_below_54}.
   \item \code{summary_df}: One row per subject. CGM summary metric columns
     are calculated on the interpolated glucose grid, and event summaries are

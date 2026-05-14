@@ -441,18 +441,18 @@ hypo/hyperglycemia episodes.</p>
 <span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a><span class="fu">print</span>(all_events_5)</span>
 <span id="cb5-3"><a href="#cb5-3" tabindex="-1"></a><span class="co">#&gt; $events_long_df</span></span>
 <span id="cb5-4"><a href="#cb5-4" tabindex="-1"></a><span class="co">#&gt; # A tibble: 40 × 6</span></span>
-<span id="cb5-5"><a href="#cb5-5" tabindex="-1"></a><span class="co">#&gt;    id        type  level    event_count avg_ep_per_day avg_episode_duration_be…¹</span></span>
-<span id="cb5-6"><a href="#cb5-6" tabindex="-1"></a><span class="co">#&gt;    &lt;chr&gt;     &lt;chr&gt; &lt;chr&gt;          &lt;int&gt;          &lt;dbl&gt;                     &lt;dbl&gt;</span></span>
-<span id="cb5-7"><a href="#cb5-7" tabindex="-1"></a><span class="co">#&gt;  1 Subject 1 hypo  lv1                1           0.09                         0</span></span>
-<span id="cb5-8"><a href="#cb5-8" tabindex="-1"></a><span class="co">#&gt;  2 Subject 1 hypo  lv2                0           0                            0</span></span>
-<span id="cb5-9"><a href="#cb5-9" tabindex="-1"></a><span class="co">#&gt;  3 Subject 1 hypo  extended           0           0                            0</span></span>
-<span id="cb5-10"><a href="#cb5-10" tabindex="-1"></a><span class="co">#&gt;  4 Subject 1 hypo  lv1_excl           1           0.09                         0</span></span>
-<span id="cb5-11"><a href="#cb5-11" tabindex="-1"></a><span class="co">#&gt;  5 Subject 1 hyper lv1               16           1.44                         0</span></span>
-<span id="cb5-12"><a href="#cb5-12" tabindex="-1"></a><span class="co">#&gt;  6 Subject 1 hyper lv2                2           0.18                         0</span></span>
-<span id="cb5-13"><a href="#cb5-13" tabindex="-1"></a><span class="co">#&gt;  7 Subject 1 hyper extended           0           0                            0</span></span>
-<span id="cb5-14"><a href="#cb5-14" tabindex="-1"></a><span class="co">#&gt;  8 Subject 1 hyper lv1_excl          14           1.26                         0</span></span>
-<span id="cb5-15"><a href="#cb5-15" tabindex="-1"></a><span class="co">#&gt;  9 Subject 2 hypo  lv1                0           0                            0</span></span>
-<span id="cb5-16"><a href="#cb5-16" tabindex="-1"></a><span class="co">#&gt; 10 Subject 2 hypo  lv2                0           0                            0</span></span>
+<span id="cb5-5"><a href="#cb5-5" tabindex="-1"></a><span class="co">#&gt;    id        type  level    total_episodes avg_ep_per_day avg_episode_duration…¹</span></span>
+<span id="cb5-6"><a href="#cb5-6" tabindex="-1"></a><span class="co">#&gt;    &lt;chr&gt;     &lt;chr&gt; &lt;chr&gt;             &lt;int&gt;          &lt;dbl&gt;                  &lt;dbl&gt;</span></span>
+<span id="cb5-7"><a href="#cb5-7" tabindex="-1"></a><span class="co">#&gt;  1 Subject 1 hypo  lv1                   1           0.09                      0</span></span>
+<span id="cb5-8"><a href="#cb5-8" tabindex="-1"></a><span class="co">#&gt;  2 Subject 1 hypo  lv2                   0           0                         0</span></span>
+<span id="cb5-9"><a href="#cb5-9" tabindex="-1"></a><span class="co">#&gt;  3 Subject 1 hypo  extended              0           0                         0</span></span>
+<span id="cb5-10"><a href="#cb5-10" tabindex="-1"></a><span class="co">#&gt;  4 Subject 1 hypo  lv1_excl              1           0.09                      0</span></span>
+<span id="cb5-11"><a href="#cb5-11" tabindex="-1"></a><span class="co">#&gt;  5 Subject 1 hyper lv1                  16           1.44                      0</span></span>
+<span id="cb5-12"><a href="#cb5-12" tabindex="-1"></a><span class="co">#&gt;  6 Subject 1 hyper lv2                   2           0.18                      0</span></span>
+<span id="cb5-13"><a href="#cb5-13" tabindex="-1"></a><span class="co">#&gt;  7 Subject 1 hyper extended              0           0                         0</span></span>
+<span id="cb5-14"><a href="#cb5-14" tabindex="-1"></a><span class="co">#&gt;  8 Subject 1 hyper lv1_excl             14           1.26                      0</span></span>
+<span id="cb5-15"><a href="#cb5-15" tabindex="-1"></a><span class="co">#&gt;  9 Subject 2 hypo  lv1                   0           0                         0</span></span>
+<span id="cb5-16"><a href="#cb5-16" tabindex="-1"></a><span class="co">#&gt; 10 Subject 2 hypo  lv2                   0           0                         0</span></span>
 <span id="cb5-17"><a href="#cb5-17" tabindex="-1"></a><span class="co">#&gt; # ℹ 30 more rows</span></span>
 <span id="cb5-18"><a href="#cb5-18" tabindex="-1"></a><span class="co">#&gt; # ℹ abbreviated name: ¹​avg_episode_duration_below_54</span></span>
 <span id="cb5-19"><a href="#cb5-19" tabindex="-1"></a><span class="co">#&gt; </span></span>
@@ -474,18 +474,18 @@ hypo/hyperglycemia episodes.</p>
 <span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a><span class="fu">print</span>(all_events_hall)</span>
 <span id="cb6-3"><a href="#cb6-3" tabindex="-1"></a><span class="co">#&gt; $events_long_df</span></span>
 <span id="cb6-4"><a href="#cb6-4" tabindex="-1"></a><span class="co">#&gt; # A tibble: 152 × 6</span></span>
-<span id="cb6-5"><a href="#cb6-5" tabindex="-1"></a><span class="co">#&gt;    id          type  level    event_count avg_ep_per_day avg_episode_duration_…¹</span></span>
-<span id="cb6-6"><a href="#cb6-6" tabindex="-1"></a><span class="co">#&gt;    &lt;chr&gt;       &lt;chr&gt; &lt;chr&gt;          &lt;int&gt;          &lt;dbl&gt;                   &lt;dbl&gt;</span></span>
-<span id="cb6-7"><a href="#cb6-7" tabindex="-1"></a><span class="co">#&gt;  1 1636-69-001 hypo  lv1                3           0.47                       0</span></span>
-<span id="cb6-8"><a href="#cb6-8" tabindex="-1"></a><span class="co">#&gt;  2 1636-69-001 hypo  lv2                0           0                          0</span></span>
-<span id="cb6-9"><a href="#cb6-9" tabindex="-1"></a><span class="co">#&gt;  3 1636-69-001 hypo  extended           0           0                          0</span></span>
-<span id="cb6-10"><a href="#cb6-10" tabindex="-1"></a><span class="co">#&gt;  4 1636-69-001 hypo  lv1_excl           3           0.47                       0</span></span>
-<span id="cb6-11"><a href="#cb6-11" tabindex="-1"></a><span class="co">#&gt;  5 1636-69-001 hyper lv1                4           0.62                       0</span></span>
-<span id="cb6-12"><a href="#cb6-12" tabindex="-1"></a><span class="co">#&gt;  6 1636-69-001 hyper lv2                0           0                          0</span></span>
-<span id="cb6-13"><a href="#cb6-13" tabindex="-1"></a><span class="co">#&gt;  7 1636-69-001 hyper extended           0           0                          0</span></span>
-<span id="cb6-14"><a href="#cb6-14" tabindex="-1"></a><span class="co">#&gt;  8 1636-69-001 hyper lv1_excl           4           0.62                       0</span></span>
-<span id="cb6-15"><a href="#cb6-15" tabindex="-1"></a><span class="co">#&gt;  9 1636-69-026 hypo  lv1                0           0                          0</span></span>
-<span id="cb6-16"><a href="#cb6-16" tabindex="-1"></a><span class="co">#&gt; 10 1636-69-026 hypo  lv2                0           0                          0</span></span>
+<span id="cb6-5"><a href="#cb6-5" tabindex="-1"></a><span class="co">#&gt;    id          type  level  total_episodes avg_ep_per_day avg_episode_duration…¹</span></span>
+<span id="cb6-6"><a href="#cb6-6" tabindex="-1"></a><span class="co">#&gt;    &lt;chr&gt;       &lt;chr&gt; &lt;chr&gt;           &lt;int&gt;          &lt;dbl&gt;                  &lt;dbl&gt;</span></span>
+<span id="cb6-7"><a href="#cb6-7" tabindex="-1"></a><span class="co">#&gt;  1 1636-69-001 hypo  lv1                 3           0.47                      0</span></span>
+<span id="cb6-8"><a href="#cb6-8" tabindex="-1"></a><span class="co">#&gt;  2 1636-69-001 hypo  lv2                 0           0                         0</span></span>
+<span id="cb6-9"><a href="#cb6-9" tabindex="-1"></a><span class="co">#&gt;  3 1636-69-001 hypo  exten…              0           0                         0</span></span>
+<span id="cb6-10"><a href="#cb6-10" tabindex="-1"></a><span class="co">#&gt;  4 1636-69-001 hypo  lv1_e…              3           0.47                      0</span></span>
+<span id="cb6-11"><a href="#cb6-11" tabindex="-1"></a><span class="co">#&gt;  5 1636-69-001 hyper lv1                 4           0.62                      0</span></span>
+<span id="cb6-12"><a href="#cb6-12" tabindex="-1"></a><span class="co">#&gt;  6 1636-69-001 hyper lv2                 0           0                         0</span></span>
+<span id="cb6-13"><a href="#cb6-13" tabindex="-1"></a><span class="co">#&gt;  7 1636-69-001 hyper exten…              0           0                         0</span></span>
+<span id="cb6-14"><a href="#cb6-14" tabindex="-1"></a><span class="co">#&gt;  8 1636-69-001 hyper lv1_e…              4           0.62                      0</span></span>
+<span id="cb6-15"><a href="#cb6-15" tabindex="-1"></a><span class="co">#&gt;  9 1636-69-026 hypo  lv1                 0           0                         0</span></span>
+<span id="cb6-16"><a href="#cb6-16" tabindex="-1"></a><span class="co">#&gt; 10 1636-69-026 hypo  lv2                 0           0                         0</span></span>
 <span id="cb6-17"><a href="#cb6-17" tabindex="-1"></a><span class="co">#&gt; # ℹ 142 more rows</span></span>
 <span id="cb6-18"><a href="#cb6-18" tabindex="-1"></a><span class="co">#&gt; # ℹ abbreviated name: ¹​avg_episode_duration_below_54</span></span>
 <span id="cb6-19"><a href="#cb6-19" tabindex="-1"></a><span class="co">#&gt; </span></span>
@@ -536,12 +536,12 @@ datasets. Each benchmark contrasts
 <span id="cb7-10"><a href="#cb7-10" tabindex="-1"></a>)</span>
 <span id="cb7-11"><a href="#cb7-11" tabindex="-1"></a><span class="fu">print</span>(bench_5)</span>
 <span id="cb7-12"><a href="#cb7-12" tabindex="-1"></a><span class="co">#&gt; Unit: milliseconds</span></span>
-<span id="cb7-13"><a href="#cb7-13" tabindex="-1"></a><span class="co">#&gt;                 expr        min         lq      mean     median         uq</span></span>
-<span id="cb7-14"><a href="#cb7-14" tabindex="-1"></a><span class="co">#&gt;  episode_calculation 288.468743 294.080659 299.54513 296.002329 299.337023</span></span>
-<span id="cb7-15"><a href="#cb7-15" tabindex="-1"></a><span class="co">#&gt;    detect_all_events   3.086931   3.112187   3.25153   3.228586   3.386518</span></span>
+<span id="cb7-13"><a href="#cb7-13" tabindex="-1"></a><span class="co">#&gt;                 expr        min         lq       mean     median       uq</span></span>
+<span id="cb7-14"><a href="#cb7-14" tabindex="-1"></a><span class="co">#&gt;  episode_calculation 297.762746 299.478760 303.789217 300.198330 301.5620</span></span>
+<span id="cb7-15"><a href="#cb7-15" tabindex="-1"></a><span class="co">#&gt;    detect_all_events   3.132072   3.253965   3.442713   3.303165   3.4645</span></span>
 <span id="cb7-16"><a href="#cb7-16" tabindex="-1"></a><span class="co">#&gt;         max neval cld</span></span>
-<span id="cb7-17"><a href="#cb7-17" tabindex="-1"></a><span class="co">#&gt;  333.061901    10  a </span></span>
-<span id="cb7-18"><a href="#cb7-18" tabindex="-1"></a><span class="co">#&gt;    3.497997    10   b</span></span>
+<span id="cb7-17"><a href="#cb7-17" tabindex="-1"></a><span class="co">#&gt;  331.663719    10  a </span></span>
+<span id="cb7-18"><a href="#cb7-18" tabindex="-1"></a><span class="co">#&gt;    4.653131    10   b</span></span>
 <span id="cb7-19"><a href="#cb7-19" tabindex="-1"></a></span>
 <span id="cb7-20"><a href="#cb7-20" tabindex="-1"></a><span class="co"># example_data_hall (all subjects)</span></span>
 <span id="cb7-21"><a href="#cb7-21" tabindex="-1"></a>bench_hall <span class="ot">&lt;-</span> <span class="fu">microbenchmark</span>(</span>
@@ -552,12 +552,12 @@ datasets. Each benchmark contrasts
 <span id="cb7-26"><a href="#cb7-26" tabindex="-1"></a>)</span>
 <span id="cb7-27"><a href="#cb7-27" tabindex="-1"></a><span class="fu">print</span>(bench_hall)</span>
 <span id="cb7-28"><a href="#cb7-28" tabindex="-1"></a><span class="co">#&gt; Unit: milliseconds</span></span>
-<span id="cb7-29"><a href="#cb7-29" tabindex="-1"></a><span class="co">#&gt;                 expr       min         lq       mean     median         uq</span></span>
-<span id="cb7-30"><a href="#cb7-30" tabindex="-1"></a><span class="co">#&gt;  episode_calculation 811.18824 843.066190 861.301133 863.023698 882.685638</span></span>
-<span id="cb7-31"><a href="#cb7-31" tabindex="-1"></a><span class="co">#&gt;    detect_all_events   8.85887   8.902699   9.163725   8.966065   9.091832</span></span>
+<span id="cb7-29"><a href="#cb7-29" tabindex="-1"></a><span class="co">#&gt;                 expr        min         lq       mean     median         uq</span></span>
+<span id="cb7-30"><a href="#cb7-30" tabindex="-1"></a><span class="co">#&gt;  episode_calculation 844.767280 849.185891 876.747067 865.876704 918.930663</span></span>
+<span id="cb7-31"><a href="#cb7-31" tabindex="-1"></a><span class="co">#&gt;    detect_all_events   8.822298   9.129183   9.343068   9.146034   9.299948</span></span>
 <span id="cb7-32"><a href="#cb7-32" tabindex="-1"></a><span class="co">#&gt;        max neval cld</span></span>
-<span id="cb7-33"><a href="#cb7-33" tabindex="-1"></a><span class="co">#&gt;  891.88222    10  a </span></span>
-<span id="cb7-34"><a href="#cb7-34" tabindex="-1"></a><span class="co">#&gt;   10.53282    10   b</span></span></code></pre></div>
+<span id="cb7-33"><a href="#cb7-33" tabindex="-1"></a><span class="co">#&gt;  927.73217    10  a </span></span>
+<span id="cb7-34"><a href="#cb7-34" tabindex="-1"></a><span class="co">#&gt;   11.27352    10   b</span></span></code></pre></div>
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;Note: Installed &#39;iglu&#39; version has a different &#39;episode_calculation&#39; API; iglu examples are skipped.</span><span class="sc">\n</span><span class="st">&quot;</span>)</span></code></pre></div>
 </div>
 <div id="references" class="section level2">

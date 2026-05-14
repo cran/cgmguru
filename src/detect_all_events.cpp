@@ -14,7 +14,7 @@ private:
     std::vector<std::string> ids;
     std::vector<std::string> types;      // "hypo" or "hyper"
     std::vector<std::string> levels;     // "lv1", "lv2", "extended", "lv1_excl"
-    std::vector<int> total_events;
+    std::vector<int> total_episodes;
     std::vector<double> avg_episodes_per_day;
     std::vector<double> avg_episode_duration;
 
@@ -22,7 +22,7 @@ private:
       ids.reserve(capacity);
       types.reserve(capacity);
       levels.reserve(capacity);
-      total_events.reserve(capacity);
+      total_episodes.reserve(capacity);
       avg_episodes_per_day.reserve(capacity);
       avg_episode_duration.reserve(capacity);
     }
@@ -31,17 +31,17 @@ private:
       ids.clear();
       types.clear();
       levels.clear();
-      total_events.clear();
+      total_episodes.clear();
       avg_episodes_per_day.clear();
       avg_episode_duration.clear();
     }
 
     void add_entry(const std::string& id, const std::string& type, const std::string& level,
-                   int events, double per_day, double duration) {
+                   int episodes, double per_day, double duration) {
       ids.push_back(id);
       types.push_back(type);
       levels.push_back(level);
-      total_events.push_back(events);
+      total_episodes.push_back(episodes);
       avg_episodes_per_day.push_back(per_day);
       avg_episode_duration.push_back(duration);
     }
@@ -858,7 +858,7 @@ private:
         _["id"] = CharacterVector(),
         _["type"] = CharacterVector(),
         _["level"] = CharacterVector(),
-        _["event_count"] = IntegerVector(),
+        _["total_episodes"] = IntegerVector(),
         _["avg_ep_per_day"] = NumericVector(),
         _["avg_episode_duration_below_54"] = NumericVector()
       );
@@ -870,7 +870,7 @@ private:
       _["id"] = wrap(unified_data.ids),
       _["type"] = wrap(unified_data.types),
       _["level"] = wrap(unified_data.levels),
-      _["event_count"] = wrap(unified_data.total_events),
+      _["total_episodes"] = wrap(unified_data.total_episodes),
       _["avg_ep_per_day"] = wrap(unified_data.avg_episodes_per_day),
       _["avg_episode_duration_below_54"] = wrap(unified_data.avg_episode_duration)
     );

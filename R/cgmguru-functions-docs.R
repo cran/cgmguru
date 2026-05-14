@@ -253,7 +253,7 @@ NULL
 #'
 #' @return A list containing:
 #' \itemize{
-#'   \item \code{events_total}: Tibble with summary statistics per subject (id, total_events, avg_ep_per_day)
+#'   \item \code{events_total}: Tibble with summary statistics per subject (id, total_episodes, avg_ep_per_day)
 #'   \item \code{events_detailed}: Tibble with detailed event information (id, start_time, start_glucose, end_time, end_glucose, start_index, end_index). End fields report the last dysglycemic reading before confirmed recovery starts. \code{start_index} and \code{end_index} are 1-based row positions in the returned \code{interpolated_data}.
 #'   \item \code{interpolated_data}: Included by default with columns
 #'     \code{id}, \code{time}, and \code{gl}; set
@@ -307,9 +307,9 @@ NULL
 #' )
 #'
 #' # Compare event rates across levels
-#' cat("Level 1 events:", sum(hyper_lv1$events_total$total_events), "\n")
-#' cat("Level 2 events:", sum(hyper_lv2$events_total$total_events), "\n")
-#' cat("Extended events:", sum(hyper_extended$events_total$total_events), "\n")
+#' cat("Level 1 episodes:", sum(hyper_lv1$events_total$total_episodes), "\n")
+#' cat("Level 2 episodes:", sum(hyper_lv2$events_total$total_episodes), "\n")
+#' cat("Extended episodes:", sum(hyper_extended$events_total$total_episodes), "\n")
 #'
 #' # Analysis on larger dataset with Level 1 criteria
 #' large_hyper <- detect_hyperglycemic_events(example_data_hall, type = "lv1")
@@ -427,7 +427,7 @@ NULL
 #'
 #' @return A list containing:
 #' \itemize{
-#'   \item \code{events_total}: Tibble with summary statistics per subject (id, total_events, avg_ep_per_day)
+#'   \item \code{events_total}: Tibble with summary statistics per subject (id, total_episodes, avg_ep_per_day)
 #'   \item \code{events_detailed}: Tibble with detailed event information (id, start_time, start_glucose, end_time, end_glucose, start_index, end_index, duration_below_54_minutes). End fields report the last dysglycemic reading before confirmed recovery starts. \code{start_index} and \code{end_index} are 1-based row positions in the returned \code{interpolated_data}.
 #'   \item \code{interpolated_data}: Included by default with columns
 #'     \code{id}, \code{time}, and \code{gl}; set
@@ -476,9 +476,9 @@ NULL
 #' )
 #'
 #' # Compare event rates across levels
-#' cat("Level 1 events:", sum(hypo_lv1$events_total$total_events), "\n")
-#' cat("Level 2 events:", sum(hypo_lv2$events_total$total_events), "\n")
-#' cat("Extended events:", sum(hypo_extended$events_total$total_events), "\n")
+#' cat("Level 1 episodes:", sum(hypo_lv1$events_total$total_episodes), "\n")
+#' cat("Level 2 episodes:", sum(hypo_lv2$events_total$total_episodes), "\n")
+#' cat("Extended episodes:", sum(hypo_extended$events_total$total_episodes), "\n")
 #'
 #' # Analysis on larger dataset with Level 1 criteria
 #' large_hypo <- detect_hypoglycemic_events(example_data_hall, type = "lv1")
@@ -542,7 +542,7 @@ NULL
 #' \itemize{
 #'   \item \code{events_long_df}: One row per subject, event type, and event
 #'     level. Contains the full event summary: \code{id}, \code{type},
-#'     \code{level}, \code{event_count}, \code{avg_ep_per_day}, and
+#'     \code{level}, \code{total_episodes}, \code{avg_ep_per_day}, and
 #'     \code{avg_episode_duration_below_54}.
 #'   \item \code{summary_df}: One row per subject. CGM summary metric columns
 #'     are calculated on the interpolated glucose grid, and event summaries are

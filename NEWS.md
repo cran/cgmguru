@@ -1,3 +1,11 @@
+# cgmguru 1.0.1
+
+* Renamed event count output columns to `total_episodes` for standalone
+  hypo-/hyperglycemic event summaries and `detect_all_events()` long-format
+  event output.
+* Updated documentation, examples, vignettes, and tests to use
+  `total_episodes` consistently.
+
 # cgmguru 1.0.0
 
 * Added iglu-compatible event-grid interpolation to the event detection

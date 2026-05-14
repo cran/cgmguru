@@ -20,7 +20,7 @@ test_that("reading_minutes is inferred per id when omitted", {
     return_interpolated = TRUE
   )
 
-  expect_equal(sum(res$events_total$total_events), 1)
+  expect_equal(sum(res$events_total$total_episodes), 1)
   expect_named(res$interpolated_data, c("id", "time", "gl"))
   expect_equal(res$events_detailed$start_index[1], 1)
   expect_equal(res$events_detailed$end_index[1], 1)
@@ -54,7 +54,7 @@ test_that("sort_time is optional and uses C++ sorting when enabled", {
     end_length = 15
   )
 
-  expect_equal(sorted_res$events_total$total_events, baseline$events_total$total_events)
+  expect_equal(sorted_res$events_total$total_episodes, baseline$events_total$total_episodes)
   expect_equal(sorted_res$events_detailed$start_time, baseline$events_detailed$start_time)
 })
 
@@ -69,7 +69,7 @@ test_that("gaps within inter_gap are linearly interpolated before event detectio
     return_interpolated = TRUE
   )
 
-  expect_equal(sum(res$events_total$total_events), 1)
+  expect_equal(sum(res$events_total$total_episodes), 1)
   expect_equal(res$events_detailed$end_time[1], df$time[2])
   interpolated_idx <- match(df$time[1] + 5 * 60, res$interpolated_data$time)
   expect_false(is.na(interpolated_idx))
@@ -87,7 +87,7 @@ test_that("gaps above inter_gap split segments and do not finalize events", {
     return_interpolated = TRUE
   )
 
-  expect_equal(sum(res$events_total$total_events), 0)
+  expect_equal(sum(res$events_total$total_episodes), 0)
   expect_equal(nrow(res$events_detailed), 0)
   expect_false(any(is.na(res$interpolated_data$gl)))
   expect_named(res$interpolated_data, c("id", "time", "gl"))
@@ -173,7 +173,7 @@ test_that("standalone lv1_excl excludes lv1 episodes overlapping lv2", {
     type = "lv1_excl",
     reading_minutes = 5
   )
-  expect_equal(sum(hyper$events_total$total_events), 1)
+  expect_equal(sum(hyper$events_total$total_episodes), 1)
   expect_equal(nrow(hyper$events_detailed), 1)
   expect_equal(hyper$events_detailed$start_time[1], hyper_df$time[1])
 
@@ -186,7 +186,7 @@ test_that("standalone lv1_excl excludes lv1 episodes overlapping lv2", {
     type = "lv1_excl",
     reading_minutes = 5
   )
-  expect_equal(sum(hypo$events_total$total_events), 1)
+  expect_equal(sum(hypo$events_total$total_episodes), 1)
   expect_equal(nrow(hypo$events_detailed), 1)
   expect_equal(hypo$events_detailed$start_time[1], hypo_df$time[1])
 })

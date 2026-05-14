@@ -19,7 +19,7 @@ test_that("detect_all_events returns named tables and validates reading_minutes"
 		"hyper_extended_event_count", "hyper_lv1_excl_event_count"
 	) %in% names(res$summary_df)))
 	expect_named(res$events_long_df, c(
-		"id", "type", "level", "event_count",
+		"id", "type", "level", "total_episodes",
 		"avg_ep_per_day", "avg_episode_duration_below_54"
 	))
 
@@ -144,7 +144,7 @@ test_that("detect_hyperglycemic_events structure, params and boundary thresholds
 	expect_equal(res_type_wins, res_lv1_type)
 
 	# Sanity: level 1 should detect at least as many events as stricter level 2
-	total_lv1 <- if (nrow(res_lv1$events_total)) sum(res_lv1$events_total$total_events) else 0
-	total_lv2 <- if (nrow(res_lv2$events_total)) sum(res_lv2$events_total$total_events) else 0
+	total_lv1 <- if (nrow(res_lv1$events_total)) sum(res_lv1$events_total$total_episodes) else 0
+	total_lv2 <- if (nrow(res_lv2$events_total)) sum(res_lv2$events_total$total_episodes) else 0
 	expect_true(total_lv1 >= total_lv2)
 })
