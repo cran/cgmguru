@@ -470,24 +470,24 @@ button for the best experience.</p>
 <span id="cb2-10"><a href="#cb2-10" tabindex="-1"></a><span class="co">#&gt; </span></span>
 <span id="cb2-11"><a href="#cb2-11" tabindex="-1"></a><span class="co">#&gt; &gt; all_events &lt;- detect_all_events(example_data_5_subject)</span></span>
 <span id="cb2-12"><a href="#cb2-12" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb2-13"><a href="#cb2-13" tabindex="-1"></a><span class="co">#&gt; &gt; print(all_events$summary_df)</span></span>
+<span id="cb2-13"><a href="#cb2-13" tabindex="-1"></a><span class="co">#&gt; &gt; print(all_events$subject_summary)</span></span>
 <span id="cb2-14"><a href="#cb2-14" tabindex="-1"></a><span class="co">#&gt; # A tibble: 5 × 22</span></span>
-<span id="cb2-15"><a href="#cb2-15" tabindex="-1"></a><span class="co">#&gt;   id         TIR  TITR TBR70  TBR54 TAR180 TAR250    CV    SD mean_glucose   GMI</span></span>
-<span id="cb2-16"><a href="#cb2-16" tabindex="-1"></a><span class="co">#&gt;   &lt;chr&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;        &lt;dbl&gt; &lt;dbl&gt;</span></span>
-<span id="cb2-17"><a href="#cb2-17" tabindex="-1"></a><span class="co">#&gt; 1 Subject…  91.8 74.0  0.156 0        8.08  0.375 0.267  33.0         123.  6.26</span></span>
-<span id="cb2-18"><a href="#cb2-18" tabindex="-1"></a><span class="co">#&gt; 2 Subject…  25.8  3.28 0     0       74.2  26.5   0.241  52.7         219.  8.54</span></span>
-<span id="cb2-19"><a href="#cb2-19" tabindex="-1"></a><span class="co">#&gt; 3 Subject…  81.3 49.8  0.316 0       18.4   5.44  0.290  44.5         154.  6.98</span></span>
-<span id="cb2-20"><a href="#cb2-20" tabindex="-1"></a><span class="co">#&gt; 4 Subject…  94.9 67.4  0.326 0.0271   4.75  0     0.224  29.0         130.  6.41</span></span>
-<span id="cb2-21"><a href="#cb2-21" tabindex="-1"></a><span class="co">#&gt; 5 Subject…  62.0 29.6  0.102 0       37.9  11.5   0.335  58.4         175.  7.49</span></span>
-<span id="cb2-22"><a href="#cb2-22" tabindex="-1"></a><span class="co">#&gt; # ℹ 11 more variables: uGMI &lt;dbl&gt;, GRI &lt;dbl&gt;, sensor_wear &lt;dbl&gt;,</span></span>
-<span id="cb2-23"><a href="#cb2-23" tabindex="-1"></a><span class="co">#&gt; #   hypo_lv1_event_count &lt;int&gt;, hypo_lv2_event_count &lt;int&gt;,</span></span>
-<span id="cb2-24"><a href="#cb2-24" tabindex="-1"></a><span class="co">#&gt; #   hypo_extended_event_count &lt;int&gt;, hypo_lv1_excl_event_count &lt;int&gt;,</span></span>
-<span id="cb2-25"><a href="#cb2-25" tabindex="-1"></a><span class="co">#&gt; #   hyper_lv1_event_count &lt;int&gt;, hyper_lv2_event_count &lt;int&gt;,</span></span>
-<span id="cb2-26"><a href="#cb2-26" tabindex="-1"></a><span class="co">#&gt; #   hyper_extended_event_count &lt;int&gt;, hyper_lv1_excl_event_count &lt;int&gt;</span></span>
+<span id="cb2-15"><a href="#cb2-15" tabindex="-1"></a><span class="co">#&gt;   id          TIR  TITR TBR70 TBR54 TAR180 TAR250    CV    SD mean_glucose   GMI</span></span>
+<span id="cb2-16"><a href="#cb2-16" tabindex="-1"></a><span class="co">#&gt;   &lt;chr&gt;     &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;        &lt;dbl&gt; &lt;dbl&gt;</span></span>
+<span id="cb2-17"><a href="#cb2-17" tabindex="-1"></a><span class="co">#&gt; 1 Subject 1  91.7 73.7   0.14  0      8.2    0.38  26.9  33.3         124.  6.27</span></span>
+<span id="cb2-18"><a href="#cb2-18" tabindex="-1"></a><span class="co">#&gt; 2 Subject 2  26.4  3.36  0     0     73.6   26.1   24.0  52.4         218.  8.54</span></span>
+<span id="cb2-19"><a href="#cb2-19" tabindex="-1"></a><span class="co">#&gt; 3 Subject 3  81.3 49.8   0.33  0     18.3    5.68  29.1  44.8         154.  6.99</span></span>
+<span id="cb2-20"><a href="#cb2-20" tabindex="-1"></a><span class="co">#&gt; 4 Subject 4  95.1 67.7   0.27  0.05   4.61   0     22.4  29.1         130.  6.41</span></span>
+<span id="cb2-21"><a href="#cb2-21" tabindex="-1"></a><span class="co">#&gt; 5 Subject 5  62.1 30.1   0.1   0     37.8   11.3   33.6  58.6         175.  7.49</span></span>
+<span id="cb2-22"><a href="#cb2-22" tabindex="-1"></a><span class="co">#&gt; # ℹ 11 more variables: uGMI &lt;dbl&gt;, GRI &lt;dbl&gt;, sensor_wear_percent &lt;dbl&gt;,</span></span>
+<span id="cb2-23"><a href="#cb2-23" tabindex="-1"></a><span class="co">#&gt; #   hypo_lv1_total_episodes &lt;int&gt;, hypo_lv2_total_episodes &lt;int&gt;,</span></span>
+<span id="cb2-24"><a href="#cb2-24" tabindex="-1"></a><span class="co">#&gt; #   hypo_extended_total_episodes &lt;int&gt;, hypo_lv1_excl_total_episodes &lt;int&gt;,</span></span>
+<span id="cb2-25"><a href="#cb2-25" tabindex="-1"></a><span class="co">#&gt; #   hyper_lv1_total_episodes &lt;int&gt;, hyper_lv2_total_episodes &lt;int&gt;,</span></span>
+<span id="cb2-26"><a href="#cb2-26" tabindex="-1"></a><span class="co">#&gt; #   hyper_extended_total_episodes &lt;int&gt;, hyper_lv1_excl_total_episodes &lt;int&gt;</span></span>
 <span id="cb2-27"><a href="#cb2-27" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb2-28"><a href="#cb2-28" tabindex="-1"></a><span class="co">#&gt; &gt; print(all_events$events_long_df)</span></span>
+<span id="cb2-28"><a href="#cb2-28" tabindex="-1"></a><span class="co">#&gt; &gt; print(all_events$glycemic_event_summary)</span></span>
 <span id="cb2-29"><a href="#cb2-29" tabindex="-1"></a><span class="co">#&gt; # A tibble: 40 × 6</span></span>
-<span id="cb2-30"><a href="#cb2-30" tabindex="-1"></a><span class="co">#&gt;    id        type  level    total_episodes avg_ep_per_day avg_episode_duration…¹</span></span>
+<span id="cb2-30"><a href="#cb2-30" tabindex="-1"></a><span class="co">#&gt;    id        type  level    total_episodes avg_ep_per_day avg_minutes_below_54…¹</span></span>
 <span id="cb2-31"><a href="#cb2-31" tabindex="-1"></a><span class="co">#&gt;    &lt;chr&gt;     &lt;chr&gt; &lt;chr&gt;             &lt;int&gt;          &lt;dbl&gt;                  &lt;dbl&gt;</span></span>
 <span id="cb2-32"><a href="#cb2-32" tabindex="-1"></a><span class="co">#&gt;  1 Subject 1 hypo  lv1                   1           0.09                      0</span></span>
 <span id="cb2-33"><a href="#cb2-33" tabindex="-1"></a><span class="co">#&gt;  2 Subject 1 hypo  lv2                   0           0                         0</span></span>
@@ -500,17 +500,17 @@ button for the best experience.</p>
 <span id="cb2-40"><a href="#cb2-40" tabindex="-1"></a><span class="co">#&gt;  9 Subject 2 hypo  lv1                   0           0                         0</span></span>
 <span id="cb2-41"><a href="#cb2-41" tabindex="-1"></a><span class="co">#&gt; 10 Subject 2 hypo  lv2                   0           0                         0</span></span>
 <span id="cb2-42"><a href="#cb2-42" tabindex="-1"></a><span class="co">#&gt; # ℹ 30 more rows</span></span>
-<span id="cb2-43"><a href="#cb2-43" tabindex="-1"></a><span class="co">#&gt; # ℹ abbreviated name: ¹​avg_episode_duration_below_54</span></span>
+<span id="cb2-43"><a href="#cb2-43" tabindex="-1"></a><span class="co">#&gt; # ℹ abbreviated name: ¹​avg_minutes_below_54_per_episode</span></span>
 <span id="cb2-44"><a href="#cb2-44" tabindex="-1"></a><span class="co">#&gt; </span></span>
 <span id="cb2-45"><a href="#cb2-45" tabindex="-1"></a><span class="co">#&gt; &gt; large_all_events &lt;- detect_all_events(example_data_hall)</span></span>
 <span id="cb2-46"><a href="#cb2-46" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb2-47"><a href="#cb2-47" tabindex="-1"></a><span class="co">#&gt; &gt; print(paste(&quot;Total subjects analyzed:&quot;, nrow(large_all_events$summary_df)))</span></span>
+<span id="cb2-47"><a href="#cb2-47" tabindex="-1"></a><span class="co">#&gt; &gt; print(paste(&quot;Total subjects analyzed:&quot;, nrow(large_all_events$subject_summary)))</span></span>
 <span id="cb2-48"><a href="#cb2-48" tabindex="-1"></a><span class="co">#&gt; [1] &quot;Total subjects analyzed: 19&quot;</span></span>
 <span id="cb2-49"><a href="#cb2-49" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb2-50"><a href="#cb2-50" tabindex="-1"></a><span class="co">#&gt; &gt; hyperglycemia_events &lt;- all_events$events_long_df[all_events$events_long_df$type == </span></span>
+<span id="cb2-50"><a href="#cb2-50" tabindex="-1"></a><span class="co">#&gt; &gt; hyperglycemia_events &lt;- all_events$glycemic_event_summary[all_events$glycemic_event_summary$type == </span></span>
 <span id="cb2-51"><a href="#cb2-51" tabindex="-1"></a><span class="co">#&gt; +     &quot;hyper&quot;, ]</span></span>
 <span id="cb2-52"><a href="#cb2-52" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb2-53"><a href="#cb2-53" tabindex="-1"></a><span class="co">#&gt; &gt; hypoglycemia_events &lt;- all_events$events_long_df[all_events$events_long_df$type == </span></span>
+<span id="cb2-53"><a href="#cb2-53" tabindex="-1"></a><span class="co">#&gt; &gt; hypoglycemia_events &lt;- all_events$glycemic_event_summary[all_events$glycemic_event_summary$type == </span></span>
 <span id="cb2-54"><a href="#cb2-54" tabindex="-1"></a><span class="co">#&gt; +     &quot;hypo&quot;, ]</span></span>
 <span id="cb2-55"><a href="#cb2-55" tabindex="-1"></a><span class="co">#&gt; </span></span>
 <span id="cb2-56"><a href="#cb2-56" tabindex="-1"></a><span class="co">#&gt; &gt; print(&quot;Hyperglycemia events:&quot;)</span></span>
@@ -518,7 +518,7 @@ button for the best experience.</p>
 <span id="cb2-58"><a href="#cb2-58" tabindex="-1"></a><span class="co">#&gt; </span></span>
 <span id="cb2-59"><a href="#cb2-59" tabindex="-1"></a><span class="co">#&gt; &gt; print(hyperglycemia_events)</span></span>
 <span id="cb2-60"><a href="#cb2-60" tabindex="-1"></a><span class="co">#&gt; # A tibble: 20 × 6</span></span>
-<span id="cb2-61"><a href="#cb2-61" tabindex="-1"></a><span class="co">#&gt;    id        type  level    total_episodes avg_ep_per_day avg_episode_duration…¹</span></span>
+<span id="cb2-61"><a href="#cb2-61" tabindex="-1"></a><span class="co">#&gt;    id        type  level    total_episodes avg_ep_per_day avg_minutes_below_54…¹</span></span>
 <span id="cb2-62"><a href="#cb2-62" tabindex="-1"></a><span class="co">#&gt;    &lt;chr&gt;     &lt;chr&gt; &lt;chr&gt;             &lt;int&gt;          &lt;dbl&gt;                  &lt;dbl&gt;</span></span>
 <span id="cb2-63"><a href="#cb2-63" tabindex="-1"></a><span class="co">#&gt;  1 Subject 1 hyper lv1                  16           1.44                      0</span></span>
 <span id="cb2-64"><a href="#cb2-64" tabindex="-1"></a><span class="co">#&gt;  2 Subject 1 hyper lv2                   2           0.18                      0</span></span>
@@ -540,14 +540,14 @@ button for the best experience.</p>
 <span id="cb2-80"><a href="#cb2-80" tabindex="-1"></a><span class="co">#&gt; 18 Subject 5 hyper lv2                  18           1.76                      0</span></span>
 <span id="cb2-81"><a href="#cb2-81" tabindex="-1"></a><span class="co">#&gt; 19 Subject 5 hyper extended             10           0.98                      0</span></span>
 <span id="cb2-82"><a href="#cb2-82" tabindex="-1"></a><span class="co">#&gt; 20 Subject 5 hyper lv1_excl             22           2.16                      0</span></span>
-<span id="cb2-83"><a href="#cb2-83" tabindex="-1"></a><span class="co">#&gt; # ℹ abbreviated name: ¹​avg_episode_duration_below_54</span></span>
+<span id="cb2-83"><a href="#cb2-83" tabindex="-1"></a><span class="co">#&gt; # ℹ abbreviated name: ¹​avg_minutes_below_54_per_episode</span></span>
 <span id="cb2-84"><a href="#cb2-84" tabindex="-1"></a><span class="co">#&gt; </span></span>
 <span id="cb2-85"><a href="#cb2-85" tabindex="-1"></a><span class="co">#&gt; &gt; print(&quot;Hypoglycemia events:&quot;)</span></span>
 <span id="cb2-86"><a href="#cb2-86" tabindex="-1"></a><span class="co">#&gt; [1] &quot;Hypoglycemia events:&quot;</span></span>
 <span id="cb2-87"><a href="#cb2-87" tabindex="-1"></a><span class="co">#&gt; </span></span>
 <span id="cb2-88"><a href="#cb2-88" tabindex="-1"></a><span class="co">#&gt; &gt; print(hypoglycemia_events)</span></span>
 <span id="cb2-89"><a href="#cb2-89" tabindex="-1"></a><span class="co">#&gt; # A tibble: 20 × 6</span></span>
-<span id="cb2-90"><a href="#cb2-90" tabindex="-1"></a><span class="co">#&gt;    id        type  level    total_episodes avg_ep_per_day avg_episode_duration…¹</span></span>
+<span id="cb2-90"><a href="#cb2-90" tabindex="-1"></a><span class="co">#&gt;    id        type  level    total_episodes avg_ep_per_day avg_minutes_below_54…¹</span></span>
 <span id="cb2-91"><a href="#cb2-91" tabindex="-1"></a><span class="co">#&gt;    &lt;chr&gt;     &lt;chr&gt; &lt;chr&gt;             &lt;int&gt;          &lt;dbl&gt;                  &lt;dbl&gt;</span></span>
 <span id="cb2-92"><a href="#cb2-92" tabindex="-1"></a><span class="co">#&gt;  1 Subject 1 hypo  lv1                   1           0.09                    0  </span></span>
 <span id="cb2-93"><a href="#cb2-93" tabindex="-1"></a><span class="co">#&gt;  2 Subject 1 hypo  lv2                   0           0                       0  </span></span>
@@ -569,7 +569,7 @@ button for the best experience.</p>
 <span id="cb2-109"><a href="#cb2-109" tabindex="-1"></a><span class="co">#&gt; 18 Subject 5 hypo  lv2                   0           0                       0  </span></span>
 <span id="cb2-110"><a href="#cb2-110" tabindex="-1"></a><span class="co">#&gt; 19 Subject 5 hypo  extended              0           0                       0  </span></span>
 <span id="cb2-111"><a href="#cb2-111" tabindex="-1"></a><span class="co">#&gt; 20 Subject 5 hypo  lv1_excl              1           0.1                     0  </span></span>
-<span id="cb2-112"><a href="#cb2-112" tabindex="-1"></a><span class="co">#&gt; # ℹ abbreviated name: ¹​avg_episode_duration_below_54</span></span></code></pre></div>
+<span id="cb2-112"><a href="#cb2-112" tabindex="-1"></a><span class="co">#&gt; # ℹ abbreviated name: ¹​avg_minutes_below_54_per_episode</span></span></code></pre></div>
 </div>
 <div id="detect-hyperglycemic-events" class="section level2">
 <h2>Detect hyperglycemic events</h2>
@@ -998,7 +998,7 @@ button for the best experience.</p>
 <span id="cb11-72"><a href="#cb11-72" tabindex="-1"></a><span class="co">#&gt; +     gap = 60, hours = 2)</span></span>
 <span id="cb11-73"><a href="#cb11-73" tabindex="-1"></a><span class="co">#&gt; </span></span>
 <span id="cb11-74"><a href="#cb11-74" tabindex="-1"></a><span class="co">#&gt; &gt; print(large_maxima$episode_counts)</span></span>
-<span id="cb11-75"><a href="#cb11-75" tabindex="-1"></a><span class="co">#&gt; # A tibble: 18 × 2</span></span>
+<span id="cb11-75"><a href="#cb11-75" tabindex="-1"></a><span class="co">#&gt; # A tibble: 19 × 2</span></span>
 <span id="cb11-76"><a href="#cb11-76" tabindex="-1"></a><span class="co">#&gt;    id           episode_counts</span></span>
 <span id="cb11-77"><a href="#cb11-77" tabindex="-1"></a><span class="co">#&gt;    &lt;chr&gt;                 &lt;int&gt;</span></span>
 <span id="cb11-78"><a href="#cb11-78" tabindex="-1"></a><span class="co">#&gt;  1 1636-69-001               8</span></span>
@@ -1006,36 +1006,37 @@ button for the best experience.</p>
 <span id="cb11-80"><a href="#cb11-80" tabindex="-1"></a><span class="co">#&gt;  3 1636-69-032               2</span></span>
 <span id="cb11-81"><a href="#cb11-81" tabindex="-1"></a><span class="co">#&gt;  4 1636-69-090               3</span></span>
 <span id="cb11-82"><a href="#cb11-82" tabindex="-1"></a><span class="co">#&gt;  5 1636-69-091               1</span></span>
-<span id="cb11-83"><a href="#cb11-83" tabindex="-1"></a><span class="co">#&gt;  6 1636-70-1005              8</span></span>
-<span id="cb11-84"><a href="#cb11-84" tabindex="-1"></a><span class="co">#&gt;  7 1636-70-1010              2</span></span>
-<span id="cb11-85"><a href="#cb11-85" tabindex="-1"></a><span class="co">#&gt;  8 2133-004                  5</span></span>
-<span id="cb11-86"><a href="#cb11-86" tabindex="-1"></a><span class="co">#&gt;  9 2133-015                  4</span></span>
-<span id="cb11-87"><a href="#cb11-87" tabindex="-1"></a><span class="co">#&gt; 10 2133-017                  2</span></span>
-<span id="cb11-88"><a href="#cb11-88" tabindex="-1"></a><span class="co">#&gt; 11 2133-018                 12</span></span>
-<span id="cb11-89"><a href="#cb11-89" tabindex="-1"></a><span class="co">#&gt; 12 2133-019                  2</span></span>
-<span id="cb11-90"><a href="#cb11-90" tabindex="-1"></a><span class="co">#&gt; 13 2133-021                 10</span></span>
-<span id="cb11-91"><a href="#cb11-91" tabindex="-1"></a><span class="co">#&gt; 14 2133-024                  1</span></span>
-<span id="cb11-92"><a href="#cb11-92" tabindex="-1"></a><span class="co">#&gt; 15 2133-027                  1</span></span>
-<span id="cb11-93"><a href="#cb11-93" tabindex="-1"></a><span class="co">#&gt; 16 2133-035                  1</span></span>
-<span id="cb11-94"><a href="#cb11-94" tabindex="-1"></a><span class="co">#&gt; 17 2133-036                  2</span></span>
-<span id="cb11-95"><a href="#cb11-95" tabindex="-1"></a><span class="co">#&gt; 18 2133-039                  5</span></span>
-<span id="cb11-96"><a href="#cb11-96" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb11-97"><a href="#cb11-97" tabindex="-1"></a><span class="co">#&gt; &gt; print(large_maxima$results)</span></span>
-<span id="cb11-98"><a href="#cb11-98" tabindex="-1"></a><span class="co">#&gt; # A tibble: 76 × 8</span></span>
-<span id="cb11-99"><a href="#cb11-99" tabindex="-1"></a><span class="co">#&gt;    id          grid_time     grid_gl maxima_time maxima_glucose time_to_peak_min</span></span>
-<span id="cb11-100"><a href="#cb11-100" tabindex="-1"></a><span class="co">#&gt;    &lt;chr&gt;       &lt;dttm&gt;          &lt;dbl&gt; &lt;dttm&gt;               &lt;dbl&gt;            &lt;dbl&gt;</span></span>
-<span id="cb11-101"><a href="#cb11-101" tabindex="-1"></a><span class="co">#&gt;  1 1636-69-001 2014-02-04 0…     138 2014-02-04…            194               30</span></span>
-<span id="cb11-102"><a href="#cb11-102" tabindex="-1"></a><span class="co">#&gt;  2 1636-69-001 2014-02-04 1…     138 2014-02-04…            225               60</span></span>
-<span id="cb11-103"><a href="#cb11-103" tabindex="-1"></a><span class="co">#&gt;  3 1636-69-001 2014-02-05 0…     137 2014-02-05…            196               45</span></span>
-<span id="cb11-104"><a href="#cb11-104" tabindex="-1"></a><span class="co">#&gt;  4 1636-69-001 2015-03-29 1…     137 2015-03-29…            250               65</span></span>
-<span id="cb11-105"><a href="#cb11-105" tabindex="-1"></a><span class="co">#&gt;  5 1636-69-001 2015-03-30 1…     132 2015-03-30…            181               45</span></span>
-<span id="cb11-106"><a href="#cb11-106" tabindex="-1"></a><span class="co">#&gt;  6 1636-69-001 2015-03-31 0…     143 2015-03-31…            177               20</span></span>
-<span id="cb11-107"><a href="#cb11-107" tabindex="-1"></a><span class="co">#&gt;  7 1636-69-001 2015-03-31 1…     136 2015-03-31…            169               30</span></span>
-<span id="cb11-108"><a href="#cb11-108" tabindex="-1"></a><span class="co">#&gt;  8 1636-69-001 2015-04-01 1…     132 2015-04-01…            165               50</span></span>
-<span id="cb11-109"><a href="#cb11-109" tabindex="-1"></a><span class="co">#&gt;  9 1636-69-026 2015-11-24 1…     142 2015-11-24…            182               40</span></span>
-<span id="cb11-110"><a href="#cb11-110" tabindex="-1"></a><span class="co">#&gt; 10 1636-69-026 2015-11-24 2…     139 2015-11-25…            171               35</span></span>
-<span id="cb11-111"><a href="#cb11-111" tabindex="-1"></a><span class="co">#&gt; # ℹ 66 more rows</span></span>
-<span id="cb11-112"><a href="#cb11-112" tabindex="-1"></a><span class="co">#&gt; # ℹ 2 more variables: grid_index &lt;int&gt;, maxima_index &lt;int&gt;</span></span></code></pre></div>
+<span id="cb11-83"><a href="#cb11-83" tabindex="-1"></a><span class="co">#&gt;  6 1636-69-114               0</span></span>
+<span id="cb11-84"><a href="#cb11-84" tabindex="-1"></a><span class="co">#&gt;  7 1636-70-1005              8</span></span>
+<span id="cb11-85"><a href="#cb11-85" tabindex="-1"></a><span class="co">#&gt;  8 1636-70-1010              2</span></span>
+<span id="cb11-86"><a href="#cb11-86" tabindex="-1"></a><span class="co">#&gt;  9 2133-004                  5</span></span>
+<span id="cb11-87"><a href="#cb11-87" tabindex="-1"></a><span class="co">#&gt; 10 2133-015                  4</span></span>
+<span id="cb11-88"><a href="#cb11-88" tabindex="-1"></a><span class="co">#&gt; 11 2133-017                  2</span></span>
+<span id="cb11-89"><a href="#cb11-89" tabindex="-1"></a><span class="co">#&gt; 12 2133-018                 12</span></span>
+<span id="cb11-90"><a href="#cb11-90" tabindex="-1"></a><span class="co">#&gt; 13 2133-019                  2</span></span>
+<span id="cb11-91"><a href="#cb11-91" tabindex="-1"></a><span class="co">#&gt; 14 2133-021                 10</span></span>
+<span id="cb11-92"><a href="#cb11-92" tabindex="-1"></a><span class="co">#&gt; 15 2133-024                  1</span></span>
+<span id="cb11-93"><a href="#cb11-93" tabindex="-1"></a><span class="co">#&gt; 16 2133-027                  1</span></span>
+<span id="cb11-94"><a href="#cb11-94" tabindex="-1"></a><span class="co">#&gt; 17 2133-035                  1</span></span>
+<span id="cb11-95"><a href="#cb11-95" tabindex="-1"></a><span class="co">#&gt; 18 2133-036                  2</span></span>
+<span id="cb11-96"><a href="#cb11-96" tabindex="-1"></a><span class="co">#&gt; 19 2133-039                  5</span></span>
+<span id="cb11-97"><a href="#cb11-97" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb11-98"><a href="#cb11-98" tabindex="-1"></a><span class="co">#&gt; &gt; print(large_maxima$results)</span></span>
+<span id="cb11-99"><a href="#cb11-99" tabindex="-1"></a><span class="co">#&gt; # A tibble: 76 × 8</span></span>
+<span id="cb11-100"><a href="#cb11-100" tabindex="-1"></a><span class="co">#&gt;    id          grid_time     grid_gl maxima_time maxima_glucose time_to_peak_min</span></span>
+<span id="cb11-101"><a href="#cb11-101" tabindex="-1"></a><span class="co">#&gt;    &lt;chr&gt;       &lt;dttm&gt;          &lt;dbl&gt; &lt;dttm&gt;               &lt;dbl&gt;            &lt;dbl&gt;</span></span>
+<span id="cb11-102"><a href="#cb11-102" tabindex="-1"></a><span class="co">#&gt;  1 1636-69-001 2014-02-04 0…     138 2014-02-04…            194               30</span></span>
+<span id="cb11-103"><a href="#cb11-103" tabindex="-1"></a><span class="co">#&gt;  2 1636-69-001 2014-02-04 1…     138 2014-02-04…            225               60</span></span>
+<span id="cb11-104"><a href="#cb11-104" tabindex="-1"></a><span class="co">#&gt;  3 1636-69-001 2014-02-05 0…     137 2014-02-05…            196               45</span></span>
+<span id="cb11-105"><a href="#cb11-105" tabindex="-1"></a><span class="co">#&gt;  4 1636-69-001 2015-03-29 1…     137 2015-03-29…            250               65</span></span>
+<span id="cb11-106"><a href="#cb11-106" tabindex="-1"></a><span class="co">#&gt;  5 1636-69-001 2015-03-30 1…     132 2015-03-30…            181               45</span></span>
+<span id="cb11-107"><a href="#cb11-107" tabindex="-1"></a><span class="co">#&gt;  6 1636-69-001 2015-03-31 0…     143 2015-03-31…            177               20</span></span>
+<span id="cb11-108"><a href="#cb11-108" tabindex="-1"></a><span class="co">#&gt;  7 1636-69-001 2015-03-31 1…     136 2015-03-31…            169               30</span></span>
+<span id="cb11-109"><a href="#cb11-109" tabindex="-1"></a><span class="co">#&gt;  8 1636-69-001 2015-04-01 1…     132 2015-04-01…            165               50</span></span>
+<span id="cb11-110"><a href="#cb11-110" tabindex="-1"></a><span class="co">#&gt;  9 1636-69-026 2015-11-24 1…     142 2015-11-24…            182               40</span></span>
+<span id="cb11-111"><a href="#cb11-111" tabindex="-1"></a><span class="co">#&gt; 10 1636-69-026 2015-11-24 2…     139 2015-11-25…            171               35</span></span>
+<span id="cb11-112"><a href="#cb11-112" tabindex="-1"></a><span class="co">#&gt; # ℹ 66 more rows</span></span>
+<span id="cb11-113"><a href="#cb11-113" tabindex="-1"></a><span class="co">#&gt; # ℹ 2 more variables: grid_index &lt;int&gt;, maxima_index &lt;int&gt;</span></span></code></pre></div>
 </div>
 <div id="ordering-utility" class="section level2">
 <h2>Ordering utility</h2>

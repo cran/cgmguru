@@ -1,3 +1,37 @@
+# cgmguru 1.1.0
+
+* Updated `maxima_grid()` and `detect_between_maxima()` to include all subject
+  IDs in `episode_counts`, returning `0` for subjects with no detected
+  episodes or between-maxima results.
+* Fixed `detect_all_events()` to summarize event counts segment-by-segment
+  after interpolation gaps, preventing events that end at a gap boundary from
+  being merged into the next segment.
+* Updated extended hypoglycemia event detection to match iglu by requiring
+  duration strictly greater than 120 minutes below 70 mg/dL, rather than
+  greater than or equal to 120 minutes.
+* Avoided materializing the standalone hypo-/hyperglycemic event grid when
+  `return_interpolated = FALSE`, improving speed and memory use for calls that
+  do not request the interpolated data.
+* Optimized returned interpolated event grids by preallocating storage, avoiding
+  repeated ID strings in C++ storage, and skipping unused grid metadata.
+* Changed `detect_all_events()` summary glucose metrics to use original raw
+  CGM values by default, with `summary_metrics_source = "preprocessed"` for
+  the previous internal event-grid behavior.
+* Rounded `detect_all_events()` CGM summary metrics and sensor wear outputs to
+  two decimal places.
+* Added `sensor_wear_ndays` to `detect_all_events()` to calculate
+  `sensor_wear_percent` over a fixed retrospective window, such as the last
+  90 days; when omitted, `sensor_wear_percent` continues to use the original
+  timestamp span.
+* Updated `sensor_wear()` so the default calculation uses each subject's
+  original timestamp span. Supplying `ndays` now switches to the fixed-window
+  calculation.
+* Renamed `detect_all_events()` return tables to `subject_summary` and
+  `glycemic_event_summary`.
+* Renamed `detect_all_events()` summary columns for clarity:
+  `sensor_wear_percent`, `*_total_episodes`, and
+  `avg_minutes_below_54_per_episode`; `CV` is now reported as a percent.
+
 # cgmguru 1.0.1
 
 * Renamed event count output columns to `total_episodes` for standalone
@@ -5,6 +39,7 @@
   event output.
 * Updated documentation, examples, vignettes, and tests to use
   `total_episodes` consistently.
+  
 
 # cgmguru 1.0.0
 

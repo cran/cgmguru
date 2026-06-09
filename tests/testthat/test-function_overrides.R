@@ -37,23 +37,31 @@ test_that("detect_hypoglycemic_events wrapper returns expected structure and val
 test_that("detect_all_events wrapper returns named tables and validates reading_minutes", {
   res <- detect_all_events(example_data_5_subject)
   expect_true(is.list(res))
-  expect_named(res, c("events_long_df", "summary_df"))
-  expect_true(is.data.frame(res$events_long_df))
-  expect_true(is.data.frame(res$summary_df))
+  expect_named(res, c("subject_summary", "glycemic_event_summary"))
+  expect_true(is.data.frame(res$glycemic_event_summary))
+  expect_true(is.data.frame(res$subject_summary))
 
   # Single numeric reading_minutes is accepted
   res5 <- detect_all_events(example_data_5_subject, reading_minutes = 5)
   expect_true(is.list(res5))
+  res_preprocessed <- detect_all_events(
+    example_data_5_subject,
+    reading_minutes = 5,
+    summary_metrics_source = "preprocessed"
+  )
+  expect_true(is.list(res_preprocessed))
 
   # reading_minutes vector of wrong length should error
   expect_error(detect_all_events(example_data_5_subject, reading_minutes = c(5, 5)),
                "reading_minutes vector length must match data length or be a single value")
+  expect_error(detect_all_events(example_data_5_subject, summary_metrics_source = "bad"),
+               "'arg' should be one of")
 
   # Empty input returns empty data.frame
   res_empty <- detect_all_events(empty_cgm)
   expect_true(is.list(res_empty))
-  expect_true(nrow(res_empty$events_long_df) == 0)
-  expect_true(nrow(res_empty$summary_df) == 0)
+  expect_true(nrow(res_empty$glycemic_event_summary) == 0)
+  expect_true(nrow(res_empty$subject_summary) == 0)
 })
 
 test_that("find_local_maxima wrapper returns expected components", {

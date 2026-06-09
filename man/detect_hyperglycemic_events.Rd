@@ -54,10 +54,10 @@ grid data used for event detection in the returned list. Defaults to
 A list containing:
 \itemize{
   \item \code{events_total}: Tibble with summary statistics per subject (id, total_episodes, avg_ep_per_day)
-  \item \code{events_detailed}: Tibble with detailed event information (id, start_time, start_glucose, end_time, end_glucose, start_index, end_index). End fields report the last dysglycemic reading before confirmed recovery starts. \code{start_index} and \code{end_index} are 1-based row positions in the returned \code{interpolated_data}.
-  \item \code{interpolated_data}: Included by default with columns
-    \code{id}, \code{time}, and \code{gl}; set
-    \code{return_interpolated = FALSE} to omit it.
+  \item \code{events_detailed}: Tibble with detailed event information (id, start_time, start_glucose, end_time, end_glucose, start_index, end_index). End fields report the last dysglycemic reading before confirmed recovery starts. \code{start_index} and \code{end_index} are 1-based row positions in the internal interpolated event grid, returned as \code{interpolated_data} when \code{return_interpolated = TRUE}.
+  \item \code{interpolated_data}: Included when
+    \code{return_interpolated = TRUE}, with columns \code{id}, \code{time},
+    and \code{gl}.
 }
 }
 \description{

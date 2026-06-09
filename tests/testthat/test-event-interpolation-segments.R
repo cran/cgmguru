@@ -26,6 +26,46 @@ test_that("reading_minutes is inferred per id when omitted", {
   expect_equal(res$events_detailed$end_index[1], 1)
 })
 
+test_that("standalone event functions return interpolated data by default", {
+  df <- make_cgm_at(c(0, 5, 10, 15, 20, 25), c(60, 62, 65, 80, 82, 84))
+
+  hypo <- detect_hypoglycemic_events(
+    df,
+    start_gl = 70,
+    dur_length = 15,
+    end_length = 15
+  )
+  hyper <- detect_hyperglycemic_events(
+    transform(df, gl = c(190, 195, 200, 170, 165, 160)),
+    start_gl = 180,
+    dur_length = 15,
+    end_length = 15,
+    end_gl = 180
+  )
+
+  expect_true("interpolated_data" %in% names(hypo))
+  expect_true("interpolated_data" %in% names(hyper))
+
+  hypo_no_grid <- detect_hypoglycemic_events(
+    df,
+    start_gl = 70,
+    dur_length = 15,
+    end_length = 15,
+    return_interpolated = FALSE
+  )
+  hyper_no_grid <- detect_hyperglycemic_events(
+    transform(df, gl = c(190, 195, 200, 170, 165, 160)),
+    start_gl = 180,
+    dur_length = 15,
+    end_length = 15,
+    end_gl = 180,
+    return_interpolated = FALSE
+  )
+
+  expect_false("interpolated_data" %in% names(hypo_no_grid))
+  expect_false("interpolated_data" %in% names(hyper_no_grid))
+})
+
 test_that("sort_time is optional and uses C++ sorting when enabled", {
   df <- make_cgm_at(c(0, 5, 10, 15, 20, 25), c(60, 62, 65, 80, 82, 84))
   shuffled <- df[c(1, 3, 2, 4, 5, 6), ]
@@ -151,16 +191,19 @@ test_that("events_detailed indices point into returned interpolated_data", {
   expect_equal(hyper_rows$gl[nrow(hyper_rows)], hyper$events_detailed$end_glucose[1])
 })
 
-test_that("detect_all_events returns only event and summary tables", {
+test_that("detect_all_events can return interpolated data on request", {
   df <- make_cgm_at(c(0, 15, 30, 45), c(50, 80, 82, 84))
 
+  default_res <- detect_all_events(df)
   res <- detect_all_events(df, return_interpolated = TRUE)
 
   expect_true(is.list(res))
-  expect_named(res, c("events_long_df", "summary_df"))
-  expect_true(is.data.frame(res$events_long_df))
-  expect_true(is.data.frame(res$summary_df))
-  expect_false("interpolated_data" %in% names(res))
+  expect_false("interpolated_data" %in% names(default_res))
+  expect_named(res, c("subject_summary", "glycemic_event_summary", "interpolated_data"))
+  expect_true(is.data.frame(res$glycemic_event_summary))
+  expect_true(is.data.frame(res$subject_summary))
+  expect_named(res$interpolated_data, c("id", "time", "gl"))
+  expect_false(any(is.na(res$interpolated_data$gl)))
 })
 
 test_that("standalone lv1_excl excludes lv1 episodes overlapping lv2", {

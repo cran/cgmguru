@@ -421,7 +421,7 @@ unless you explicitly pass interpolated data to the function.</p>
 <span id="cb1-71"><a href="#cb1-71" tabindex="-1"></a><span class="co">#&gt; mxm_gr&gt; large_maxima &lt;- maxima_grid(example_data_hall, threshold = 130, gap = 60, hours = 2)</span></span>
 <span id="cb1-72"><a href="#cb1-72" tabindex="-1"></a><span class="co">#&gt; </span></span>
 <span id="cb1-73"><a href="#cb1-73" tabindex="-1"></a><span class="co">#&gt; mxm_gr&gt; print(large_maxima$episode_counts)</span></span>
-<span id="cb1-74"><a href="#cb1-74" tabindex="-1"></a><span class="co">#&gt; # A tibble: 18 × 2</span></span>
+<span id="cb1-74"><a href="#cb1-74" tabindex="-1"></a><span class="co">#&gt; # A tibble: 19 × 2</span></span>
 <span id="cb1-75"><a href="#cb1-75" tabindex="-1"></a><span class="co">#&gt;    id           episode_counts</span></span>
 <span id="cb1-76"><a href="#cb1-76" tabindex="-1"></a><span class="co">#&gt;    &lt;chr&gt;                 &lt;int&gt;</span></span>
 <span id="cb1-77"><a href="#cb1-77" tabindex="-1"></a><span class="co">#&gt;  1 1636-69-001               8</span></span>
@@ -429,36 +429,37 @@ unless you explicitly pass interpolated data to the function.</p>
 <span id="cb1-79"><a href="#cb1-79" tabindex="-1"></a><span class="co">#&gt;  3 1636-69-032               2</span></span>
 <span id="cb1-80"><a href="#cb1-80" tabindex="-1"></a><span class="co">#&gt;  4 1636-69-090               3</span></span>
 <span id="cb1-81"><a href="#cb1-81" tabindex="-1"></a><span class="co">#&gt;  5 1636-69-091               1</span></span>
-<span id="cb1-82"><a href="#cb1-82" tabindex="-1"></a><span class="co">#&gt;  6 1636-70-1005              8</span></span>
-<span id="cb1-83"><a href="#cb1-83" tabindex="-1"></a><span class="co">#&gt;  7 1636-70-1010              2</span></span>
-<span id="cb1-84"><a href="#cb1-84" tabindex="-1"></a><span class="co">#&gt;  8 2133-004                  5</span></span>
-<span id="cb1-85"><a href="#cb1-85" tabindex="-1"></a><span class="co">#&gt;  9 2133-015                  4</span></span>
-<span id="cb1-86"><a href="#cb1-86" tabindex="-1"></a><span class="co">#&gt; 10 2133-017                  2</span></span>
-<span id="cb1-87"><a href="#cb1-87" tabindex="-1"></a><span class="co">#&gt; 11 2133-018                 12</span></span>
-<span id="cb1-88"><a href="#cb1-88" tabindex="-1"></a><span class="co">#&gt; 12 2133-019                  2</span></span>
-<span id="cb1-89"><a href="#cb1-89" tabindex="-1"></a><span class="co">#&gt; 13 2133-021                 10</span></span>
-<span id="cb1-90"><a href="#cb1-90" tabindex="-1"></a><span class="co">#&gt; 14 2133-024                  1</span></span>
-<span id="cb1-91"><a href="#cb1-91" tabindex="-1"></a><span class="co">#&gt; 15 2133-027                  1</span></span>
-<span id="cb1-92"><a href="#cb1-92" tabindex="-1"></a><span class="co">#&gt; 16 2133-035                  1</span></span>
-<span id="cb1-93"><a href="#cb1-93" tabindex="-1"></a><span class="co">#&gt; 17 2133-036                  2</span></span>
-<span id="cb1-94"><a href="#cb1-94" tabindex="-1"></a><span class="co">#&gt; 18 2133-039                  5</span></span>
-<span id="cb1-95"><a href="#cb1-95" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb1-96"><a href="#cb1-96" tabindex="-1"></a><span class="co">#&gt; mxm_gr&gt; print(large_maxima$results)</span></span>
-<span id="cb1-97"><a href="#cb1-97" tabindex="-1"></a><span class="co">#&gt; # A tibble: 76 × 8</span></span>
-<span id="cb1-98"><a href="#cb1-98" tabindex="-1"></a><span class="co">#&gt;    id          grid_time     grid_gl maxima_time maxima_glucose time_to_peak_min</span></span>
-<span id="cb1-99"><a href="#cb1-99" tabindex="-1"></a><span class="co">#&gt;    &lt;chr&gt;       &lt;dttm&gt;          &lt;dbl&gt; &lt;dttm&gt;               &lt;dbl&gt;            &lt;dbl&gt;</span></span>
-<span id="cb1-100"><a href="#cb1-100" tabindex="-1"></a><span class="co">#&gt;  1 1636-69-001 2014-02-04 0…     138 2014-02-04…            194               30</span></span>
-<span id="cb1-101"><a href="#cb1-101" tabindex="-1"></a><span class="co">#&gt;  2 1636-69-001 2014-02-04 1…     138 2014-02-04…            225               60</span></span>
-<span id="cb1-102"><a href="#cb1-102" tabindex="-1"></a><span class="co">#&gt;  3 1636-69-001 2014-02-05 0…     137 2014-02-05…            196               45</span></span>
-<span id="cb1-103"><a href="#cb1-103" tabindex="-1"></a><span class="co">#&gt;  4 1636-69-001 2015-03-29 1…     137 2015-03-29…            250               65</span></span>
-<span id="cb1-104"><a href="#cb1-104" tabindex="-1"></a><span class="co">#&gt;  5 1636-69-001 2015-03-30 1…     132 2015-03-30…            181               45</span></span>
-<span id="cb1-105"><a href="#cb1-105" tabindex="-1"></a><span class="co">#&gt;  6 1636-69-001 2015-03-31 0…     143 2015-03-31…            177               20</span></span>
-<span id="cb1-106"><a href="#cb1-106" tabindex="-1"></a><span class="co">#&gt;  7 1636-69-001 2015-03-31 1…     136 2015-03-31…            169               30</span></span>
-<span id="cb1-107"><a href="#cb1-107" tabindex="-1"></a><span class="co">#&gt;  8 1636-69-001 2015-04-01 1…     132 2015-04-01…            165               50</span></span>
-<span id="cb1-108"><a href="#cb1-108" tabindex="-1"></a><span class="co">#&gt;  9 1636-69-026 2015-11-24 1…     142 2015-11-24…            182               40</span></span>
-<span id="cb1-109"><a href="#cb1-109" tabindex="-1"></a><span class="co">#&gt; 10 1636-69-026 2015-11-24 2…     139 2015-11-25…            171               35</span></span>
-<span id="cb1-110"><a href="#cb1-110" tabindex="-1"></a><span class="co">#&gt; # ℹ 66 more rows</span></span>
-<span id="cb1-111"><a href="#cb1-111" tabindex="-1"></a><span class="co">#&gt; # ℹ 2 more variables: grid_index &lt;int&gt;, maxima_index &lt;int&gt;</span></span></code></pre></div>
+<span id="cb1-82"><a href="#cb1-82" tabindex="-1"></a><span class="co">#&gt;  6 1636-69-114               0</span></span>
+<span id="cb1-83"><a href="#cb1-83" tabindex="-1"></a><span class="co">#&gt;  7 1636-70-1005              8</span></span>
+<span id="cb1-84"><a href="#cb1-84" tabindex="-1"></a><span class="co">#&gt;  8 1636-70-1010              2</span></span>
+<span id="cb1-85"><a href="#cb1-85" tabindex="-1"></a><span class="co">#&gt;  9 2133-004                  5</span></span>
+<span id="cb1-86"><a href="#cb1-86" tabindex="-1"></a><span class="co">#&gt; 10 2133-015                  4</span></span>
+<span id="cb1-87"><a href="#cb1-87" tabindex="-1"></a><span class="co">#&gt; 11 2133-017                  2</span></span>
+<span id="cb1-88"><a href="#cb1-88" tabindex="-1"></a><span class="co">#&gt; 12 2133-018                 12</span></span>
+<span id="cb1-89"><a href="#cb1-89" tabindex="-1"></a><span class="co">#&gt; 13 2133-019                  2</span></span>
+<span id="cb1-90"><a href="#cb1-90" tabindex="-1"></a><span class="co">#&gt; 14 2133-021                 10</span></span>
+<span id="cb1-91"><a href="#cb1-91" tabindex="-1"></a><span class="co">#&gt; 15 2133-024                  1</span></span>
+<span id="cb1-92"><a href="#cb1-92" tabindex="-1"></a><span class="co">#&gt; 16 2133-027                  1</span></span>
+<span id="cb1-93"><a href="#cb1-93" tabindex="-1"></a><span class="co">#&gt; 17 2133-035                  1</span></span>
+<span id="cb1-94"><a href="#cb1-94" tabindex="-1"></a><span class="co">#&gt; 18 2133-036                  2</span></span>
+<span id="cb1-95"><a href="#cb1-95" tabindex="-1"></a><span class="co">#&gt; 19 2133-039                  5</span></span>
+<span id="cb1-96"><a href="#cb1-96" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb1-97"><a href="#cb1-97" tabindex="-1"></a><span class="co">#&gt; mxm_gr&gt; print(large_maxima$results)</span></span>
+<span id="cb1-98"><a href="#cb1-98" tabindex="-1"></a><span class="co">#&gt; # A tibble: 76 × 8</span></span>
+<span id="cb1-99"><a href="#cb1-99" tabindex="-1"></a><span class="co">#&gt;    id          grid_time     grid_gl maxima_time maxima_glucose time_to_peak_min</span></span>
+<span id="cb1-100"><a href="#cb1-100" tabindex="-1"></a><span class="co">#&gt;    &lt;chr&gt;       &lt;dttm&gt;          &lt;dbl&gt; &lt;dttm&gt;               &lt;dbl&gt;            &lt;dbl&gt;</span></span>
+<span id="cb1-101"><a href="#cb1-101" tabindex="-1"></a><span class="co">#&gt;  1 1636-69-001 2014-02-04 0…     138 2014-02-04…            194               30</span></span>
+<span id="cb1-102"><a href="#cb1-102" tabindex="-1"></a><span class="co">#&gt;  2 1636-69-001 2014-02-04 1…     138 2014-02-04…            225               60</span></span>
+<span id="cb1-103"><a href="#cb1-103" tabindex="-1"></a><span class="co">#&gt;  3 1636-69-001 2014-02-05 0…     137 2014-02-05…            196               45</span></span>
+<span id="cb1-104"><a href="#cb1-104" tabindex="-1"></a><span class="co">#&gt;  4 1636-69-001 2015-03-29 1…     137 2015-03-29…            250               65</span></span>
+<span id="cb1-105"><a href="#cb1-105" tabindex="-1"></a><span class="co">#&gt;  5 1636-69-001 2015-03-30 1…     132 2015-03-30…            181               45</span></span>
+<span id="cb1-106"><a href="#cb1-106" tabindex="-1"></a><span class="co">#&gt;  6 1636-69-001 2015-03-31 0…     143 2015-03-31…            177               20</span></span>
+<span id="cb1-107"><a href="#cb1-107" tabindex="-1"></a><span class="co">#&gt;  7 1636-69-001 2015-03-31 1…     136 2015-03-31…            169               30</span></span>
+<span id="cb1-108"><a href="#cb1-108" tabindex="-1"></a><span class="co">#&gt;  8 1636-69-001 2015-04-01 1…     132 2015-04-01…            165               50</span></span>
+<span id="cb1-109"><a href="#cb1-109" tabindex="-1"></a><span class="co">#&gt;  9 1636-69-026 2015-11-24 1…     142 2015-11-24…            182               40</span></span>
+<span id="cb1-110"><a href="#cb1-110" tabindex="-1"></a><span class="co">#&gt; 10 1636-69-026 2015-11-24 2…     139 2015-11-25…            171               35</span></span>
+<span id="cb1-111"><a href="#cb1-111" tabindex="-1"></a><span class="co">#&gt; # ℹ 66 more rows</span></span>
+<span id="cb1-112"><a href="#cb1-112" tabindex="-1"></a><span class="co">#&gt; # ℹ 2 more variables: grid_index &lt;int&gt;, maxima_index &lt;int&gt;</span></span></code></pre></div>
 </div>
 
 

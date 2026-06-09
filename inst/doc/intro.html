@@ -613,23 +613,23 @@ guidelines.</p>
 <span id="cb6-3"><a href="#cb6-3" tabindex="-1"></a></span>
 <span id="cb6-4"><a href="#cb6-4" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;Comprehensive Event Detection Results:</span><span class="sc">\n</span><span class="st">&quot;</span>)</span>
 <span id="cb6-5"><a href="#cb6-5" tabindex="-1"></a><span class="co">#&gt; Comprehensive Event Detection Results:</span></span>
-<span id="cb6-6"><a href="#cb6-6" tabindex="-1"></a><span class="fu">print</span>(all_events<span class="sc">$</span>summary_df)</span>
+<span id="cb6-6"><a href="#cb6-6" tabindex="-1"></a><span class="fu">print</span>(all_events<span class="sc">$</span>subject_summary)</span>
 <span id="cb6-7"><a href="#cb6-7" tabindex="-1"></a><span class="co">#&gt; # A tibble: 5 × 22</span></span>
-<span id="cb6-8"><a href="#cb6-8" tabindex="-1"></a><span class="co">#&gt;   id         TIR  TITR TBR70  TBR54 TAR180 TAR250    CV    SD mean_glucose   GMI</span></span>
-<span id="cb6-9"><a href="#cb6-9" tabindex="-1"></a><span class="co">#&gt;   &lt;chr&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;        &lt;dbl&gt; &lt;dbl&gt;</span></span>
-<span id="cb6-10"><a href="#cb6-10" tabindex="-1"></a><span class="co">#&gt; 1 Subject…  91.8 74.0  0.156 0        8.08  0.375 0.267  33.0         123.  6.26</span></span>
-<span id="cb6-11"><a href="#cb6-11" tabindex="-1"></a><span class="co">#&gt; 2 Subject…  25.8  3.28 0     0       74.2  26.5   0.241  52.7         219.  8.54</span></span>
-<span id="cb6-12"><a href="#cb6-12" tabindex="-1"></a><span class="co">#&gt; 3 Subject…  81.3 49.8  0.316 0       18.4   5.44  0.290  44.5         154.  6.98</span></span>
-<span id="cb6-13"><a href="#cb6-13" tabindex="-1"></a><span class="co">#&gt; 4 Subject…  94.9 67.4  0.326 0.0271   4.75  0     0.224  29.0         130.  6.41</span></span>
-<span id="cb6-14"><a href="#cb6-14" tabindex="-1"></a><span class="co">#&gt; 5 Subject…  62.0 29.6  0.102 0       37.9  11.5   0.335  58.4         175.  7.49</span></span>
-<span id="cb6-15"><a href="#cb6-15" tabindex="-1"></a><span class="co">#&gt; # ℹ 11 more variables: uGMI &lt;dbl&gt;, GRI &lt;dbl&gt;, sensor_wear &lt;dbl&gt;,</span></span>
-<span id="cb6-16"><a href="#cb6-16" tabindex="-1"></a><span class="co">#&gt; #   hypo_lv1_event_count &lt;int&gt;, hypo_lv2_event_count &lt;int&gt;,</span></span>
-<span id="cb6-17"><a href="#cb6-17" tabindex="-1"></a><span class="co">#&gt; #   hypo_extended_event_count &lt;int&gt;, hypo_lv1_excl_event_count &lt;int&gt;,</span></span>
-<span id="cb6-18"><a href="#cb6-18" tabindex="-1"></a><span class="co">#&gt; #   hyper_lv1_event_count &lt;int&gt;, hyper_lv2_event_count &lt;int&gt;,</span></span>
-<span id="cb6-19"><a href="#cb6-19" tabindex="-1"></a><span class="co">#&gt; #   hyper_extended_event_count &lt;int&gt;, hyper_lv1_excl_event_count &lt;int&gt;</span></span>
-<span id="cb6-20"><a href="#cb6-20" tabindex="-1"></a><span class="fu">print</span>(all_events<span class="sc">$</span>events_long_df)</span>
+<span id="cb6-8"><a href="#cb6-8" tabindex="-1"></a><span class="co">#&gt;   id          TIR  TITR TBR70 TBR54 TAR180 TAR250    CV    SD mean_glucose   GMI</span></span>
+<span id="cb6-9"><a href="#cb6-9" tabindex="-1"></a><span class="co">#&gt;   &lt;chr&gt;     &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;        &lt;dbl&gt; &lt;dbl&gt;</span></span>
+<span id="cb6-10"><a href="#cb6-10" tabindex="-1"></a><span class="co">#&gt; 1 Subject 1  91.7 73.7   0.14  0      8.2    0.38  26.9  33.3         124.  6.27</span></span>
+<span id="cb6-11"><a href="#cb6-11" tabindex="-1"></a><span class="co">#&gt; 2 Subject 2  26.4  3.36  0     0     73.6   26.1   24.0  52.4         218.  8.54</span></span>
+<span id="cb6-12"><a href="#cb6-12" tabindex="-1"></a><span class="co">#&gt; 3 Subject 3  81.3 49.8   0.33  0     18.3    5.68  29.1  44.8         154.  6.99</span></span>
+<span id="cb6-13"><a href="#cb6-13" tabindex="-1"></a><span class="co">#&gt; 4 Subject 4  95.1 67.7   0.27  0.05   4.61   0     22.4  29.1         130.  6.41</span></span>
+<span id="cb6-14"><a href="#cb6-14" tabindex="-1"></a><span class="co">#&gt; 5 Subject 5  62.1 30.1   0.1   0     37.8   11.3   33.6  58.6         175.  7.49</span></span>
+<span id="cb6-15"><a href="#cb6-15" tabindex="-1"></a><span class="co">#&gt; # ℹ 11 more variables: uGMI &lt;dbl&gt;, GRI &lt;dbl&gt;, sensor_wear_percent &lt;dbl&gt;,</span></span>
+<span id="cb6-16"><a href="#cb6-16" tabindex="-1"></a><span class="co">#&gt; #   hypo_lv1_total_episodes &lt;int&gt;, hypo_lv2_total_episodes &lt;int&gt;,</span></span>
+<span id="cb6-17"><a href="#cb6-17" tabindex="-1"></a><span class="co">#&gt; #   hypo_extended_total_episodes &lt;int&gt;, hypo_lv1_excl_total_episodes &lt;int&gt;,</span></span>
+<span id="cb6-18"><a href="#cb6-18" tabindex="-1"></a><span class="co">#&gt; #   hyper_lv1_total_episodes &lt;int&gt;, hyper_lv2_total_episodes &lt;int&gt;,</span></span>
+<span id="cb6-19"><a href="#cb6-19" tabindex="-1"></a><span class="co">#&gt; #   hyper_extended_total_episodes &lt;int&gt;, hyper_lv1_excl_total_episodes &lt;int&gt;</span></span>
+<span id="cb6-20"><a href="#cb6-20" tabindex="-1"></a><span class="fu">print</span>(all_events<span class="sc">$</span>glycemic_event_summary)</span>
 <span id="cb6-21"><a href="#cb6-21" tabindex="-1"></a><span class="co">#&gt; # A tibble: 40 × 6</span></span>
-<span id="cb6-22"><a href="#cb6-22" tabindex="-1"></a><span class="co">#&gt;    id        type  level    total_episodes avg_ep_per_day avg_episode_duration…¹</span></span>
+<span id="cb6-22"><a href="#cb6-22" tabindex="-1"></a><span class="co">#&gt;    id        type  level    total_episodes avg_ep_per_day avg_minutes_below_54…¹</span></span>
 <span id="cb6-23"><a href="#cb6-23" tabindex="-1"></a><span class="co">#&gt;    &lt;chr&gt;     &lt;chr&gt; &lt;chr&gt;             &lt;int&gt;          &lt;dbl&gt;                  &lt;dbl&gt;</span></span>
 <span id="cb6-24"><a href="#cb6-24" tabindex="-1"></a><span class="co">#&gt;  1 Subject 1 hypo  lv1                   1           0.09                      0</span></span>
 <span id="cb6-25"><a href="#cb6-25" tabindex="-1"></a><span class="co">#&gt;  2 Subject 1 hypo  lv2                   0           0                         0</span></span>
@@ -642,7 +642,7 @@ guidelines.</p>
 <span id="cb6-32"><a href="#cb6-32" tabindex="-1"></a><span class="co">#&gt;  9 Subject 2 hypo  lv1                   0           0                         0</span></span>
 <span id="cb6-33"><a href="#cb6-33" tabindex="-1"></a><span class="co">#&gt; 10 Subject 2 hypo  lv2                   0           0                         0</span></span>
 <span id="cb6-34"><a href="#cb6-34" tabindex="-1"></a><span class="co">#&gt; # ℹ 30 more rows</span></span>
-<span id="cb6-35"><a href="#cb6-35" tabindex="-1"></a><span class="co">#&gt; # ℹ abbreviated name: ¹​avg_episode_duration_below_54</span></span></code></pre></div>
+<span id="cb6-35"><a href="#cb6-35" tabindex="-1"></a><span class="co">#&gt; # ℹ abbreviated name: ¹​avg_minutes_below_54_per_episode</span></span></code></pre></div>
 </div>
 <div id="local-maxima-detection" class="section level2">
 <h2>5. Local Maxima Detection</h2>

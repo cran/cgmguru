@@ -100,8 +100,8 @@ print(hypo_lv2$events_total)
 all_events <- detect_all_events(example_data_5_subject)
 
 cat("Comprehensive Event Detection Results:\n")
-print(all_events$summary_df)
-print(all_events$events_long_df)
+print(all_events$subject_summary)
+print(all_events$glycemic_event_summary)
 
 ## ----local-maxima-------------------------------------------------------------
 # Find local maxima

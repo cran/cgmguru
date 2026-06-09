@@ -254,10 +254,10 @@ NULL
 #' @return A list containing:
 #' \itemize{
 #'   \item \code{events_total}: Tibble with summary statistics per subject (id, total_episodes, avg_ep_per_day)
-#'   \item \code{events_detailed}: Tibble with detailed event information (id, start_time, start_glucose, end_time, end_glucose, start_index, end_index). End fields report the last dysglycemic reading before confirmed recovery starts. \code{start_index} and \code{end_index} are 1-based row positions in the returned \code{interpolated_data}.
-#'   \item \code{interpolated_data}: Included by default with columns
-#'     \code{id}, \code{time}, and \code{gl}; set
-#'     \code{return_interpolated = FALSE} to omit it.
+#'   \item \code{events_detailed}: Tibble with detailed event information (id, start_time, start_glucose, end_time, end_glucose, start_index, end_index). End fields report the last dysglycemic reading before confirmed recovery starts. \code{start_index} and \code{end_index} are 1-based row positions in the internal interpolated event grid, returned as \code{interpolated_data} when \code{return_interpolated = TRUE}.
+#'   \item \code{interpolated_data}: Included when
+#'     \code{return_interpolated = TRUE}, with columns \code{id}, \code{time},
+#'     and \code{gl}.
 #' }
 #'
 #' @export
@@ -428,10 +428,10 @@ NULL
 #' @return A list containing:
 #' \itemize{
 #'   \item \code{events_total}: Tibble with summary statistics per subject (id, total_episodes, avg_ep_per_day)
-#'   \item \code{events_detailed}: Tibble with detailed event information (id, start_time, start_glucose, end_time, end_glucose, start_index, end_index, duration_below_54_minutes). End fields report the last dysglycemic reading before confirmed recovery starts. \code{start_index} and \code{end_index} are 1-based row positions in the returned \code{interpolated_data}.
-#'   \item \code{interpolated_data}: Included by default with columns
-#'     \code{id}, \code{time}, and \code{gl}; set
-#'     \code{return_interpolated = FALSE} to omit it.
+#'   \item \code{events_detailed}: Tibble with detailed event information (id, start_time, start_glucose, end_time, end_glucose, start_index, end_index, duration_below_54_minutes). End fields report the last dysglycemic reading before confirmed recovery starts. \code{start_index} and \code{end_index} are 1-based row positions in the internal interpolated event grid, returned as \code{interpolated_data} when \code{return_interpolated = TRUE}.
+#'   \item \code{interpolated_data}: Included when
+#'     \code{return_interpolated = TRUE}, with columns \code{id}, \code{time},
+#'     and \code{gl}.
 #' }
 #'
 #' @export
@@ -509,6 +509,10 @@ NULL
 #' classification, preserving gap-based segment boundaries. This preprocessing
 #' is specific to event calculation and does not affect \code{\link{grid}},
 #' \code{\link{maxima_grid}}, or \code{\link{excursion}}.
+#' CGM summary metrics in \code{subject_summary} are calculated from the original
+#' raw glucose values by default. Set
+#' \code{summary_metrics_source = "preprocessed"} to calculate them from the
+#' internal event-preprocessed grid.
 #'
 #' @references
 #' Battelino, T., et al. (2023). Continuous glucose monitoring and metrics for clinical trials: an international consensus statement. The Lancet Diabetes & Endocrinology, 11(1), 42-57.
@@ -529,50 +533,103 @@ NULL
 #'   \code{time} in C++ before interpolation. Defaults to \code{FALSE}.
 #' @param inter_gap Maximum gap in minutes to interpolate across. Defaults to
 #'   45; larger gaps split event-detection segments.
-#' @param return_interpolated Logical. Retained for backward compatibility and
-#'   ignored; \code{detect_all_events()} does not return interpolated data.
+#' @param return_interpolated Logical. If \code{TRUE}, include the internal
+#'   event-preprocessed grid as \code{interpolated_data}. Defaults to
+#'   \code{FALSE}.
+#' @param summary_metrics_source Character. Source glucose values for CGM
+#'   summary metrics. Defaults to \code{"raw"} for original observed data; use
+#'   \code{"preprocessed"} for the internal event-preprocessed grid after
+#'   interpolation and gap masking. \code{sensor_wear_percent} is always
+#'   calculated from the original timestamps and glucose readings.
+#' @param sensor_wear_ndays Number of days for fixed-window
+#'   \code{sensor_wear_percent} calculation. Defaults to \code{NULL}, which
+#'   uses the original timestamp span. Set to a positive number such as
+#'   \code{90} to calculate observed readings over the last 90 days for each
+#'   subject divided by the expected number of readings in 90 days.
 #' @usage detect_all_events(df, reading_minutes = NULL, sort_time = FALSE,
-#'  inter_gap = 45, return_interpolated = FALSE)
+#'  inter_gap = 45, return_interpolated = FALSE,
+#'  summary_metrics_source = c("raw", "preprocessed"),
+#'  sensor_wear_ndays = NULL)
 #' @section Event types:
 #' - Hypoglycemia: lv1 (\eqn{<} 70 mg/dL, \eqn{\geq} 15 min), lv2 (\eqn{<} 54 mg/dL, \eqn{\geq} 15 min), extended (\eqn{<} 70 mg/dL, \eqn{\geq} 120 min).
 #' - Hyperglycemia: lv1 (\eqn{>} 180 mg/dL, \eqn{\geq} 15 min), lv2 (\eqn{>} 250 mg/dL, \eqn{\geq} 15 min), extended (\eqn{>} 250 mg/dL, \eqn{\geq} 90 min in 120 min, end \eqn{\leq} 180 mg/dL for \eqn{\geq} 15 min).
 #' @seealso \link{detect_hyperglycemic_events}, \link{detect_hypoglycemic_events}
 #'
-#' @return A list with two tibbles:
+#' @return A list containing:
 #' \itemize{
-#'   \item \code{events_long_df}: One row per subject, event type, and event
-#'     level. Contains the full event summary: \code{id}, \code{type},
-#'     \code{level}, \code{total_episodes}, \code{avg_ep_per_day}, and
-#'     \code{avg_episode_duration_below_54}.
-#'   \item \code{summary_df}: One row per subject. CGM summary metric columns
-#'     are calculated on the interpolated glucose grid, and event summaries are
-#'     included as wide \code{*_event_count} columns only.
+#'   \item \code{subject_summary}: One row per subject. CGM summary metric columns
+#'     are calculated on the original raw glucose values by default; set
+#'     \code{summary_metrics_source = "preprocessed"} to use the
+#'     event-preprocessed glucose grid. Event summaries are included as wide
+#'     \code{*_total_episodes} columns only.
+#'   \item \code{glycemic_event_summary}: One row per subject, event
+#'     type, and event level. Contains the full event summary: \code{id},
+#'     \code{type}, \code{level}, \code{total_episodes},
+#'     \code{avg_ep_per_day}, and
+#'     \code{avg_minutes_below_54_per_episode}.
+#'   \item \code{interpolated_data}: Included when
+#'     \code{return_interpolated = TRUE}, with columns \code{id}, \code{time},
+#'     and \code{gl}.
 #' }
-#' \code{summary_df} includes:
+#' \code{subject_summary} includes:
 #' \itemize{
 #'   \item \code{id}: Subject identifier
-#'   \item \code{TIR}: Time in range 70-180 mg/dL, percent
-#'   \item \code{TITR}: Time in tight range 70-140 mg/dL, percent
-#'   \item \code{TBR70}, \code{TBR54}: Time below 70 and 54 mg/dL, percent
-#'   \item \code{TAR180}, \code{TAR250}: Time above 180 and 250 mg/dL, percent
-#'   \item \code{CV}: Glucose standard deviation divided by mean glucose
-#'   \item \code{SD}: Glucose standard deviation
-#'   \item \code{mean_glucose}: Mean glucose in mg/dL
-#'   \item \code{GMI}: \eqn{3.31 + 0.02392 * mean_glucose}
-#'   \item \code{uGMI}: \eqn{1 / (15.36 / mean_glucose + 0.0425)}
+#'   \item \code{TIR}: Percent of glucose readings in range 70-180 mg/dL
+#'   \item \code{TITR}: Percent of glucose readings in tight range 70-140 mg/dL
+#'   \item \code{TBR70}: Percent of glucose readings below 70 mg/dL
+#'   \item \code{TBR54}: Percent of glucose readings below 54 mg/dL
+#'   \item \code{TAR180}: Percent of glucose readings above 180 mg/dL
+#'   \item \code{TAR250}: Percent of glucose readings above 250 mg/dL
+#'   \item \code{CV}: Coefficient of variation in percent,
+#'     \eqn{100 * SD / mean_glucose}
+#'   \item \code{SD}: Sample standard deviation of glucose, mg/dL
+#'   \item \code{mean_glucose}: Mean glucose, mg/dL
+#'   \item \code{GMI}: Glucose Management Indicator,
+#'     \eqn{3.31 + 0.02392 * mean_glucose}
+#'   \item \code{uGMI}: Unitless GMI-style metric,
+#'     \eqn{1 / (15.36 / mean_glucose + 0.0425)}
 #'   \item \code{GRI}: Glycemia Risk Index,
 #'     \eqn{3.0 * VLow + 2.4 * Low + 1.6 * VHigh + 0.8 * High}, where
 #'     \code{VLow} is percent time \eqn{<}54 mg/dL, \code{Low} is 54-\eqn{<}70
 #'     mg/dL, \code{VHigh} is \eqn{>}250 mg/dL, and \code{High} is
 #'     \eqn{>}180-\eqn{\leq}250 mg/dL
-#'   \item \code{sensor_wear}: Percent of expected CGM readings observed,
+#'   \item \code{sensor_wear_percent}: Percent of expected CGM readings observed,
 #'     calculated from the original timestamps using the same automatic range
-#'     method as \code{iglu::active_percent()}
+#'     method as \code{iglu::active_percent()} by default. If
+#'     \code{sensor_wear_ndays} is supplied, this is calculated over the last
+#'     N days for each subject.
+#'   \item \code{hypo_lv1_total_episodes}: Number of Level 1 hypoglycemia
+#'     episodes
+#'   \item \code{hypo_lv2_total_episodes}: Number of Level 2 hypoglycemia
+#'     episodes
+#'   \item \code{hypo_extended_total_episodes}: Number of extended
+#'     hypoglycemia episodes
+#'   \item \code{hypo_lv1_excl_total_episodes}: Number of Level 1
+#'     hypoglycemia episodes that do not overlap a Level 2 episode
+#'   \item \code{hyper_lv1_total_episodes}: Number of Level 1 hyperglycemia
+#'     episodes
+#'   \item \code{hyper_lv2_total_episodes}: Number of Level 2 hyperglycemia
+#'     episodes
+#'   \item \code{hyper_extended_total_episodes}: Number of extended
+#'     hyperglycemia episodes
+#'   \item \code{hyper_lv1_excl_total_episodes}: Number of Level 1
+#'     hyperglycemia episodes that do not overlap a Level 2 episode
 #' }
-#' Event counts are returned in wide columns for each hypo/hyper level
-#' combination, for example \code{hypo_lv1_event_count}. The same pattern is
-#' repeated for \code{lv1}, \code{lv2}, \code{extended}, and \code{lv1_excl}
-#' within both \code{hypo} and \code{hyper}.
+#' \code{glycemic_event_summary} includes:
+#' \itemize{
+#'   \item \code{id}: Subject identifier
+#'   \item \code{type}: Event direction, either \code{"hypo"} or
+#'     \code{"hyper"}
+#'   \item \code{level}: Event level, one of \code{"lv1"}, \code{"lv2"},
+#'     \code{"extended"}, or \code{"lv1_excl"}
+#'   \item \code{total_episodes}: Number of episodes for the subject, event
+#'     direction, and event level
+#'   \item \code{avg_ep_per_day}: Average episodes per day for the subject,
+#'     event direction, and event level, rounded to two decimals
+#'   \item \code{avg_minutes_below_54_per_episode}: For hypoglycemia rows,
+#'     average minutes below 54 mg/dL per episode, rounded to two decimals; for
+#'     hyperglycemia rows, 0
+#' }
 #'
 #' @export
 #' @examples
@@ -584,12 +641,12 @@ NULL
 #' # Detect all glycemic events; reading_minutes is calculated automatically
 #' # from the timestamp spacing when omitted
 #' all_outputs <- detect_all_events(example_data_5_subject)
-#' print(all_outputs$summary_df)
-#' print(all_outputs$events_long_df)
+#' print(all_outputs$subject_summary)
+#' print(all_outputs$glycemic_event_summary)
 #'
 #' # Detect all events on larger dataset
 #' large_outputs <- detect_all_events(example_data_hall)
-#' print(paste("Total subjects analyzed:", nrow(large_outputs$summary_df)))
+#' print(paste("Total subjects analyzed:", nrow(large_outputs$subject_summary)))
 NULL
 
 #' @title Find Local Maxima in Glucose Time Series
@@ -1309,18 +1366,18 @@ NULL
 #' @title Calculate Sensor Wear
 #' @name sensor_wear
 #' @description
-#' Calculates the percent of expected CGM readings observed during a fixed
-#' retrospective window. This C++ implementation follows the manual-range logic
-#' used by \code{iglu::active_percent(range_type = "manual")}: valid readings
+#' Calculates the percent of expected CGM readings observed. By default, the
+#' calculation uses each subject's original timestamp span from first valid
+#' reading to last valid reading. If \code{ndays} is supplied, valid readings
 #' in \code{[end_date - ndays, end_date]} are divided by the expected number of
-#' readings over \code{ndays} days.
+#' readings over that fixed retrospective window.
 #'
-#' If \code{end_date = NULL}, each subject's last valid timestamp defines that
-#' subject's retrospective window. If \code{end_date} is supplied, the same
-#' endpoint is used for all subjects, which is useful for a common study cutoff
-#' or report date. Duplicate timestamps within a subject are de-duplicated after
-#' sorting, and rows with missing \code{time} or \code{gl} do not count as
-#' observed readings.
+#' For fixed-window calculations, if \code{end_date = NULL}, each subject's last
+#' valid timestamp defines that subject's retrospective window. If \code{end_date}
+#' is supplied, the same endpoint is used for all subjects, which is useful for a
+#' common study cutoff or report date. Duplicate timestamps within a subject are
+#' de-duplicated after sorting, and rows with missing \code{time} or \code{gl}
+#' do not count as observed readings.
 #'
 #' @param df A dataframe containing CGM data with columns:
 #'   \itemize{
@@ -1328,23 +1385,27 @@ NULL
 #'     \item \code{time}: POSIXct measurement timestamp
 #'     \item \code{gl}: Glucose value in mg/dL
 #'   }
-#' @param end_date End timestamp for the calculation window. If \code{NULL},
-#'   each subject's last valid timestamp is used. \code{Date} values are
-#'   converted with \code{as.POSIXct()}, matching iglu's manual active-percent
-#'   behavior.
-#' @param ndays Number of days in the retrospective window. Defaults to 14.
+#' @param end_date End timestamp for a fixed-window calculation. Requires
+#'   \code{ndays}. If \code{NULL}, each subject's last valid timestamp is used.
+#'   \code{Date} values are converted with
+#'   \code{as.POSIXct()}, matching iglu's manual active-percent behavior.
+#' @param ndays Number of days in the fixed retrospective window. Defaults to
+#'   \code{NULL}, which uses the original timestamp span.
 #' @param reading_minutes Reading interval in minutes. If \code{NULL}, it is
 #'   inferred per id from the median positive difference between valid readings.
-#' @usage sensor_wear(df, end_date = NULL, ndays = 14,
+#' @usage sensor_wear(df, end_date = NULL, ndays = NULL,
 #'  reading_minutes = NULL)
-#' @return A tibble with columns \code{id}, \code{sensor_wear}, \code{ndays},
-#'   \code{start_date}, and \code{end_date}.
+#' @return A tibble with columns \code{id}, \code{sensor_wear_percent},
+#'   \code{sensor_wear}, \code{ndays}, \code{start_date}, and
+#'   \code{end_date}. \code{sensor_wear} is retained as a backward-compatible
+#'   alias.
 #' @seealso \link{detect_all_events}, \code{\link[iglu:active_percent]{iglu::active_percent}}
 #' @export
 #' @examples
 #' library(iglu)
 #' data(example_data_5_subject)
-#' sensor_wear(example_data_5_subject, ndays = 14, reading_minutes = 5)
+#' sensor_wear(example_data_5_subject, reading_minutes = 5)
+#' sensor_wear(example_data_5_subject, ndays = 90, reading_minutes = 5)
 NULL
 
 #' @title Fast Ordering Function

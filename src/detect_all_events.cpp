@@ -1,5 +1,6 @@
 #include "id_based_calculator.h"
 #include "event_preprocessing.h"
+#include <cmath>
 #include <set>
 
 using namespace Rcpp;
@@ -50,6 +51,7 @@ private:
   };
 
   UnifiedEventData unified_data;
+  cgmguru_events::InterpolatedDataStore interpolated_data;
 
   struct CGMSummaryMetrics {
     double TIR = NA_REAL;
@@ -73,6 +75,11 @@ private:
 
   std::map<std::string, CGMSummaryMetrics> cgm_summary_by_id;
   std::map<std::string, std::map<std::string, EventSummaryValues>> event_summary_by_id;
+
+  inline double round_to_two_decimals(double value) const {
+    if (NumericVector::is_na(value) || !std::isfinite(value)) return value;
+    return std::round(value * 100.0) / 100.0;
+  }
 
   // Helper structure to store per-ID statistics for each event type
   struct IDEventStatistics {
@@ -178,7 +185,7 @@ private:
       if (variance >= 0.0) {
         metrics.SD = std::sqrt(variance);
         if (metrics.mean_glucose != 0.0) {
-          metrics.CV = metrics.SD / metrics.mean_glucose;
+          metrics.CV = 100.0 * metrics.SD / metrics.mean_glucose;
         }
       }
     }
@@ -186,10 +193,21 @@ private:
     return metrics;
   }
 
+  CGMSummaryMetrics calculate_cgm_summary_metrics(
+      const NumericVector& glucose,
+      const std::vector<int>& indices) const {
+    NumericVector glucose_subset(static_cast<int>(indices.size()));
+    for (size_t i = 0; i < indices.size(); ++i) {
+      glucose_subset[i] = glucose[indices[i]];
+    }
+    return calculate_cgm_summary_metrics(glucose_subset);
+  }
+
   double calculate_sensor_wear_percent(const NumericVector& time,
                                        const NumericVector& glucose,
                                        const std::vector<int>& indices,
-                                       double reading_minutes) const {
+                                       double reading_minutes,
+                                       double sensor_wear_ndays) const {
     std::vector<double> valid_times;
     valid_times.reserve(indices.size());
 
@@ -208,6 +226,30 @@ private:
     }
 
     if (valid_times.empty() || reading_minutes <= 0.0) return NA_REAL;
+
+    if (!NumericVector::is_na(sensor_wear_ndays)) {
+      if (!std::isfinite(sensor_wear_ndays) || sensor_wear_ndays <= 0.0) {
+        return NA_REAL;
+      }
+
+      const double end_time = valid_times.back();
+      const double start_time =
+        end_time - sensor_wear_ndays * 24.0 * 60.0 * 60.0;
+
+      int observed_count = 0;
+      for (double valid_time : valid_times) {
+        if (valid_time >= start_time && valid_time <= end_time) {
+          ++observed_count;
+        }
+      }
+
+      const double expected_count =
+        sensor_wear_ndays * 24.0 * (60.0 / reading_minutes);
+      if (expected_count <= 0.0) return NA_REAL;
+
+      return 100.0 * static_cast<double>(observed_count) / expected_count;
+    }
+
     if (valid_times.size() == 1) return 100.0;
 
     const double dt_seconds = reading_minutes * 60.0;
@@ -233,6 +275,39 @@ private:
         (dt_seconds / 60.0)) / reading_minutes);
     return 100.0 * (theoretical_gl_values - missing_gl_values) /
       theoretical_gl_values;
+  }
+
+  double parse_sensor_wear_ndays(SEXP sensor_wear_ndays_sexp) const {
+    if (sensor_wear_ndays_sexp == R_NilValue) {
+      return NA_REAL;
+    }
+
+    double sensor_wear_ndays = NA_REAL;
+    if (TYPEOF(sensor_wear_ndays_sexp) == INTSXP) {
+      IntegerVector sensor_wear_ndays_int =
+        as<IntegerVector>(sensor_wear_ndays_sexp);
+      if (sensor_wear_ndays_int.length() != 1 ||
+          sensor_wear_ndays_int[0] == NA_INTEGER) {
+        stop("sensor_wear_ndays must be a single positive number or NULL");
+      }
+      sensor_wear_ndays = static_cast<double>(sensor_wear_ndays_int[0]);
+    } else if (TYPEOF(sensor_wear_ndays_sexp) == REALSXP) {
+      NumericVector sensor_wear_ndays_num =
+        as<NumericVector>(sensor_wear_ndays_sexp);
+      if (sensor_wear_ndays_num.length() != 1 ||
+          NumericVector::is_na(sensor_wear_ndays_num[0])) {
+        stop("sensor_wear_ndays must be a single positive number or NULL");
+      }
+      sensor_wear_ndays = sensor_wear_ndays_num[0];
+    } else {
+      stop("sensor_wear_ndays must be numeric or integer, or NULL");
+    }
+
+    if (!std::isfinite(sensor_wear_ndays) || sensor_wear_ndays <= 0.0) {
+      stop("sensor_wear_ndays must be a single positive finite number or NULL");
+    }
+
+    return sensor_wear_ndays;
   }
 
   // Calculate time spent below 54 mg/dL between indices (inclusive)
@@ -746,6 +821,7 @@ private:
                                     const IntegerVector& events,
                                     const NumericVector& time_subset,
                                     const NumericVector& glucose_subset,
+                                    const std::vector<cgmguru_events::SegmentRange>& segments,
                                     double reporting_threshold,
                                     double reading_minutes) {
 
@@ -758,43 +834,9 @@ private:
         cgmguru_events::recording_days(glucose_subset, reading_minutes);
     }
 
-    // Process events and collect statistics
-    int start_idx = -1;
-    for (int i = 0; i < events.length(); ++i) {
-      if (events[i] == 2) {
-        start_idx = i;
-      } else if (events[i] == -1 && start_idx != -1) {
-        int end_idx_for_metrics = start_idx;
-        for (int r = i; r >= start_idx; --r) {
-          if (NumericVector::is_na(glucose_subset[r])) continue;
-          bool is_event_range = (event_type == "hypo")
-            ? glucose_subset[r] < reporting_threshold
-            : glucose_subset[r] > reporting_threshold;
-          if (is_event_range) {
-            end_idx_for_metrics = r;
-            break;
-          }
-        }
-
-        // For hypoglycemic episodes, compute duration spent below 54 mg/dL
-        if (event_type == "hypo") {
-          double dur_below_54 = calculate_duration_below_54(time_subset, glucose_subset,
-                                                            start_idx, end_idx_for_metrics,
-                                                            reading_minutes);
-          all_statistics[event_key][current_id].episode_durations.push_back(dur_below_54);
-        }
-
-        all_statistics[event_key][current_id].episode_times.push_back(time_subset[start_idx]);
-        all_statistics[event_key][current_id].start_indices.push_back(start_idx + 1); // Convert to 1-based R index
-        all_statistics[event_key][current_id].end_indices.push_back(end_idx_for_metrics + 1); // Convert to 1-based R index
-
-        start_idx = -1;
-      }
-    }
-
-    if (start_idx != -1) {
+    auto record_event = [&](int start_idx, int marker_end_idx) {
       int end_idx_for_metrics = start_idx;
-      for (int r = events.length() - 1; r >= start_idx; --r) {
+      for (int r = marker_end_idx; r >= start_idx; --r) {
         if (NumericVector::is_na(glucose_subset[r])) continue;
         bool is_event_range = (event_type == "hypo")
           ? glucose_subset[r] < reporting_threshold
@@ -815,6 +857,26 @@ private:
       all_statistics[event_key][current_id].episode_times.push_back(time_subset[start_idx]);
       all_statistics[event_key][current_id].start_indices.push_back(start_idx + 1);
       all_statistics[event_key][current_id].end_indices.push_back(end_idx_for_metrics + 1);
+    };
+
+    // Process events within each contiguous segment. Some valid episodes end at
+    // the segment boundary without a recovery marker, especially in sparse
+    // 15-minute traces. Resetting at segment boundaries prevents the next
+    // segment's start marker from swallowing that open episode.
+    for (const auto& segment : segments) {
+      int start_idx = -1;
+      for (int i = segment.start; i <= segment.end; ++i) {
+        if (events[i] == 2) {
+          start_idx = i;
+        } else if (events[i] == -1 && start_idx != -1) {
+          record_event(start_idx, i);
+          start_idx = -1;
+        }
+      }
+
+      if (start_idx != -1) {
+        record_event(start_idx, segment.end);
+      }
     }
   }
 
@@ -860,7 +922,7 @@ private:
         _["level"] = CharacterVector(),
         _["total_episodes"] = IntegerVector(),
         _["avg_ep_per_day"] = NumericVector(),
-        _["avg_episode_duration_below_54"] = NumericVector()
+        _["avg_minutes_below_54_per_episode"] = NumericVector()
       );
       empty_df.attr("class") = CharacterVector::create("tbl_df", "tbl", "data.frame");
       return empty_df;
@@ -872,7 +934,7 @@ private:
       _["level"] = wrap(unified_data.levels),
       _["total_episodes"] = wrap(unified_data.total_episodes),
       _["avg_ep_per_day"] = wrap(unified_data.avg_episodes_per_day),
-      _["avg_episode_duration_below_54"] = wrap(unified_data.avg_episode_duration)
+      _["avg_minutes_below_54_per_episode"] = wrap(unified_data.avg_episode_duration)
     );
 
     // Set class attributes to make it a tibble
@@ -920,19 +982,19 @@ private:
       const CGMSummaryMetrics metrics =
         (metric_it == cgm_summary_by_id.end()) ? CGMSummaryMetrics() : metric_it->second;
 
-      tir_values.push_back(metrics.TIR);
-      titr_values.push_back(metrics.TITR);
-      tbr70_values.push_back(metrics.TBR70);
-      tbr54_values.push_back(metrics.TBR54);
-      tar180_values.push_back(metrics.TAR180);
-      tar250_values.push_back(metrics.TAR250);
-      cv_values.push_back(metrics.CV);
-      sd_values.push_back(metrics.SD);
-      mean_glucose_values.push_back(metrics.mean_glucose);
-      gmi_values.push_back(metrics.GMI);
-      ugmi_values.push_back(metrics.uGMI);
-      gri_values.push_back(metrics.GRI);
-      sensor_wear_values.push_back(metrics.sensor_wear);
+      tir_values.push_back(round_to_two_decimals(metrics.TIR));
+      titr_values.push_back(round_to_two_decimals(metrics.TITR));
+      tbr70_values.push_back(round_to_two_decimals(metrics.TBR70));
+      tbr54_values.push_back(round_to_two_decimals(metrics.TBR54));
+      tar180_values.push_back(round_to_two_decimals(metrics.TAR180));
+      tar250_values.push_back(round_to_two_decimals(metrics.TAR250));
+      cv_values.push_back(round_to_two_decimals(metrics.CV));
+      sd_values.push_back(round_to_two_decimals(metrics.SD));
+      mean_glucose_values.push_back(round_to_two_decimals(metrics.mean_glucose));
+      gmi_values.push_back(round_to_two_decimals(metrics.GMI));
+      ugmi_values.push_back(round_to_two_decimals(metrics.uGMI));
+      gri_values.push_back(round_to_two_decimals(metrics.GRI));
+      sensor_wear_values.push_back(round_to_two_decimals(metrics.sensor_wear));
     }
 
     List columns;
@@ -955,7 +1017,7 @@ private:
     add_column("GMI", wrap(gmi_values));
     add_column("uGMI", wrap(ugmi_values));
     add_column("GRI", wrap(gri_values));
-    add_column("sensor_wear", wrap(sensor_wear_values));
+    add_column("sensor_wear_percent", wrap(sensor_wear_values));
 
     for (const auto& event_combo : event_combinations) {
       const std::string prefix = event_combo.first + "_" + event_combo.second;
@@ -976,7 +1038,7 @@ private:
         event_counts.push_back(values.event_count);
       }
 
-      add_column(prefix + "_event_count", wrap(event_counts));
+      add_column(prefix + "_total_episodes", wrap(event_counts));
     }
 
     columns.attr("names") = wrap(column_names);
@@ -998,14 +1060,24 @@ public:
                                SEXP reading_minutes_sexp = R_NilValue,
                                bool sort_time = false,
                                double inter_gap = 45,
-                               bool return_interpolated = false) {
-    (void)return_interpolated;
+                               bool return_interpolated = false,
+                               std::string summary_metrics_source = "raw",
+                               SEXP sensor_wear_ndays_sexp = R_NilValue) {
+    if (summary_metrics_source != "raw" &&
+        summary_metrics_source != "preprocessed") {
+      stop("summary_metrics_source must be 'raw' or 'preprocessed'");
+    }
+    const bool use_preprocessed_summary_metrics =
+      summary_metrics_source == "preprocessed";
+    const double sensor_wear_ndays =
+      parse_sensor_wear_ndays(sensor_wear_ndays_sexp);
 
     // Clear previous results
     unified_data.clear();
     all_statistics.clear();
     cgm_summary_by_id.clear();
     event_summary_by_id.clear();
+    interpolated_data.clear();
 
     // Extract columns from DataFrame
     int n = df.nrows();
@@ -1026,6 +1098,9 @@ public:
     // Group by ID, then optionally sort only the per-id index vectors.
     group_by_id(id, n);
     cgmguru_events::sort_or_validate_id_indices(id_indices, time, sort_time);
+    if (return_interpolated) {
+      interpolated_data.reserve_rows(static_cast<size_t>(n), id_indices.size(), false);
+    }
 
     // Process each ID separately for all 8 event types
     for (auto const& id_pair : id_indices) {
@@ -1043,11 +1118,16 @@ public:
       cgmguru_events::PreparedIDData prepared =
         cgmguru_events::prepare_id_data(time, glucose, indices, reading_minutes,
                                         inter_gap, default_tz, true, true);
-      CGMSummaryMetrics cgm_summary =
-        calculate_cgm_summary_metrics(prepared.glucose);
+      if (return_interpolated) {
+        interpolated_data.append(current_id, prepared, false);
+      }
+      CGMSummaryMetrics cgm_summary = use_preprocessed_summary_metrics ?
+        calculate_cgm_summary_metrics(prepared.glucose) :
+        calculate_cgm_summary_metrics(glucose, indices);
       cgm_summary.sensor_wear =
         calculate_sensor_wear_percent(time, glucose, indices,
-                                      sensor_wear_reading_minutes);
+                                      sensor_wear_reading_minutes,
+                                      sensor_wear_ndays);
       cgm_summary_by_id[current_id] = cgm_summary;
 
       // Calculate all 8 event types as specified by user:
@@ -1056,19 +1136,24 @@ public:
       IntegerVector hypo_lv1_events = calculate_segmented_hypoglycemic_events(
         prepared, min_readings_15, 15, 15, 70, reading_minutes);
       process_events_for_type_level(current_id, "hypo", "lv1", hypo_lv1_events,
-                                    prepared.time, prepared.glucose, 70, reading_minutes);
+                                    prepared.time, prepared.glucose, prepared.segments,
+                                    70, reading_minutes);
 
       // 2. detectHypoglycemicEvents(dataset,start_gl = 54,dur_length=15,end_length=15) # type : hypo, level = lv2
       IntegerVector hypo_lv2_events = calculate_segmented_hypoglycemic_events(
         prepared, min_readings_15, 15, 15, 54, reading_minutes);
       process_events_for_type_level(current_id, "hypo", "lv2", hypo_lv2_events,
-                                    prepared.time, prepared.glucose, 54, reading_minutes);
+                                    prepared.time, prepared.glucose, prepared.segments,
+                                    54, reading_minutes);
 
       // 3. detectHypoglycemicEvents(dataset) # type : hypo, level = extended (default: <70 mg/dL, 120 min)
+      const double extended_hypo_duration = 120.0 + reading_minutes;
       IntegerVector hypo_extended_events = calculate_segmented_hypoglycemic_events(
-        prepared, min_readings_120, 120, 15, 70, reading_minutes);
+        prepared, min_readings_120, extended_hypo_duration, 15, 70,
+        reading_minutes);
       process_events_for_type_level(current_id, "hypo", "extended", hypo_extended_events,
-                                    prepared.time, prepared.glucose, 70, reading_minutes);
+                                    prepared.time, prepared.glucose, prepared.segments,
+                                    70, reading_minutes);
 
       // 4. detectLevel1HypoglycemicEvents(dataset) # type : hypo, level = lv1_excl (54-69 mg/dL)
       // Note: lv1_excl metrics will be calculated as average of lv1 and lv2 after processing all events
@@ -1078,14 +1163,16 @@ public:
       IntegerVector hyper_lv1_events = calculate_segmented_hyperglycemic_events(
         prepared, min_readings_15, 15, 15, 180, 180, reading_minutes, false);
       process_events_for_type_level(current_id, "hyper", "lv1", hyper_lv1_events,
-                                    prepared.time, prepared.glucose, 180, reading_minutes);
+                                    prepared.time, prepared.glucose, prepared.segments,
+                                    180, reading_minutes);
 
       // 6. detectHyperglycemicEvents(dataset, start_gl = 250, dur_length=15, end_length=15, end_gl=250)
       //    # type : hyper, level = lv2
       IntegerVector hyper_lv2_events = calculate_segmented_hyperglycemic_events(
         prepared, min_readings_15, 15, 15, 250, 250, reading_minutes, false);
       process_events_for_type_level(current_id, "hyper", "lv2", hyper_lv2_events,
-                                    prepared.time, prepared.glucose, 250, reading_minutes);
+                                    prepared.time, prepared.glucose, prepared.segments,
+                                    250, reading_minutes);
 
       // 7. detectHyperglycemicEvents(dataset) # type : hyper, level = extended
       //    # (default: >250 mg/dL, 120 min) - using window-based approach
@@ -1093,7 +1180,8 @@ public:
         prepared, min_readings_120, 120, 15, 250, 180, reading_minutes, true);
       process_events_for_type_level(current_id, "hyper", "extended",
                                    hyper_extended_events, prepared.time,
-                                   prepared.glucose, 180, reading_minutes);
+                                   prepared.glucose, prepared.segments,
+                                   180, reading_minutes);
 
       // 8. detectLevel1HyperglycemicEvents(dataset) # type : hyper, level = lv1_excl
       //    # (181-250 mg/dL)
@@ -1180,14 +1268,21 @@ public:
       }
     }
 
-    DataFrame events_long_df = create_unified_events_total_df();
-    DataFrame summary_df =
+    DataFrame glycemic_event_summary = create_unified_events_total_df();
+    DataFrame subject_summary =
       create_cgm_summary_metrics_df(unique_ids, event_combinations);
 
-    return List::create(
-      _["events_long_df"] = events_long_df,
-      _["summary_df"] = summary_df
+    List result = List::create(
+      _["subject_summary"] = subject_summary,
+      _["glycemic_event_summary"] = glycemic_event_summary
     );
+
+    if (return_interpolated) {
+      result["interpolated_data"] =
+        interpolated_data.to_dataframe(default_tz, false);
+    }
+
+    return result;
   }
 };
 
@@ -1196,8 +1291,12 @@ RObject detect_all_events(DataFrame df,
                           SEXP reading_minutes = R_NilValue,
                           bool sort_time = false,
                           double inter_gap = 45,
-                          bool return_interpolated = false) {
+                          bool return_interpolated = false,
+                          std::string summary_metrics_source = "raw",
+                          SEXP sensor_wear_ndays = R_NilValue) {
   EnhancedUnifiedEventsCalculator calculator;
   return calculator.calculate_all_events(df, reading_minutes, sort_time,
-                                         inter_gap, return_interpolated);
+                                         inter_gap, return_interpolated,
+                                         summary_metrics_source,
+                                         sensor_wear_ndays);
 }
