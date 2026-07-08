@@ -1,3 +1,52 @@
+# cgmguru 1.2.0
+
+* Added `rebound_events()` to detect rebound hypoglycemia and rebound
+  hyperglycemia using cgmguru Level 1 initial events followed by an opposite
+  threshold crossing within 120 minutes. The function returns the
+  preprocessed event grid by default. `detect_all_events()` includes rebound
+  rows and wide summary columns.
+* Added `summary_digits` to `detect_all_events()` to control rounding for
+  numeric summary outputs. The default remains 2 decimal places; use `NULL` or
+  `"none"` to return unrounded values.
+* Fixed `detect_all_events()` documentation so formulas involving
+  `mean_glucose` render the column name literally instead of treating the
+  underscore as a subscript in Rd output.
+* Added Rcpp-backed `conga_rcpp()` for iglu-compatible Continuous Overall Net
+  Glycemic Action (CONGA) calculation. The function interpolates CGM data to a
+  regular day-aligned grid and returns the standard deviation of glucose
+  differences separated by `n` hours.
+* Added Rcpp-backed `mage_rcpp()` for iglu-compatible Mean Amplitude of
+  Glycemic Excursions (MAGE) calculation. The function supports the
+  moving-average (`version = "ma"`) and legacy standard-deviation
+  (`version = "naive"`) algorithms, segment-level output with
+  `return_type = "df"`, and `avg`/`service`/`max`/`plus`/`minus` direction
+  summaries. Plotting options from `iglu::mage()` are intentionally not
+  implemented.
+* Added Rcpp-backed `modd_rcpp()` for iglu-compatible Mean of Daily
+  Differences (MODD) calculation. The function uses cgmguru's
+  iglu-compatible day-grid preprocessing and returns same-time-of-day absolute
+  glucose differences averaged across the requested day `lag`.
+* Updated `excursion()` episode-start output to include the peak glucose
+  value within 2 hours of the excursion start (`maxima_glucose`), its time
+  (`maxima_time`), time to peak in minutes (`time_to_peak_min`), and
+  `maxima_index`. Excursion starts now require both the previous glucose value
+  and the starting glucose value to be at least 70 mg/dL before checking for a
+  rise greater than 70 mg/dL within 2 hours.
+* Added iglu parity tests for `conga_rcpp()`, `mage_rcpp()`, and `modd_rcpp()`
+  using the iglu example CGM datasets.
+
+# cgmguru 1.1.1
+
+* Updated `sensor_wear()` tests to avoid timezone-dependent one-to-one
+  `start_date` comparisons against `iglu::active_percent()` manual windows.
+  Fixed-window sensor wear tests now compare the calculated observed/expected
+  reading counts directly, making the checks stable across DST-sensitive
+  timezones.
+* Expanded the package-level `cgmguru` vignette into a practical CGM analysis
+  guide covering data requirements, sensor wear, event summaries, event-grid
+  inspection, GRID analysis, postprandial maxima workflows, excursions,
+  visualization, and scaling to larger datasets.
+
 # cgmguru 1.1.0
 
 * Updated `maxima_grid()` and `detect_between_maxima()` to include all subject

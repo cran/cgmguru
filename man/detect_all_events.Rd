@@ -7,7 +7,7 @@
 detect_all_events(df, reading_minutes = NULL, sort_time = FALSE,
  inter_gap = 45, return_interpolated = FALSE,
  summary_metrics_source = c("raw", "preprocessed"),
- sensor_wear_ndays = NULL)
+ sensor_wear_ndays = NULL, summary_digits = 2)
 }
 \arguments{
 \item{df}{A dataframe containing continuous glucose monitoring (CGM) data.
@@ -45,6 +45,11 @@ calculated from the original timestamps and glucose readings.}
 uses the original timestamp span. Set to a positive number such as
 \code{90} to calculate observed readings over the last 90 days for each
 subject divided by the expected number of readings in 90 days.}
+
+\item{summary_digits}{Number of decimal places for numeric summary outputs
+in \code{subject_summary} and rate/duration columns in
+\code{glycemic_event_summary}. Defaults to \code{2}. Use \code{NULL} or
+\code{"none"} to return unrounded values.}
 }
 \value{
 A list containing:
@@ -53,7 +58,8 @@ A list containing:
     are calculated on the original raw glucose values by default; set
     \code{summary_metrics_source = "preprocessed"} to use the
     event-preprocessed glucose grid. Event summaries are included as wide
-    \code{*_total_episodes} columns only.
+    \code{*_total_episodes} columns only. Numeric summary columns are
+    rounded according to \code{summary_digits}.
   \item \code{glycemic_event_summary}: One row per subject, event
     type, and event level. Contains the full event summary: \code{id},
     \code{type}, \code{level}, \code{total_episodes},
@@ -73,13 +79,13 @@ A list containing:
   \item \code{TAR180}: Percent of glucose readings above 180 mg/dL
   \item \code{TAR250}: Percent of glucose readings above 250 mg/dL
   \item \code{CV}: Coefficient of variation in percent,
-    \eqn{100 * SD / mean_glucose}
+    \code{100 * SD / mean_glucose}
   \item \code{SD}: Sample standard deviation of glucose, mg/dL
   \item \code{mean_glucose}: Mean glucose, mg/dL
   \item \code{GMI}: Glucose Management Indicator,
-    \eqn{3.31 + 0.02392 * mean_glucose}
+    \code{3.31 + 0.02392 * mean_glucose}
   \item \code{uGMI}: Unitless GMI-style metric,
-    \eqn{1 / (15.36 / mean_glucose + 0.0425)}
+    \code{1 / (15.36 / mean_glucose + 0.0425)}
   \item \code{GRI}: Glycemia Risk Index,
     \eqn{3.0 * VLow + 2.4 * Low + 1.6 * VHigh + 0.8 * High}, where
     \code{VLow} is percent time \eqn{<}54 mg/dL, \code{Low} is 54-\eqn{<}70
@@ -98,6 +104,8 @@ A list containing:
     hypoglycemia episodes
   \item \code{hypo_lv1_excl_total_episodes}: Number of Level 1
     hypoglycemia episodes that do not overlap a Level 2 episode
+  \item \code{hypo_rebound_total_episodes}: Number of rebound
+    hypoglycemia episodes
   \item \code{hyper_lv1_total_episodes}: Number of Level 1 hyperglycemia
     episodes
   \item \code{hyper_lv2_total_episodes}: Number of Level 2 hyperglycemia
@@ -106,6 +114,8 @@ A list containing:
     hyperglycemia episodes
   \item \code{hyper_lv1_excl_total_episodes}: Number of Level 1
     hyperglycemia episodes that do not overlap a Level 2 episode
+  \item \code{hyper_rebound_total_episodes}: Number of rebound
+    hyperglycemia episodes
 }
 \code{glycemic_event_summary} includes:
 \itemize{
@@ -113,21 +123,25 @@ A list containing:
   \item \code{type}: Event direction, either \code{"hypo"} or
     \code{"hyper"}
   \item \code{level}: Event level, one of \code{"lv1"}, \code{"lv2"},
-    \code{"extended"}, or \code{"lv1_excl"}
+    \code{"extended"}, \code{"lv1_excl"}, or \code{"rebound"}
   \item \code{total_episodes}: Number of episodes for the subject, event
     direction, and event level
   \item \code{avg_ep_per_day}: Average episodes per day for the subject,
-    event direction, and event level, rounded to two decimals
+    event direction, and event level, rounded according to
+    \code{summary_digits}
   \item \code{avg_minutes_below_54_per_episode}: For hypoglycemia rows,
-    average minutes below 54 mg/dL per episode, rounded to two decimals; for
-    hyperglycemia rows, 0
+    average minutes below 54 mg/dL per episode, rounded according to
+    \code{summary_digits}; for hyperglycemia rows, 0
 }
 }
 \description{
 Comprehensive function to detect all types of glycemic events aligned with
 international consensus CGM metrics (Battelino et al., 2023). This function
 provides a unified interface for detecting multiple event types including
-Level 1/2/Extended hypo- and hyperglycemia, and Level 1 excluded events.
+Level 1/2/Extended hypo- and hyperglycemia, Level 1 excluded events, and
+rebound hypo-/hyperglycemia summaries.
+Rebound hypoglycemia and hyperglycemia definitions follow Hansen and Bibby
+(2024).
 Events are counted only after the required recovery condition is confirmed;
 duration summaries use the event boundary immediately before recovery starts.
 Event preprocessing uses cgmguru's independent C++ implementation of an
@@ -140,12 +154,15 @@ is specific to event calculation and does not affect \code{\link{grid}},
 CGM summary metrics in \code{subject_summary} are calculated from the original
 raw glucose values by default. Set
 \code{summary_metrics_source = "preprocessed"} to calculate them from the
-internal event-preprocessed grid.
+internal event-preprocessed grid. Numeric summary outputs are rounded to
+\code{summary_digits} decimal places; set \code{summary_digits = NULL} or
+\code{summary_digits = "none"} to return unrounded values.
 }
 \section{Event types}{
 
 - Hypoglycemia: lv1 (\eqn{<} 70 mg/dL, \eqn{\geq} 15 min), lv2 (\eqn{<} 54 mg/dL, \eqn{\geq} 15 min), extended (\eqn{<} 70 mg/dL, \eqn{\geq} 120 min).
 - Hyperglycemia: lv1 (\eqn{>} 180 mg/dL, \eqn{\geq} 15 min), lv2 (\eqn{>} 250 mg/dL, \eqn{\geq} 15 min), extended (\eqn{>} 250 mg/dL, \eqn{\geq} 90 min in 120 min, end \eqn{\leq} 180 mg/dL for \eqn{\geq} 15 min).
+- Rebound: hypo rebound is Level 1 hyperglycemia followed by \eqn{<}70 mg/dL within 120 minutes; hyper rebound is Level 1 hypoglycemia followed by \eqn{>}180 mg/dL within 120 minutes.
 }
 
 \examples{
@@ -166,7 +183,10 @@ print(paste("Total subjects analyzed:", nrow(large_outputs$subject_summary)))
 }
 \references{
 Battelino, T., et al. (2023). Continuous glucose monitoring and metrics for clinical trials: an international consensus statement. The Lancet Diabetes & Endocrinology, 11(1), 42-57.
+
+Hansen, K. W., and Bibby, B. M. (2024). Rebound hypoglycemia and hyperglycemia in type 1 diabetes. Journal of Diabetes Science and Technology, 18(6), 1392-1398.
 }
 \seealso{
-\link{detect_hyperglycemic_events}, \link{detect_hypoglycemic_events}
+\link{detect_hyperglycemic_events}, \link{detect_hypoglycemic_events},
+  \link{rebound_events}
 }
