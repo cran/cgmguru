@@ -242,8 +242,8 @@ NULL
 #' - \code{reading_minutes} can be a scalar (all rows) or a vector per-row.
 #' - If \code{reading_minutes} is omitted or \code{NULL}, it is calculated
 #'   automatically per id from timestamp spacing.
-#' - Event classification uses cgmguru's independent C++ implementation of an
-#'   iglu-compatible, midnight-aligned full-day grid. Data are linearly
+#' - Event classification uses cgmguru's C++ port and structural adaptation of
+#'   iglu-compatible, midnight-aligned full-day grid semantics. Data are linearly
 #'   interpolated at the id-specific interval up to \code{inter_gap}; larger
 #'   gaps are masked, removed from the event-classification data, and split
 #'   segments.
@@ -416,8 +416,8 @@ NULL
 #' - \code{reading_minutes} can be a scalar (all rows) or a vector per-row.
 #' - If \code{reading_minutes} is omitted or \code{NULL}, it is calculated
 #'   automatically per id from timestamp spacing.
-#' - Event classification uses cgmguru's independent C++ implementation of an
-#'   iglu-compatible, midnight-aligned full-day grid. Data are linearly
+#' - Event classification uses cgmguru's C++ port and structural adaptation of
+#'   iglu-compatible, midnight-aligned full-day grid semantics. Data are linearly
 #'   interpolated at the id-specific interval up to \code{inter_gap}; larger
 #'   gaps are masked, removed from the event-classification data, and split
 #'   segments.
@@ -579,8 +579,8 @@ NULL
 #' (2024).
 #' Events are counted only after the required recovery condition is confirmed;
 #' duration summaries use the event boundary immediately before recovery starts.
-#' Event preprocessing uses cgmguru's independent C++ implementation of an
-#' iglu-compatible day-based grid: each subject is interpolated from the first
+#' Event preprocessing uses cgmguru's C++ port and structural adaptation of
+#' iglu-compatible day-based grid semantics: each subject is interpolated from the first
 #' observed day's midnight plus one reading interval, rather than from the first
 #' observed timestamp. Larger gaps are masked and removed before event
 #' classification, preserving gap-based segment boundaries. This preprocessing
@@ -595,6 +595,8 @@ NULL
 #'
 #' @references
 #' Battelino, T., et al. (2023). Continuous glucose monitoring and metrics for clinical trials: an international consensus statement. The Lancet Diabetes & Endocrinology, 11(1), 42-57.
+#'
+#' Bergenstal, Richard M., et al. (2026). Updated glucose management indicator (GMI) better aligns with HbA1c than current GMI: implications for clinical practice and reporting. Diabetologia, 69(8), 2182-2188. https://doi.org/10.1007/s00125-026-06739-w
 #'
 #' Hansen, K. W., and Bibby, B. M. (2024). Rebound hypoglycemia and hyperglycemia in type 1 diabetes. Journal of Diabetes Science and Technology, 18(6), 1392-1398.
 #'
@@ -674,7 +676,7 @@ NULL
 #'   \item \code{mean_glucose}: Mean glucose, mg/dL
 #'   \item \code{GMI}: Glucose Management Indicator,
 #'     \code{3.31 + 0.02392 * mean_glucose}
-#'   \item \code{uGMI}: Unitless GMI-style metric,
+#'   \item \code{uGMI}: Updated Glucose Management Indicator,
 #'     \code{1 / (15.36 / mean_glucose + 0.0425)}
 #'   \item \code{GRI}: Glycemia Risk Index,
 #'     \eqn{3.0 * VLow + 2.4 * Low + 1.6 * VHigh + 0.8 * High}, where

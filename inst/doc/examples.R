@@ -5,9 +5,10 @@ library(iglu)
 library(ggplot2)
 library(dplyr)
 
-# Use package root as working directory so we can reference ../examples
-pkg_root <- normalizePath("..", winslash = "/", mustWork = TRUE)
-examples_dir <- file.path(pkg_root, "inst", "examples")
+# `R CMD check` executes vignettes outside the package source directory.  Resolve
+# the examples from the installed package instead of relying on the working
+# directory.
+examples_dir <- system.file("examples", package = "cgmguru")
 stopifnot(dir.exists(examples_dir))
 
 ## ----ex-grid------------------------------------------------------------------

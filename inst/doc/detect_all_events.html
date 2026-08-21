@@ -355,19 +355,20 @@ comparison</a></li>
 
 <div id="relationship-to-iglu" class="section level2">
 <h2>Relationship to iglu</h2>
-<p><code>cgmguru::detect_all_events()</code> is an independent C++/Rcpp
-implementation of event calculation and CGM summary output. Its
-preprocessing is designed to be compatible with the event grid semantics
-used by <code>iglu</code>: subject-specific reading intervals, a
-midnight-aligned full-day grid, interpolation up to
+<p><code>cgmguru::detect_all_events()</code> is a C++/Rcpp port and
+structural adaptation of event calculation and CGM summary output
+semantics used by <code>iglu</code>: subject-specific reading intervals,
+a midnight-aligned full-day grid, interpolation up to
 <code>inter_gap</code>, removal of larger gap-masked rows, and
 segment-wise event classification.</p>
 <p>When <code>reading_minutes</code> is omitted or <code>NULL</code>,
 cgmguru calculates it automatically per subject from the median positive
 timestamp spacing in the input data.</p>
 <p>The <code>iglu</code> package is used here as a formal reference,
-source of public example datasets, and comparison target. cgmguru does
-not call <code>iglu</code> at runtime for its core algorithms.</p>
+source of public example datasets, comparison target, and upstream GPL-2
+implementation source. cgmguru does not call <code>iglu</code> at
+runtime for its core algorithms, but derived implementation components
+are distributed under GPL-2.</p>
 </div>
 <div id="datasets" class="section level2">
 <h2>Datasets</h2>
@@ -539,11 +540,11 @@ datasets. Each benchmark contrasts
 <span id="cb7-11"><a href="#cb7-11" tabindex="-1"></a><span class="fu">print</span>(bench_5)</span>
 <span id="cb7-12"><a href="#cb7-12" tabindex="-1"></a><span class="co">#&gt; Unit: milliseconds</span></span>
 <span id="cb7-13"><a href="#cb7-13" tabindex="-1"></a><span class="co">#&gt;                 expr        min         lq       mean     median         uq</span></span>
-<span id="cb7-14"><a href="#cb7-14" tabindex="-1"></a><span class="co">#&gt;  episode_calculation 286.153186 291.354528 296.443887 292.961585 295.251373</span></span>
-<span id="cb7-15"><a href="#cb7-15" tabindex="-1"></a><span class="co">#&gt;    detect_all_events   2.909934   3.087095   3.114032   3.117292   3.187914</span></span>
+<span id="cb7-14"><a href="#cb7-14" tabindex="-1"></a><span class="co">#&gt;  episode_calculation 313.255580 317.332046 327.464122 325.424974 337.792153</span></span>
+<span id="cb7-15"><a href="#cb7-15" tabindex="-1"></a><span class="co">#&gt;    detect_all_events   3.280082   3.378277   3.462171   3.490392   3.538177</span></span>
 <span id="cb7-16"><a href="#cb7-16" tabindex="-1"></a><span class="co">#&gt;         max neval cld</span></span>
-<span id="cb7-17"><a href="#cb7-17" tabindex="-1"></a><span class="co">#&gt;  332.651204    10  a </span></span>
-<span id="cb7-18"><a href="#cb7-18" tabindex="-1"></a><span class="co">#&gt;    3.207594    10   b</span></span>
+<span id="cb7-17"><a href="#cb7-17" tabindex="-1"></a><span class="co">#&gt;  347.101326    10  a </span></span>
+<span id="cb7-18"><a href="#cb7-18" tabindex="-1"></a><span class="co">#&gt;    3.608451    10   b</span></span>
 <span id="cb7-19"><a href="#cb7-19" tabindex="-1"></a></span>
 <span id="cb7-20"><a href="#cb7-20" tabindex="-1"></a><span class="co"># example_data_hall (all subjects)</span></span>
 <span id="cb7-21"><a href="#cb7-21" tabindex="-1"></a>bench_hall <span class="ot">&lt;-</span> <span class="fu">microbenchmark</span>(</span>
@@ -554,12 +555,12 @@ datasets. Each benchmark contrasts
 <span id="cb7-26"><a href="#cb7-26" tabindex="-1"></a>)</span>
 <span id="cb7-27"><a href="#cb7-27" tabindex="-1"></a><span class="fu">print</span>(bench_hall)</span>
 <span id="cb7-28"><a href="#cb7-28" tabindex="-1"></a><span class="co">#&gt; Unit: milliseconds</span></span>
-<span id="cb7-29"><a href="#cb7-29" tabindex="-1"></a><span class="co">#&gt;                 expr        min        lq      mean     median        uq</span></span>
-<span id="cb7-30"><a href="#cb7-30" tabindex="-1"></a><span class="co">#&gt;  episode_calculation 805.414496 811.25093 841.21055 823.232092 885.86953</span></span>
-<span id="cb7-31"><a href="#cb7-31" tabindex="-1"></a><span class="co">#&gt;    detect_all_events   8.324435   8.65592  15.83776   8.830949   9.02041</span></span>
-<span id="cb7-32"><a href="#cb7-32" tabindex="-1"></a><span class="co">#&gt;        max neval cld</span></span>
-<span id="cb7-33"><a href="#cb7-33" tabindex="-1"></a><span class="co">#&gt;  899.40306    10  a </span></span>
-<span id="cb7-34"><a href="#cb7-34" tabindex="-1"></a><span class="co">#&gt;   77.10513    10   b</span></span></code></pre></div>
+<span id="cb7-29"><a href="#cb7-29" tabindex="-1"></a><span class="co">#&gt;                 expr        min         lq       mean     median        uq</span></span>
+<span id="cb7-30"><a href="#cb7-30" tabindex="-1"></a><span class="co">#&gt;  episode_calculation 859.821865 892.627851 946.895746 956.596215 983.43990</span></span>
+<span id="cb7-31"><a href="#cb7-31" tabindex="-1"></a><span class="co">#&gt;    detect_all_events   8.980927   9.146895   9.761149   9.521123  10.28223</span></span>
+<span id="cb7-32"><a href="#cb7-32" tabindex="-1"></a><span class="co">#&gt;         max neval cld</span></span>
+<span id="cb7-33"><a href="#cb7-33" tabindex="-1"></a><span class="co">#&gt;  1039.19219    10  a </span></span>
+<span id="cb7-34"><a href="#cb7-34" tabindex="-1"></a><span class="co">#&gt;    11.06951    10   b</span></span></code></pre></div>
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;Note: Installed &#39;iglu&#39; version has a different &#39;episode_calculation&#39; API; iglu examples are skipped.</span><span class="sc">\n</span><span class="st">&quot;</span>)</span></code></pre></div>
 </div>
 <div id="references" class="section level2">
